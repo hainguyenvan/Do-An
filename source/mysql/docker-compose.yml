@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  # mysql
+  mysql:
+    image: mysql:5.7.21
+    volumes_from:
+      - mysql-data
+    ports:
+      - "9906:3306"
+    container_name: "mysql-app-project"
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+ 
+  # mysql data
+  mysql-data:
+    image: mysql:5.7.21
+    container_name: "mysql-data-app-project"
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    command: "true"
+  
+  # phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "phpmyadmin-app-project"
+    ports:
+      - 9907:80
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
