@@ -43,11 +43,7 @@ import { StateService } from '../../../@core/data/state.service';
 
       <nb-layout-column class="small" *ngIf="layout.id === 'three-column'">
         <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
-
-      <nb-layout-footer fixed>
-        <ngx-footer></ngx-footer>
-      </nb-layout-footer>
+      </nb-layout-column>    
 
       <nb-sidebar class="settings-sidebar"
                    tag="settings-sidebar"

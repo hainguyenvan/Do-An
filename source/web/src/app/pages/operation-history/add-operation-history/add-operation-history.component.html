@@ -1,0 +1,72 @@
+<div class="modal-header">
+    <span>{{ modalHeader }}</span>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="inputFirstName">Equipment name</label>
+                <input type="text" class="form-control" id="inputFirstName" placeholder="Add name">
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="inputFirstName">Serial Number</label>
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="Add Serial Number">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="inputFirstName">Equipment Type</label>
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="Add Equipment Type">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="imgadd">
+                <p>
+                    <i class="fas fa-file-image"></i>
+                    <br />Add image
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputFirstName">Required Date</label>
+                <input type="date" class="form-control" id="inputFirstName">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputFirstName">Completed Date</label>
+                <input type="date" class="form-control" id="inputFirstName">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputFirstName">Equipment</label>
+                <input type="text" class="form-control" id="inputFirstName" placeholder="Add name">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputFirstName"></label>
+                <input type="text" class="form-control" id="inputFirstName" placeholder="Add name">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-dark" (click)="closeModal()">CANCEL</button>
+    <button class="btn btn-warning" (click)="closeModal()">SUBMIT</button>
+</div>

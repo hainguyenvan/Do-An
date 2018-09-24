@@ -6,12 +6,15 @@ import { ECommerceModule } from './e-commerce/e-commerce.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { ButtonViewComponent } from '../pages/equipments/equipments.component';
+import { ButtonStatusComponent } from '../pages/operation-history/operation-history.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
 
 @NgModule({
+  entryComponents: [ButtonViewComponent, ButtonStatusComponent],
   imports: [
     PagesRoutingModule,
     ThemeModule,
@@ -19,7 +22,11 @@ const PAGES_COMPONENTS = [
     ECommerceModule,
     MiscellaneousModule,
   ],
+  providers: [
+  ],
   declarations: [
+    ButtonViewComponent,
+    ButtonStatusComponent,
     ...PAGES_COMPONENTS,
   ],
 })
