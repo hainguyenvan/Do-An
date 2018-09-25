@@ -16,9 +16,6 @@ import { OrdersProfitChartService } from './orders-profit-chart.service';
 import { TrafficBarService } from './traffic-bar.service';
 import { ProfitBarAnimationChartService } from './profit-bar-animation-chart.service';
 import { LayoutService } from './layout.service';
-import { EquipmentsService } from '../../pages/equipments/equipments.service';
-import { OperationHistoryService } from '../../pages/operation-history/operation-history.service';
-import { RepaireService } from '../../pages/repaire/repaire.service';
 import { AccountService } from '../../pages/account/account.service';
 
 const SERVICES = [
@@ -37,9 +34,6 @@ const SERVICES = [
   TrafficBarService,
   ProfitBarAnimationChartService,
   LayoutService,
-  EquipmentsService,
-  OperationHistoryService,
-  RepaireService,
   AccountService
 ];
 
