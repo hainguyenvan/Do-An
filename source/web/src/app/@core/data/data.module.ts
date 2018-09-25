@@ -19,6 +19,7 @@ import { LayoutService } from './layout.service';
 import { EquipmentsService } from '../../pages/equipments/equipments.service';
 import { OperationHistoryService } from '../../pages/operation-history/operation-history.service';
 import { RepaireService } from '../../pages/repaire/repaire.service';
+import { AccountService } from '../../pages/account/account.service';
 
 const SERVICES = [
   UserService,
@@ -38,7 +39,8 @@ const SERVICES = [
   LayoutService,
   EquipmentsService,
   OperationHistoryService,
-  RepaireService
+  RepaireService,
+  AccountService
 ];
 
 @NgModule({

@@ -16,16 +16,8 @@ const routes: Routes = [
         component: ECommerceComponent,
       },
       {
-        path: 'equipment',
-        loadChildren: './equipments/equipments.module#EquipmentsModule',
-      },
-      {
-        path: 'operation-history',
-        loadChildren: './operation-history/operation-history.module#OperationHistoryModule',
-      },
-      {
-        path: 'repaire',
-        loadChildren: './repaire/repaire.module#RepaireModule',
+        path: 'account',
+        loadChildren: './account/account.module#AccountModule',
       },
       {
         path: 'iot-dashboard',

@@ -1,6 +1,6 @@
 const Config = {
     // DB
-    DB_HOST: '',
+    DB_HOST: '172.104.167.189',
     DB_NAME: 'supply_chain',
     DB_PROTOCOL: 'mysql',
     DB_PORT: '9906',
