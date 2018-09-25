@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: './account/account.module#AccountModule',
       },
       {
+        path: 'category',
+        loadChildren: './category/category.module#CategoryModule',
+      },
+      {
         path: 'iot-dashboard',
         component: DashboardComponent,
       },
