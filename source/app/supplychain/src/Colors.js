@@ -9,6 +9,7 @@ const Colors = {
     WHITE_SMOKE: '#F5F5F5',
     GREEN_LIGHT:'#3498DB',
     BLUE:'#44489B',
+    GREEN: '#2ecc71'
 };
 
 export default Colors;

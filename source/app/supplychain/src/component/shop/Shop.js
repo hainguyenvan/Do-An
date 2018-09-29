@@ -13,6 +13,7 @@ import Scan from '../scan/Scan';
 import Add from '../add/Add';
 
 import Colors from '../../Colors';
+import shopStyles from './ShopStyles';
 
 import iconShop from '../../public/icon/shop-24.png';
 import iconShopSelected from '../../public/icon/shop-selected-24.png';
@@ -22,6 +23,8 @@ import iconSMS from '../../public/icon/sms-24.png';
 import iconSMSSelected from '../../public/icon/sms-selected-24.png';
 import iconAdd from '../../public/icon/add-24.png';
 import iconAddSelected from '../../public/icon/add-selected-24.png';
+import iconMenu from '../../public/icon/menu-24.png';
+import iconMenuRight from '../../public/icon/menu-right-24.png';
 
 export default class Shop extends Component {
 
@@ -35,6 +38,31 @@ export default class Shop extends Component {
     openMenu() {
         const {open} = this.props;
         open();
+    }
+
+    renderHeader() {
+        return (
+            <View style={{flex:1, flexDirection: 'row'}}>
+
+                <View style={shopStyles.headerRight}>
+                    <TouchableOpacity onPress={this.openMenu.bind(this)}>
+                        <Image source={iconMenu}/>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{ flex:7}}>
+                    <TouchableOpacity style={shopStyles.headerBody}>
+                        <Text>Tìm kiếm</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={shopStyles.headerRight}>
+                    <TouchableOpacity>
+                        <Image source={iconMenuRight}/>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
     }
 
     renderShopView() {
@@ -88,11 +116,16 @@ export default class Shop extends Component {
 
     render() {
         return (
-            <View style={{flex: 1, backgroundColor: 'red'}}>
-                <TouchableOpacity onPress={this.openMenu.bind(this)}>
-                    <Text>Open menu</Text>
-                </TouchableOpacity>
-                {this.renderTabNavigator()}
+            <View style={shopStyles.fullScreen}>
+                {/* Header */}
+                <View style={shopStyles.header}>
+                    {this.renderHeader()}
+                </View>
+
+                {/* Content */}
+                <View style={shopStyles.body}>
+                    {this.renderTabNavigator()}
+                </View>
             </View>
         );
     }

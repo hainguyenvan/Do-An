@@ -6,6 +6,7 @@ import {
     Image
 } from 'react-native';
 
+import smsStyles from './SMSStyle';
 
 export default class SMS extends Component {
 
