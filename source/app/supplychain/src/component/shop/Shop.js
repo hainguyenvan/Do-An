@@ -3,7 +3,9 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Image
+    Image,
+    ListView,
+    ScrollView
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator';
@@ -25,14 +27,49 @@ import iconAdd from '../../public/icon/add-24.png';
 import iconAddSelected from '../../public/icon/add-selected-24.png';
 import iconMenu from '../../public/icon/menu-24.png';
 import iconMenuRight from '../../public/icon/menu-right-24.png';
+import iconCopyright from '../../public/icon/copyright-24.png';
+import iconCatalog from '../../public/icon/catalog.png';
+import iconRate from '../../public/icon/follow_product.png';
 
 export default class Shop extends Component {
 
     constructor(props) {
         super(props);
+        data = [
+            {
+                "logo": "http://freevectorlogo.net/wp-content/uploads/2012/10/vinaphone-logo-vector.png",
+                "saleNumber": "4"
+            },
+            {
+                "logo": "https://lh3.googleusercontent.com/GXRdOwOm_A-hYcQFVg_qdegTHU7tItKMZVRBPNrqeX3H7KIQMizrtoF6mX8TFQp_r14=w300",
+                "saleNumber": "0"
+            },
+            {
+                "logo": "http://newnem.com/media/logo-nemnew.jpg",
+                "saleNumber": "9"
+            },
+            {
+                "logo": "https://mir-s3-cdn-cf.behance.net/projects/404/9612659.547d80d0dc3e7.jpg",
+                "saleNumber": "10"
+            },
+            {
+                "logo": "https://shopping.pearlplaza.com.vn/pictures/PearlPlaza/customer/restaurant/king-bbq-buffet/kingbbq-logo.jpg",
+                "saleNumber": "0"
+            },
+            {
+                "logo": "http://pluspng.com/img-png/kfc-png-logo-902.png",
+                "saleNumber": "100"
+            },
+            {
+                "logo": "https://lh3.googleusercontent.com/GXRdOwOm_A-hYcQFVg_qdegTHU7tItKMZVRBPNrqeX3H7KIQMizrtoF6mX8TFQp_r14=w300",
+                "saleNumber": "0"
+            },
+        ];
+        ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
+            dataSource: ds.cloneWithRows(data),
             selectedTab: 'shop'
-        }
+        };
     }
 
     openMenu() {
@@ -65,10 +102,81 @@ export default class Shop extends Component {
         );
     }
 
+    renderCatalog() {
+        return (
+            <View style={{flex:1}}>
+                <View style={{flex: 1, backgroundColor: Colors.GRAY,flexDirection:'row', alignItems:'center'}}>
+                    <Image source={iconCopyright} style={{marginLeft: 10}}/>
+                    <Text style={{marginLeft: 4, color: Colors.GREEN}}>
+                        Được tài trợ
+                    </Text>
+                </View>
+                <View style={{flex: 4, backgroundColor: Colors.GREEN}}>
+                    <Image source={iconCatalog} style={{flex:1, resizeMode:'contain'}}/>
+                </View>
+            </View>
+        );
+    }
+
+    renderSeparator(sectionID, rowID, rowSelected) {
+        return (
+            <View style={shopStyles.line}/>
+        );
+    }
+
+    renderRow(data) {
+        return (
+            <View style={shopStyles.wrapRow}>
+
+                <TouchableOpacity style={shopStyles.rowLeft}>
+                    <Image source={iconRate} style={shopStyles.imgFollow}/>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={shopStyles.rowRight}>
+                    <Image source={{uri: data.logo}} style={shopStyles.logo}/>
+                    <View style={{ marginLeft: 10}}>
+                        <Text style={{fontWeight: 'bold'}}>Cửa hàng Thắng lợi</Text>
+                        <View style={{flexDirection:'row'}}>
+                            <Text style={{fontWeight: 'bold'}}>Đ/C: </Text>
+                            <Text>Đông Anh - Hà Nội</Text>
+                        </View>
+                        <View style={{flexDirection:'row'}}>
+                            <Image source={iconRate} style={shopStyles.imgFollow}/>
+                            <Image source={iconRate} style={shopStyles.imgFollow}/>
+                            <Image source={iconRate} style={shopStyles.imgFollow}/>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
+    renderListView() {
+        return (
+            <View style={{flex:1, marginTop: 8}}>
+                <View style={{ flex: 1, backgroundColor:Colors.GRAY, justifyContent:'center'}}>
+                    <Text style={{marginLeft: 10, color: Colors.BLACK, fontWeight: 'bold'}}>Danh sách của hàng</Text>
+                </View>
+                <View style={{flex: 8}}>
+                <ListView
+                        dataSource={this.state.dataSource}
+                        renderRow={this.renderRow.bind(this)}
+                        renderSeparator={this.renderSeparator.bind(this)}
+                        contentContainerStyle={shopStyles.containerListView}/>
+                </View>
+            </View>
+        );
+    }
+
     renderShopView() {
         return (
-            <View style={{backgroundColor: 'yellow', flex: 1}}>
-                <Text>Shop Component</Text>
+            <View style={{flex: 1, backgroundColor:Colors.GRAY}}>
+                <View style={{flex: 2}}>
+                    {this.renderCatalog()}
+                </View>
+                <View style={{flex: 4}}>
+                    {this.renderListView()}
+                </View>
             </View>
         );
     }
