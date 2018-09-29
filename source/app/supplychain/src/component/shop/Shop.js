@@ -30,6 +30,7 @@ import iconMenuRight from '../../public/icon/menu-right-24.png';
 import iconCopyright from '../../public/icon/copyright-24.png';
 import iconCatalog from '../../public/icon/catalog.png';
 import iconRate from '../../public/icon/follow_product.png';
+import iconShopCategory from '../../public/icon/shop-category-24.png';
 
 export default class Shop extends Component {
 
@@ -102,22 +103,6 @@ export default class Shop extends Component {
         );
     }
 
-    renderCatalog() {
-        return (
-            <View style={{flex:1}}>
-                <View style={{flex: 1, backgroundColor: Colors.GRAY,flexDirection:'row', alignItems:'center'}}>
-                    <Image source={iconCopyright} style={{marginLeft: 10}}/>
-                    <Text style={{marginLeft: 4, color: Colors.GREEN}}>
-                        Được tài trợ
-                    </Text>
-                </View>
-                <View style={{flex: 4, backgroundColor: Colors.GREEN}}>
-                    <Image source={iconCatalog} style={{flex:1, resizeMode:'contain'}}/>
-                </View>
-            </View>
-        );
-    }
-
     renderSeparator(sectionID, rowID, rowSelected) {
         return (
             <View style={shopStyles.line}/>
@@ -154,15 +139,18 @@ export default class Shop extends Component {
     renderListView() {
         return (
             <View style={{flex:1, marginTop: 8}}>
-                <View style={{ flex: 1, backgroundColor:Colors.GRAY, justifyContent:'center'}}>
-                    <Text style={{marginLeft: 10, color: Colors.BLACK, fontWeight: 'bold'}}>Danh sách của hàng</Text>
+               <View style={{flex: 1, backgroundColor: Colors.GRAY,flexDirection:'row'}}>
+                    <Image source={iconShopCategory} style={{marginLeft: 10}}/>
+                    <Text style={{marginLeft: 4, color: Colors.GREEN}}>
+                        Danh sách cửa hàng
+                    </Text>
                 </View>
-                <View style={{flex: 8}}>
-                <ListView
-                        dataSource={this.state.dataSource}
-                        renderRow={this.renderRow.bind(this)}
-                        renderSeparator={this.renderSeparator.bind(this)}
-                        contentContainerStyle={shopStyles.containerListView}/>
+                <View style={{flex: 15, backgroundColor:Colors.WHITE}}>
+                    <ListView
+                            dataSource={this.state.dataSource}
+                            renderRow={this.renderRow.bind(this)}
+                            renderSeparator={this.renderSeparator.bind(this)}
+                            contentContainerStyle={shopStyles.containerListView}/>
                 </View>
             </View>
         );
@@ -171,12 +159,7 @@ export default class Shop extends Component {
     renderShopView() {
         return (
             <View style={{flex: 1, backgroundColor:Colors.GRAY}}>
-                <View style={{flex: 2}}>
-                    {this.renderCatalog()}
-                </View>
-                <View style={{flex: 4}}>
-                    {this.renderListView()}
-                </View>
+                {this.renderListView()}
             </View>
         );
     }
