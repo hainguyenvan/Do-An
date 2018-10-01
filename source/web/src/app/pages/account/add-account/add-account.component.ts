@@ -9,7 +9,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class AddAccountComponent implements OnInit {
 
-  modalHeader: string;
+  public modalHeader: string;
+  public user: any = {};
 
   constructor(private activeModal: NgbActiveModal) { }
 

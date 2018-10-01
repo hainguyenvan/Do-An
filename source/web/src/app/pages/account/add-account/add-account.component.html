@@ -8,31 +8,27 @@
   <div class="row">
     <div class="col-sm-8">
       <div class="form-group">
-        <label for="inputFirstName">Họ Tên</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Họ tên">
+        <label for="inputFirstName">Họ Tên <span style="color:red">*</span></label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Họ tên" [(ngModel)]="user.name">
       </div>
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
-            <label for="inputFirstName">Email</label>
-            <input type="text" class="form-control" id="inputFirstName" placeholder="Email">
+            <label for="inputFirstName">Mã giảng viên <span style="color:red">*</span></label>
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code">
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label for="inputFirstName">Số điện thoại</label>
-            <input type="text" class="form-control" id="inputFirstName" placeholder="Số điện thoại">
+            <label for="inputFirstName">Email <span style="color:red">*</span></label>
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Email" [(ngModel)]="user.email">
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="imgadd">
-        <!-- <p>
-                    <i class="fas fa-file-image"></i>
-                    <br />Add image
-                </p> -->
-        <input type="file" class="form-control" id="inputFirstName" placeholder="Số điện thoại">
+        <input type="file" class="form-control" id="inputFirstName">
       </div>
     </div>
   </div>
@@ -40,14 +36,18 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Ngày sinh</label>
-        <input type="date" class="form-control" id="inputFirstName">
+        <label for="inputFirstName">Ngày sinh <span style="color:red">*</span></label>
+        <input type="date" class="form-control" id="inputFirstName" [(ngModel)]="user.dateOfBirth">
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Địa chỉ</label>
-        <input type="text" class="form-control" id="Địa chỉ">
+        <label for="inputFirstName">Giới tính <span style="color:red">*</span></label>
+        <select class="form-control" [(ngModel)]="user.sex">
+          <option>Nam</option>
+          <option>Nữ</option>
+          <option>Khác</option>
+        </select>
       </div>
     </div>
   </div>
@@ -55,14 +55,18 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Tên đăng nhập</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Tên đăng nhập">
+        <label for="inputFirstName">Số điện thoại <span style="color:red">*</span></label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Số điện thoại" [(ngModel)]="user.phone">
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Mật khẩu</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Mật khẩu">
+        <label for="inputFirstName">Chức vụ <span style="color:red">*</span></label>
+        <select class="form-control" [(ngModel)]="user.position">
+          <option>Admin</option>
+          <option>Tearcher</option>
+          <option>Khác</option>
+        </select>
       </div>
     </div>
   </div>
@@ -70,16 +74,27 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="form-group">
-        <label for="inputFirstName">Chức vụ</label>
-        <select class="form-control">
-          <option>Đơn vị sản xuất</option>
-          <option>Đơn vị vận chuyển</option>
-          <option>Đơn vị phân phối</option>
-          <option>Đơn vị bán lẻ</option>
-        </select>
+        <label for="inputFirstName">Địa chỉ</label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Địa chỉ" [(ngModel)]="user.address">
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Mật khẩu <span style="color:red">*</span></label>
+        <input type="password" class="form-control" id="inputFirstName" placeholder="Mật khẩu" [(ngModel)]="user.password">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Re-Mật khẩu <span style="color:red">*</span></label>
+        <input type="password" class="form-control" id="inputFirstName" placeholder="Nhập lại mật khẩu" [(ngModel)]="user.rePassword">
+      </div>
+    </div>
+  </div>
+
 </div>
 <div class="modal-footer">
   <button class="btn btn-dark" (click)="closeModal()">CANCEL</button>

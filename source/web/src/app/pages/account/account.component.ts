@@ -43,11 +43,11 @@ export class AccountComponent implements OnInit {
         width: '10px'
       },
       serial_number: {
-        title: 'Tên',
+        title: 'Code',
         type: 'string',
       },
       equipment_type: {
-        title: 'Số điện thoại',
+        title: 'Họ tên',
         type: 'string',
       },
       equipment_name: {
@@ -55,28 +55,28 @@ export class AccountComponent implements OnInit {
         type: 'string',
       },
       position: {
-        title: 'Địa chỉ ví',
+        title: 'Ngày sinh',
         type: 'string',
       },
       working_hours: {
-        title: 'Địa chỉ',
+        title: 'Giới tính',
         type: 'number',
         width: '15px'
       },
       material_consumable: {
-        title: 'Phụ trách',
+        title: 'Số điện thoại',
         type: 'string',
       },
       date: {
-        title: 'Date',
+        title: 'Địa chỉ',
         type: 'string',
       },
       update_by: {
-        title: 'Update by',
+        title: 'Chức vụ',
         type: 'string',
       },
       approved_by: {
-        title: 'Approved by',
+        title: 'Trạng thái',
         type: 'string',
       }
     },
