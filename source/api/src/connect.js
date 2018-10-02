@@ -1,24 +1,24 @@
-var mysql = require('mysql');
+var Sequelize = require('sequelize');
+
 var Config = require('./config');
 
 class Connect {
     constructor() {
-        this.con;
-        this.connectToDB();
-    }
-
-    connectToDB() {
-        if (this.con == undefined || this.con == null) {
-            this.con = mysql.createConnection({
+        this.sequelize = new Sequelize(
+            Config.DB_NAME, Config.DB_USER_NAME, Config.DB_PASS_WORD, {
                 host: Config.DB_HOST,
                 port: Config.DB_PORT,
-                user: Config.DB_USER_NAME,
-                password: Config.DB_PASS_WORD,
-                database: Config.DB_NAME
+                dialect: 'mysql',
+                pool: {
+                    max: 10,
+                    min: 0,
+                    acquire: 30000,
+                    idle: 10000
+                },
+                define: {
+                    timestamps: false
+                }
             });
-            this.con.connect();
-        }
-        return this.con;
     }
 }
 
