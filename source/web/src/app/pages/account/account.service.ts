@@ -1,51 +1,24 @@
 import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
+import { Config } from '../../config';
 
 @Injectable()
 export class AccountService {
 
-  data = [
-    {
-      no: 1,
-      serial_number: '122121',
-      equipment_type: 'Equipment Type',
-      equipment_name: 'Equipment Name',
-      position: '1',
-      working_hours: 1,
-      material_consumable: '1',
-      date: "21/09/2018",
-      update_by: 'HaiNV',
-      approved_by: 'HaiNV',
-      approved_status: 'Pending'
-    },
-    {
-      no: 1,
-      serial_number: '122121',
-      equipment_type: 'Equipment Type',
-      equipment_name: 'Equipment Name',
-      position: '1',
-      working_hours: 1,
-      material_consumable: '1',
-      date: "21/09/2018",
-      update_by: 'HaiNV',
-      approved_by: 'HaiNV',
-      approved_status: 'Approved'
-    },
-    {
-      no: 1,
-      serial_number: '122121',
-      equipment_type: 'Equipment Type',
-      equipment_name: 'Equipment Name',
-      position: '1',
-      working_hours: 1,
-      material_consumable: '1',
-      date: "21/09/2018",
-      update_by: 'HaiNV',
-      approved_by: 'HaiNV',
-      approved_status: 'Approved'
-    }
-  ];
+  private token: String;
 
-  getData() {
-    return this.data;
+  constructor(private http: Http) {
+    this.token = localStorage.getItem(Config.TOKEN_KEY);
+  }
+  
+  getAllAccount(): Observable<any> {
+    return this.http.post(Config.API_GET_ALL_ACCOUNT, { token: this.token })
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 }
