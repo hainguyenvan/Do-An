@@ -18,6 +18,7 @@ import { ProfitBarAnimationChartService } from './profit-bar-animation-chart.ser
 import { LayoutService } from './layout.service';
 import { AccountService } from '../../pages/account/account.service';
 import { CategoryService } from '../../pages/category/category.service';
+import { AuthCustomService } from '../../@theme/components/auth/auth-custom.service';
 
 const SERVICES = [
   UserService,
@@ -36,7 +37,8 @@ const SERVICES = [
   ProfitBarAnimationChartService,
   LayoutService,
   AccountService,
-  CategoryService
+  CategoryService,
+  AuthCustomService
 ];
 
 @NgModule({

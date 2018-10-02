@@ -1,15 +1,13 @@
-/**
- * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthSocialLink } from '../../auth.options';
 import { getDeepFromObject } from '../../helpers';
 
-import { NbAuthService } from '../../services/auth.service';
-import { NbAuthResult } from '../../services/auth-result';
+import { AuthHttp, AuthConfig, JwtHelper } from 'angular2-jwt';
+
+import { AuthCustomService } from "../../auth-custom.service";
+
+import { Config } from '../../../../../config';
 
 @Component({
   selector: 'nb-login',
@@ -29,10 +27,12 @@ export class NbLoginComponent {
   socialLinks: NbAuthSocialLink[] = [];
   rememberMe = false;
 
-  constructor(protected service: NbAuthService,
-              @Inject(NB_AUTH_OPTIONS) protected options = {},
-              protected cd: ChangeDetectorRef,
-              protected router: Router) {
+  jwtHelper: JwtHelper = new JwtHelper();
+
+  constructor(protected service: AuthCustomService,
+    @Inject(NB_AUTH_OPTIONS) protected options = {},
+    protected cd: ChangeDetectorRef,
+    protected router: Router) {
 
     this.redirectDelay = this.getConfigValue('forms.login.redirectDelay');
     this.showMessages = this.getConfigValue('forms.login.showMessages');
@@ -46,25 +46,18 @@ export class NbLoginComponent {
     this.submitted = true;
 
     let link = ['/pages/dashboard'];
-    this.router.navigate(link);
 
-    // this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
-    //   this.submitted = false;
+    let email = this.user.email;
+    let pass = this.user.password;
 
-    //   if (result.isSuccess()) {
-    //     this.messages = result.getMessages();
-    //   } else {
-    //     this.errors = result.getErrors();
-    //   }
-
-    //   const redirect = result.getRedirect();
-    //   if (redirect) {
-    //     setTimeout(() => {
-    //       return this.router.navigateByUrl(redirect);
-    //     }, this.redirectDelay);
-    //   }
-    //   this.cd.detectChanges();
-    // });
+    this.service.login(email, pass).subscribe(res => {
+      if (res.status == 200) {
+        localStorage.setItem(Config.TOKEN_KEY, res.data.token);
+        this.router.navigate(link);
+      } else {
+        alert('Email hoặc mật khẩu không đúng');
+      }
+    });
   }
 
   getConfigValue(key: string): any {
