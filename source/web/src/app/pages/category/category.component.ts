@@ -4,11 +4,10 @@ import { takeWhile } from 'rxjs/operators/takeWhile';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Config } from '../../third-party/config';
-
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { DetailCategoryComponent } from './detail-category/detail-category.component';
 
+import { Config } from '../../config';
 
 @Component({
   selector: 'category',

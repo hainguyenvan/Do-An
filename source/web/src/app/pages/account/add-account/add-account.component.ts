@@ -26,7 +26,7 @@ export class AddAccountComponent implements OnInit {
   public modalHeader: string;
   public user: any = {};
 
-  constructor(private activeModal: NgbActiveModal, private service: AccountService, ) { }
+  constructor(private activeModal: NgbActiveModal, private service: AccountService ) { }
 
   ngOnInit() {
     this.modalHeader = 'Thêm tài khoản';

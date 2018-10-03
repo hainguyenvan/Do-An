@@ -4,10 +4,10 @@ import { takeWhile } from 'rxjs/operators/takeWhile';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Config } from '../../third-party/config';
-
 import { AddOperationHistoryComponent } from './add-operation-history/add-operation-history.component';
 import { DetailOperationHistoryComponent } from './detail-operation-history/detail-operation-history.component';
+
+import { Config } from '../../config';
 
 @Component({
   selector: 'button-view',

@@ -85,7 +85,10 @@ class AccountModel {
                 raw: true,
                 where: {
                     email: email,
-                    password: password
+                    password: password,
+                    status: {
+                        $ne: -1
+                    }
                 }
             }).then(acc => {
                 let tokenJson = {
@@ -142,6 +145,25 @@ class AccountModel {
                     Err(err);
                 })
         });
+    }
+
+    delete(accountCode) {
+        return new Promise((Result, Err) => {
+            this.model.update({
+                    status: -1
+                }, {
+                    where: {
+                        code: accountCode
+                    }
+                })
+                .then(result =>
+                    Result(result)
+                )
+                .catch(err =>
+                    Err(err)
+                )
+        })
+
     }
 }
 

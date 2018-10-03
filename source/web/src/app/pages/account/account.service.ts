@@ -8,6 +8,8 @@ import { Config } from '../../config';
 export class AccountService {
 
   private token: String;
+  public accountItem: any;
+  public acction: String;
 
   constructor(private http: Http) {
     this.token = localStorage.getItem(Config.TOKEN_KEY);
@@ -33,6 +35,15 @@ export class AccountService {
 
   addAccount(body): Observable<any> {
     return this.http.post(Config.API_ADD_ACCOUNT, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  deleteAccount(code): Observable<any> {
+    return this.http.post(Config.API_DELETE_ACCOUNT, { code: code })
       .map((res: Response) => {
         let json = res.json();
         return json;

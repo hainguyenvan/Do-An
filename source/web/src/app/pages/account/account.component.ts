@@ -5,6 +5,7 @@ import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Config } from '../../config';
+import { ThirdParty } from '../../third-party/third-party';
 
 import { AddAccountComponent } from './add-account/add-account.component';
 import { DetailAccountComponent } from './detail-account/detail-account.component';
@@ -93,12 +94,32 @@ export class AccountComponent implements OnInit {
   }
 
   onCustom(event) {
+    this.service.accountItem = event.data;
     switch (event.action) {
       case Config.DETAIL_ACCTION:
         this.showModalDeatailAccount();
+        this.service.acction = Config.DETAIL_ACCTION;
+        break;
+      case Config.DELETE_ACTION:
+        this.deleteAccount(event.data.code);
+        break;
+      case Config.EDIT_ACTION:
         break;
       default:
         break;
+    }
+  }
+
+  deleteAccount(accountCode) {
+    let deleteFlag = confirm("Bạn có muốn xóa giảng viên " + accountCode);
+    if (deleteFlag == true) {
+      this.service.deleteAccount(accountCode).subscribe(res => {
+        if (res.status != 200) {
+          console.log('Err : ', res.msg);
+          return;
+        }
+        this.onSearch();
+      })
     }
   }
 
@@ -142,6 +163,8 @@ export class AccountComponent implements OnInit {
         } else {
           item.strStatus = 'Đang hoạt động';
         }
+        item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
+        item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
       });
       this.source.load(res.data);
     })

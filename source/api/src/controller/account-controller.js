@@ -56,3 +56,18 @@ exports.register = function (req, res) {
             })
         })
 }
+
+exports.delete = function (req, res) {
+    Account.delete(req.body.code)
+        .then(result => {
+            res.send({
+                status: 200,
+                msg: 'Success !'
+            })
+        }).catch(err => {
+            res.send({
+                status: 400,
+                msg: err
+            })
+        })
+}

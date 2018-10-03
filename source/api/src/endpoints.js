@@ -38,6 +38,10 @@ router.route('/addAccount').post(validate({
     dsc: Joi.string(),
 }), accController.register);
 
+router.route('/deleteAccount').post(validate({
+    code:Joi.string().required()
+}),accController.delete);
+
 // Position
 router.route('/getAllPosition').post(positionController.getAll);
 
