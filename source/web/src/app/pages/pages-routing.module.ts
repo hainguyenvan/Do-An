@@ -24,6 +24,14 @@ const routes: Routes = [
         loadChildren: './position/position.module#PositionModule',
       },
       {
+        path: 'cetificate-category',
+        loadChildren: './cetificate/cetificate-category/cetificate-category.module#CetificateCategoryModule',
+      },
+      {
+        path: 'cetificate-list',
+        loadChildren: './cetificate/cetificate-list/cetificate-list.module#CetificateListModule',
+      },
+      {
         path: 'iot-dashboard',
         component: DashboardComponent,
       },

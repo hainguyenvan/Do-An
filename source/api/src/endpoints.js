@@ -6,6 +6,7 @@ var router = express.Router();
 var thirdparty = require('./third-party');
 var accController = require('./controller/account-controller');
 var positionController = require('./controller/position-controller');
+var cetificateCategoryController = require('./controller/cetificate-category-controller');
 
 // API
 router.get('/', function (req, res) {
@@ -57,6 +58,7 @@ router.route('/updateAccount').post(validate({
     status: Joi.string()
 }), accController.update);
 
+
 // Position
 router.route('/getAllPosition').post(positionController.getAll);
 
@@ -73,6 +75,24 @@ router.route('/updatePosition').post(validate({
 router.route('/deletePosition').post(validate({
     id: Joi.number().required()
 }), positionController.delete);
+
+
+// Cetificate list
+router.route('/getAllCetificateCategory').post(cetificateCategoryController.getAll);
+
+router.route('/insertCetificateCategory').post(validate({
+    dsc: Joi.string().required()
+}), cetificateCategoryController.insert);
+
+router.route('/updateCetificateCategory').post(validate({
+    id: Joi.number().required(),
+    dsc: Joi.string().required(),
+    status: Joi.string().required()
+}), cetificateCategoryController.update);
+
+router.route('/deleteCetificateCategory').post(validate({
+    id: Joi.number().required()
+}), cetificateCategoryController.delete);
 
 // Upload images
 router.route("/upload").post(thirdparty.upload);

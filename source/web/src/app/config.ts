@@ -22,4 +22,12 @@ export class Config {
     public static API_INSERT_POSITION = `${Config.API_ROOT}/insertPosition`;
     public static API_UPDATE_POSITION = `${Config.API_ROOT}/updatePosition`;
     public static API_DELETE_POSITION = `${Config.API_ROOT}/deletePosition`;
+
+    // Cetificate category
+    public static API_GET_ALL_CETIFICATE_CATEGORY = `${Config.API_ROOT}/getAllCetificateCategory`;
+    public static API_INSERT_CETIFICATE_CATEGORY = `${Config.API_ROOT}/insertCetificateCategory`;
+    public static API_UPDATE_CETIFICATE_CATEGORY = `${Config.API_ROOT}/updateCetificateCategory`;
+    public static API_DELETE_CETIFICATE_CATEGORY = `${Config.API_ROOT}/deleteCetificateCategory`;
+
+    // Cetificate list
 }

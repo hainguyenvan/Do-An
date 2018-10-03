@@ -45,7 +45,7 @@ export class NbLoginComponent {
     this.errors = this.messages = [];
     this.submitted = true;
 
-    let link = ['/pages/dashboard'];
+    let link = ['/pages/account'];
 
     let email = this.user.email;
     let pass = this.user.password;

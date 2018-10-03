@@ -19,6 +19,7 @@ import { LayoutService } from './layout.service';
 import { AccountService } from '../../pages/account/account.service';
 import { PositionService } from '../../pages/position/position.service';
 import { AuthCustomService } from '../../@theme/components/auth/auth-custom.service';
+import { CetificateService } from '../../pages/cetificate/cetificate.service';
 
 const SERVICES = [
   UserService,
@@ -38,7 +39,8 @@ const SERVICES = [
   LayoutService,
   AccountService,
   PositionService,
-  AuthCustomService
+  AuthCustomService,
+  CetificateService
 ];
 
 @NgModule({

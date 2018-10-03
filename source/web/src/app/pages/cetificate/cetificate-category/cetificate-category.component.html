@@ -1,0 +1,33 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-sm-5">
+        <h3>DS Tài Khoản</h3>
+      </div>
+
+      <div class="col-sm-5">
+        <div class="input-group">
+          <label for="inputLastName"></label>
+          <input type="text" class="form-control" placeholder="Nội dung tìm kiếm...">
+          <span class="input-group-append">
+            <button class="btn btn-danger input-group-text">
+              Tìm kiếm
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="input-group d-flex flex-row-reverse">
+          <label for="inputLastName"></label>
+          <button class="btn btn btn-warning" (click)="showModalAddCetificateCategory()">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table class="tableequipment" [settings]="settings" [source]="source" (custom)="onCustom($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
