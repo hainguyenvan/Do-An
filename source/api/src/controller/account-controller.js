@@ -71,3 +71,19 @@ exports.delete = function (req, res) {
             })
         })
 }
+
+
+exports.update = function (req, res) {
+    Account.update(req.body)
+        .then(result => {
+            res.send({
+                status: 200,
+                msg: 'Success !'
+            })
+        }).catch(err => {
+            res.send({
+                status: 400,
+                msg: err
+            })
+        })
+}

@@ -50,4 +50,13 @@ export class AccountService {
       })
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
+
+  updateAccount(body): Observable<any> {
+    return this.http.post(Config.API_UPDATE_ACCOUNT, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
 }

@@ -104,6 +104,8 @@ export class AccountComponent implements OnInit {
         this.deleteAccount(event.data.code);
         break;
       case Config.EDIT_ACTION:
+        this.showModalAddAccount();
+        this.service.acction = Config.EDIT_ACTION;
         break;
       default:
         break;
@@ -130,6 +132,7 @@ export class AccountComponent implements OnInit {
   showModalAddAccount() {
     const activeModal = this.modalService.open(AddAccountComponent, { size: 'lg', container: 'nb-layout' });
     activeModal.result.then((event) => {
+      this.service.acction = null;
       switch (event) {
         case Config.EVENT_CLOSE:
           break;

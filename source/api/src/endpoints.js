@@ -42,6 +42,21 @@ router.route('/deleteAccount').post(validate({
     code:Joi.string().required()
 }),accController.delete);
 
+router.route('/updateAccount').post(validate({
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    code: Joi.string().required(),
+    dateOfBirth: Joi.string().required(),
+    sex: Joi.number().required(),
+    phone: Joi.string().required(),
+    address: Joi.string().required(),
+    img: Joi.string(),
+    position: Joi.string().required(),
+    password: Joi.string().required(),
+    dsc: Joi.string(),
+    status:Joi.string()
+}), accController.update);
+
 // Position
 router.route('/getAllPosition').post(positionController.getAll);
 

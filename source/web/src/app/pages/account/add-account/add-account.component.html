@@ -15,7 +15,8 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="inputFirstName">Mã giảng viên <span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code">
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" *ngIf="!actionEdit">
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" readonly *ngIf="actionEdit">
           </div>
         </div>
         <div class="col-sm-6">
@@ -30,6 +31,7 @@
       <div class="imgadd">
         <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple>
       </div>
+      <span *ngIf="actionEdit">{{user.img}}</span>
     </div>
   </div>
 
@@ -87,6 +89,17 @@
       <div class="form-group">
         <label for="inputFirstName">Re-Mật khẩu <span style="color:red">*</span></label>
         <input type="password" class="form-control" id="inputFirstName" placeholder="Nhập lại mật khẩu" [(ngModel)]="user.rePassword">
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="actionEdit">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="inputFirstName">Trạng thái</label>
+        <select class="form-control" [(ngModel)]="user.status">
+          <option *ngFor="let anApp of statusList" [value]="anApp.id">{{anApp.value}}</option>
+        </select>
       </div>
     </div>
   </div>

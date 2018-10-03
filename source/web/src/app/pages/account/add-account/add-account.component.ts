@@ -17,6 +17,10 @@ export class AddAccountComponent implements OnInit {
     { id: 1, value: 'Nữ' },
     { id: -1, value: 'Khác' }
   ];
+  public statusList: any = [
+    { id: 0, value: 'Hoạt động' },
+    { id: -1, value: 'Ngừng hoạt động' }
+  ];
   public positionList: any = [];
 
   public uploader: FileUploader = new FileUploader({ url: Config.API_UPLOAD });
@@ -25,8 +29,9 @@ export class AddAccountComponent implements OnInit {
 
   public modalHeader: string;
   public user: any = {};
+  public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: AccountService ) { }
+  constructor(private activeModal: NgbActiveModal, private service: AccountService) { }
 
   ngOnInit() {
     this.modalHeader = 'Thêm tài khoản';
@@ -50,6 +55,14 @@ export class AddAccountComponent implements OnInit {
       }
       this.positionList = res.data;
     });
+
+    if (this.service.acction == Config.EDIT_ACTION) {
+      this.modalHeader = 'Cập nhật tài khoản';
+      this.actionEdit = true;
+      this.user = this.service.accountItem;
+      this.user.curentPassword = this.user.password;
+      this.user.password = '';
+    }
   }
 
   closeModal() {
@@ -60,6 +73,7 @@ export class AddAccountComponent implements OnInit {
     this.user.sex = Number(this.user.sex);
     this.service.addAccount(this.user).subscribe(res => {
       if (res.status != 200) {
+        this.activeModal.close(Config.EVENT_CLOSE);
         console.log("Err : ", res.msg);
         return;
       }
@@ -67,8 +81,25 @@ export class AddAccountComponent implements OnInit {
     this.activeModal.close(Config.EVENT_SUBMIT);
   }
 
+  updateAccount() {
+    this.user.status = Number(this.user.status);
+    this.user.password = this.user.password == '' ? this.user.curentPassword : this.user.password;
+    this.service.updateAccount(this.user).subscribe(res => {
+      if (res.status != 200) {
+        this.activeModal.close(Config.EVENT_CLOSE);
+        console.log("Err : ", res.msg);
+        return;
+      }
+      this.activeModal.close(Config.EVENT_SUBMIT);
+    })
+  }
+
   onSubmit() {
     if (this.flagWarringNullImage) {
+      if (this.actionEdit) {
+        this.updateAccount();
+        return;
+      }
       this.addAccount();
       return;
     }
@@ -77,6 +108,10 @@ export class AddAccountComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       var responsePath = JSON.parse(response);
       this.user.img = responsePath.data.img;
+      if (this.actionEdit) {
+        this.updateAccount();
+        return;
+      }
       this.addAccount();
     }
   }

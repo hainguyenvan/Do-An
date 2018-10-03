@@ -163,7 +163,35 @@ class AccountModel {
                     Err(err)
                 )
         })
+    }
 
+    update(data) {
+        return new Promise((Result, Err) => {
+            this.model.update({
+                    name: data.name,
+                    email: data.email,
+                    dateOfBirth: data.dateOfBirth,
+                    sex: data.sex,
+                    phone: data.phone,
+                    address: data.address,
+                    img: data.img,
+                    status: data.status,
+                    position: data.position,
+                    password: data.password,
+                    dsc: data.dsc,
+                    timeUpdate: new Date().getTime()
+                }, {
+                    where: {
+                        code: data.code
+                    }
+                })
+                .then(result =>
+                    Result(result)
+                )
+                .catch(err =>
+                    Err(err)
+                )
+        })
     }
 }
 
