@@ -48,6 +48,61 @@ class PositionModel {
                 });
         });
     }
+
+    insert(data) {
+        return new Promise((Result, Err) => {
+            this.model.create({
+                    dsc: data.dsc,
+                    timeCreate: new Date().getTime(),
+                    timeUpdate: new Date().getTime()
+                })
+                .then(res => {
+                    Result(res);
+                })
+                .catch(err => {
+                    Err(err);
+                })
+        });
+    }
+
+    delete(id) {
+        return new Promise((Result, Err) => {
+            this.model.update({
+                    status: -1
+                }, {
+                    where: {
+                        id: id
+                    }
+                })
+                .then(result =>
+                    Result(result)
+                )
+                .catch(err =>
+                    Err(err)
+                )
+        })
+    }
+
+    update(data) {
+        return new Promise((Result, Err) => {
+            this.model.update({
+                    dsc: data.dsc,
+                    status: data.status,
+                    timeUpdate: new Date().getTime()
+                }, {
+                    where: {
+                        id: data.id
+                    }
+                })
+                .then(result =>
+                    Result(result)
+                )
+                .catch(err =>
+                    Err(err)
+                )
+        })
+    }
+
 }
 
 module.exports = new PositionModel();

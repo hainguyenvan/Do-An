@@ -17,7 +17,7 @@ import { TrafficBarService } from './traffic-bar.service';
 import { ProfitBarAnimationChartService } from './profit-bar-animation-chart.service';
 import { LayoutService } from './layout.service';
 import { AccountService } from '../../pages/account/account.service';
-import { CategoryService } from '../../pages/category/category.service';
+import { PositionService } from '../../pages/position/position.service';
 import { AuthCustomService } from '../../@theme/components/auth/auth-custom.service';
 
 const SERVICES = [
@@ -37,7 +37,7 @@ const SERVICES = [
   ProfitBarAnimationChartService,
   LayoutService,
   AccountService,
-  CategoryService,
+  PositionService,
   AuthCustomService
 ];
 

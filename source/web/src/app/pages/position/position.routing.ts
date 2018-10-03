@@ -1,12 +1,12 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { ModuleWithProviders } from '@angular/core';
-import { OperationHistoryComponent } from "./operation-history.component";
+import { PositionComponent } from "./position.component";
 
 export const routes: Routes = [
   {
     path: '',
-    component: OperationHistoryComponent,
+    component: PositionComponent,
     children: []
   }
 ];

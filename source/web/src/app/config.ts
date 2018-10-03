@@ -6,7 +6,7 @@ export class Config {
     public static DETAIL_ACCTION = 'detail';
     public static DELETE_ACTION = 'delete';
     public static EDIT_ACTION = 'edit';
-    
+
     // Upload
     public static API_UPLOAD = `${Config.API_ROOT}/upload`;
 
@@ -15,8 +15,11 @@ export class Config {
     public static API_GET_ALL_ACCOUNT = `${Config.API_ROOT}/getAllAccount`;
     public static API_ADD_ACCOUNT = `${Config.API_ROOT}/addAccount`;
     public static API_DELETE_ACCOUNT = `${Config.API_ROOT}/deleteAccount`;
-    public static API_UPDATE_ACCOUNT =  `${Config.API_ROOT}/updateAccount`;
+    public static API_UPDATE_ACCOUNT = `${Config.API_ROOT}/updateAccount`;
 
     // Position
     public static API_GET_ALL_POSITION = `${Config.API_ROOT}/getAllPosition`;
+    public static API_INSERT_POSITION = `${Config.API_ROOT}/insertPosition`;
+    public static API_UPDATE_POSITION = `${Config.API_ROOT}/updatePosition`;
+    public static API_DELETE_POSITION = `${Config.API_ROOT}/deletePosition`;
 }

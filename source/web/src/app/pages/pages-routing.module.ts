@@ -20,8 +20,8 @@ const routes: Routes = [
         loadChildren: './account/account.module#AccountModule',
       },
       {
-        path: 'category',
-        loadChildren: './category/category.module#CategoryModule',
+        path: 'position',
+        loadChildren: './position/position.module#PositionModule',
       },
       {
         path: 'iot-dashboard',
@@ -61,7 +61,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'account',
         pathMatch: 'full',
       },
       {

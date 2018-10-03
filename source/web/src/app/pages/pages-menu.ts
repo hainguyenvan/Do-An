@@ -7,9 +7,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/account',
   },
   {
-    title: 'Quản lý danh mục',
+    title: 'Quản lý chức vụ',
     icon: 'nb-grid-a',
-    link: '/pages/category',
+    link: '/pages/position',
   },
   {
     title: 'E-commerce',
