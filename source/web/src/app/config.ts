@@ -11,4 +11,8 @@ export class Config {
     // Account
     public static API_LOGIN = `${Config.API_ROOT}/login`;
     public static API_GET_ALL_ACCOUNT = `${Config.API_ROOT}/getAllAccount`;
+    public static API_ADD_ACCOUNT = `${Config.API_ROOT}/addAccount`;
+
+    // Position
+    public static API_GET_ALL_POSITION = `${Config.API_ROOT}/getAllPosition`;
 }

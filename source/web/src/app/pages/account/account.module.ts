@@ -6,13 +6,14 @@ import { AccountComponent } from './account.component';
 import { AddAccountComponent } from './add-account/add-account.component';
 import { DetailAccountComponent } from './detail-account/detail-account.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import { FileUploadModule } from "ng2-file-upload";
 
 @NgModule({
   imports: [
     routing,
     ThemeModule,
     NgxEchartsModule,
+    FileUploadModule,
     Ng2SmartTableModule
   ],
   declarations: [

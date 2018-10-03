@@ -12,9 +12,27 @@ export class AccountService {
   constructor(private http: Http) {
     this.token = localStorage.getItem(Config.TOKEN_KEY);
   }
-  
+
   getAllAccount(): Observable<any> {
     return this.http.post(Config.API_GET_ALL_ACCOUNT, { token: this.token })
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  getAllPosition(): Observable<any> {
+    return this.http.post(Config.API_GET_ALL_POSITION, {})
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  addAccount(body): Observable<any> {
+    return this.http.post(Config.API_ADD_ACCOUNT, body)
       .map((res: Response) => {
         let json = res.json();
         return json;

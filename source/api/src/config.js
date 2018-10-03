@@ -7,8 +7,8 @@ const Config = {
     DB_NAME: 'cetifications',
     DB_PROTOCOL: 'mysql',
     DB_PORT: '9906',
-    DB_USER_NAME: '',
-    DB_PASS_WORD: '',
+    DB_USER_NAME: 'root',
+    DB_PASS_WORD: 'pwd',
 }
 
 module.exports = Config;

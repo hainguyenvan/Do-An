@@ -58,9 +58,21 @@ class AccountModel {
                 field: 'password',
                 type: Sequelize.STRING
             },
+            sign: {
+                field: 'sign',
+                type: Sequelize.STRING
+            },
             dsc: {
                 field: 'dsc',
                 type: Sequelize.STRING
+            },
+            timeCreate: {
+                field: 'time_create',
+                type: Sequelize.INTEGER
+            },
+            timeUpdate: {
+                field: 'time_update',
+                type: Sequelize.INTEGER
             }
         }, {
             tableName: 'account'
@@ -102,6 +114,33 @@ class AccountModel {
                 .catch(err => {
                     Err(err);
                 });
+        });
+    }
+
+    insert(data) {
+        return new Promise((Result, Err) => {
+            this.model.create({
+                    name: data.name,
+                    email: data.email,
+                    code: data.code,
+                    dateOfBirth: data.dateOfBirth,
+                    sex: data.sex,
+                    phone: data.phone,
+                    address: data.address,
+                    img: data.img,
+                    position: data.position,
+                    password: data.password,
+                    dsc: data.dsc,
+                    sign: data.sign,
+                    timeCreate: new Date().getTime(),
+                    timeUpdate: new Date().getTime()
+                })
+                .then(res => {
+                    Result(res);
+                })
+                .catch(err => {
+                    Err(err);
+                })
         });
     }
 }
