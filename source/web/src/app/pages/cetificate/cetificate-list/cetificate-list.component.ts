@@ -94,7 +94,7 @@ export class CetificateListComponent implements OnInit {
   }
 
   onCustom(event) {
-    this.service.accountItem = event.data;
+    this.service.dataItem = event.data;
     switch (event.action) {
       case Config.DETAIL_ACCTION:
         this.showModalDeatailAccount();

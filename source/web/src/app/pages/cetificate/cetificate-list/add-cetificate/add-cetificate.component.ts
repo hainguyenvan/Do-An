@@ -59,7 +59,7 @@ export class AddCetificateComponent implements OnInit {
     if (this.service.acction == Config.EDIT_ACTION) {
       this.modalHeader = 'Cập nhật tài khoản';
       this.actionEdit = true;
-      this.user = this.service.accountItem;
+      this.user = this.service.dataItem;
       this.user.curentPassword = this.user.password;
       this.user.password = '';
     }

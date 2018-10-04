@@ -17,7 +17,7 @@ export class DetailCetificateComponent implements OnInit {
 
   ngOnInit() {
     this.modalHeader = 'Thông tin tài khoản';
-    this.account = this.service.accountItem;
+    this.account = this.service.dataItem;
   }
 
   closeModal() {
