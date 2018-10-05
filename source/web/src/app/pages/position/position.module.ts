@@ -6,7 +6,7 @@ import { PositionComponent } from './position.component';
 import { AddPositionComponent } from './add-position/add-position.component';
 import { DetailPositionComponent } from './detail-position/detail-position.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import { ModalMessageComponent } from './modal/modal-message.component';
 
 @NgModule({
   imports: [
@@ -18,11 +18,13 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
   declarations: [
     PositionComponent,
     AddPositionComponent,
-    DetailPositionComponent
+    DetailPositionComponent,
+    ModalMessageComponent
   ],
   entryComponents: [
     AddPositionComponent,
-    DetailPositionComponent
+    DetailPositionComponent,
+    ModalMessageComponent
   ],
 })
 export class PositionModule { }

@@ -7,6 +7,7 @@ import { AddCetificateComponent } from './add-cetificate/add-cetificate.componen
 import { DetailCetificateComponent } from './detail-cetificate/detail-cetificate.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { FileUploadModule } from "ng2-file-upload";
+import { ModalMessageComponent } from './modal/modal-message.component';
 
 @NgModule({
   imports: [
@@ -19,11 +20,13 @@ import { FileUploadModule } from "ng2-file-upload";
   declarations: [
     CetificateCategoryComponent,
     AddCetificateComponent,
-    DetailCetificateComponent
+    DetailCetificateComponent,
+    ModalMessageComponent
   ],
   entryComponents: [
     AddCetificateComponent,
-    DetailCetificateComponent
+    DetailCetificateComponent,
+    ModalMessageComponent
   ],
 })
 export class CetificateCategoryModule { }

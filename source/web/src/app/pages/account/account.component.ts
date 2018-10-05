@@ -10,6 +10,7 @@ import { ThirdParty } from '../../third-party/third-party';
 import { AddAccountComponent } from './add-account/add-account.component';
 import { DetailAccountComponent } from './detail-account/detail-account.component';
 import { sample } from 'rxjs-compat/operator/sample';
+import { ModalMessageComponent } from './modal/modal-message.component';
 
 
 @Component({
@@ -101,6 +102,9 @@ export class AccountComponent implements OnInit {
         this.service.acction = Config.DETAIL_ACCTION;
         break;
       case Config.DELETE_ACTION:
+        if (event.data.status == -1) {
+          break;
+        }
         this.deleteAccount(event.data.code);
         break;
       case Config.EDIT_ACTION:
@@ -113,16 +117,25 @@ export class AccountComponent implements OnInit {
   }
 
   deleteAccount(accountCode) {
-    let deleteFlag = confirm("Bạn có muốn xóa giảng viên " + accountCode);
-    if (deleteFlag == true) {
-      this.service.deleteAccount(accountCode).subscribe(res => {
-        if (res.status != 200) {
-          console.log('Err : ', res.msg);
-          return;
-        }
-        this.onSearch();
-      })
-    }
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa mã giảng viên ' + accountCode + ' ?';
+    activeModal.componentInstance.statusButtonSubmit = true;
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_SUBMIT:
+          this.service.deleteAccount(accountCode).subscribe(res => {
+            if (res.status != 200) {
+              console.log('Err : ', res.msg);
+              return;
+            }
+            this.onSearch();
+          });
+          break;
+        default:
+      }
+    });
   }
 
   showModalDeatailAccount() {

@@ -123,8 +123,8 @@ export class CetificateListComponent implements OnInit {
 
   deleteCetificate(id) {
     const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
-    activeModal.componentInstance.modalHeader = 'Modal Warning';
-    activeModal.componentInstance.modalMessage = 'Are you sure ?';
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa ID ' + id + ' ?';
     activeModal.componentInstance.statusButtonSubmit = true;
     activeModal.result.then((event) => {
       this.service.acction = null;

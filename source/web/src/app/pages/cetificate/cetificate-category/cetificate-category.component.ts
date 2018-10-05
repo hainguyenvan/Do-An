@@ -10,7 +10,7 @@ import { ThirdParty } from '../../../third-party/third-party';
 import { AddCetificateComponent } from './add-cetificate/add-cetificate.component';
 import { DetailCetificateComponent } from './detail-cetificate/detail-cetificate.component';
 import { sample } from 'rxjs-compat/operator/sample';
-
+import { ModalMessageComponent } from './modal/modal-message.component';
 
 @Component({
   selector: 'cetificate-category',
@@ -79,6 +79,9 @@ export class CetificateCategoryComponent implements OnInit {
         this.service.acction = Config.DETAIL_ACCTION;
         break;
       case Config.DELETE_ACTION:
+        if (event.data.status == -1) {
+          break;
+        }
         this.deleteCetificateCategory(event.data.id);
         break;
       case Config.EDIT_ACTION:
@@ -91,16 +94,25 @@ export class CetificateCategoryComponent implements OnInit {
   }
 
   deleteCetificateCategory(id) {
-    let deleteFlag = confirm("Bạn có muốn xóa tên chứng chỉ " + id);
-    if (deleteFlag == true) {
-      this.service.deleteCeticateCategory(id).subscribe(res => {
-        if (res.status != 200) {
-          console.log('Err : ', res.msg);
-          return;
-        }
-        this.onSearch();
-      })
-    }
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa ID ' + id + ' ?';
+    activeModal.componentInstance.statusButtonSubmit = true;
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_SUBMIT:
+          this.service.deleteCeticateCategory(id).subscribe(res => {
+            if (res.status != 200) {
+              console.log('Err : ', res.msg);
+              return;
+            }
+            this.onSearch();
+          });
+          break;
+        default:
+      }
+    });
   }
 
   showModalDeatailCetificateCategory() {

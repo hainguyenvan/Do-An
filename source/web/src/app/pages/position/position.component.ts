@@ -9,6 +9,7 @@ import { DetailPositionComponent } from './detail-position/detail-position.compo
 
 import { Config } from '../../config';
 import { ThirdParty } from '../../third-party/third-party';
+import { ModalMessageComponent } from './modal/modal-message.component';
 
 @Component({
   selector: 'position',
@@ -77,6 +78,9 @@ export class PositionComponent implements OnInit {
         this.service.acction = Config.DETAIL_ACCTION;
         break;
       case Config.DELETE_ACTION:
+        if (event.data.status == -1) {
+          break;
+        }
         this.deletePosition(event.data.id);
         break;
       case Config.EDIT_ACTION:
@@ -108,16 +112,25 @@ export class PositionComponent implements OnInit {
   }
 
   deletePosition(id) {
-    let deleteFlag = confirm("Bạn có muốn xóa chức vụ " + id);
-    if (deleteFlag == true) {
-      this.service.deletePosition(id).subscribe(res => {
-        if (res.status != 200) {
-          console.log('Err : ', res.msg);
-          return;
-        }
-        this.onSearch();
-      })
-    }
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa ID ' + id + ' ?';
+    activeModal.componentInstance.statusButtonSubmit = true;
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_SUBMIT:
+          this.service.deletePosition(id).subscribe(res => {
+            if (res.status != 200) {
+              console.log('Err : ', res.msg);
+              return;
+            }
+            this.onSearch();
+          });
+          break;
+        default:
+      }
+    });
   }
 
   onSearch() {
