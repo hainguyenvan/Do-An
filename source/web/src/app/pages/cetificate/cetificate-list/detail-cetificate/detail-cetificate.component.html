@@ -6,59 +6,68 @@
 </div>
 <div class="modal-body">
   <div class="row">
-    <div class="col-sm-7 img-detail">
-      <img src="{{account.img}}" alt="" />
-    </div>
-    <div class="col-sm-5">
+    <div class="col-sm-8">
       <div class="row">
         <table class="table table-borderless table-condensed table-hover">
           <tr>
-            <td class="font-bold">Họ tên</td>
-            <td>{{account.name}}</td>
+            <td class="font-bold">ID</td>
+            <td>{{cetificate.id}}</td>
           </tr>
           <tr>
-            <td class="font-bold">Email</td>
-            <td>{{account.email}}</td>
+            <td class="font-bold">Mã chứng chỉ</td>
+            <td>{{cetificate.code}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Loại chứng chỉ</td>
+            <td>{{cetificate.strCategory}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Họ tên</td>
+            <td>{{cetificate.studentName}}</td>
           </tr>
           <tr>
             <td class="font-bold">Ngày sinh</td>
-            <td>{{account.dateOfBirth}}</td>
+            <td>{{cetificate.dateOfBirth}}</td>
           </tr>
           <tr>
-            <td class="font-bold">Giới tính</td>
-            <td>{{account.strSex}}</td>
+            <td class="font-bold">Năm tốt nghiệp</td>
+            <td>{{cetificate.yearOfGraduation}}</td>
           </tr>
           <tr>
-            <td class="font-bold">Số điện thoại</td>
-            <td>{{account.phone}}</td>
+            <td class="font-bold">Xếp loại</td>
+            <td>{{cetificate.degreeClassification}}</td>
           </tr>
           <tr>
-            <td class="font-bold">Địa chỉ</td>
-            <td>{{account.address}}</td>
+            <td class="font-bold">Hình thức đào tạo</td>
+            <td>{{cetificate.modeOfStudy}}</td>
           </tr>
           <tr>
-            <td class="font-bold">Mô tả</td>
-            <td>{{account.dsc}}</td>
+            <td class="font-bold">Ngày phát hành</td>
+            <td>{{cetificate.date}}</td>
           </tr>
           <tr>
-            <td class="font-bold">Chức vụ</td>
-            <td>{{account.position}}</td>
+            <td class="font-bold">Hiệu trưởng</td>
+            <td>{{cetificate.author}}</td>
           </tr>
-          <!-- <tr>
-                        <td class="font-bold">Chữ ký</td>
-                        <td>{{account.sign}}</td>
-                    </tr> -->
           <tr>
-            <td class="font-bold">Ngày thêm</td>
-            <td>{{account.timeCreate}}</td>
+            <td class="font-bold">Người tạo</td>
+            <td>{{cetificate.createBy.name}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Ngày tạo</td>
+            <td>{{cetificate.timeCreate}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Người cập nhật</td>
+            <td>{{cetificate.updateBy.name}}</td>
           </tr>
           <tr>
             <td class="font-bold">Ngày cập nhật</td>
-            <td>{{account.timeUpdate}}</td>
+            <td>{{cetificate.timeUpdate}}</td>
           </tr>
           <tr>
             <td class="font-bold">Trạng thái</td>
-            <label for="inputFirstName" class="btn btn-success btn-xs">{{account.strStatus}}</label>
+            <label for="inputFirstName" class="btn btn-success btn-xs">{{cetificate.strStatus}}</label>
           </tr>
 
         </table>

@@ -35,7 +35,10 @@ class CetificateCategoryModel {
     getAll() {
         return new Promise((Result, Err) => {
             this.model.findAll({
-                    raw: true
+                    raw: true,
+                    status: {
+                        $ne: -1
+                    }
                 })
                 .then(categorys => {
                     Result(categorys);
@@ -97,6 +100,21 @@ class CetificateCategoryModel {
                 .catch(err =>
                     Err(err)
                 )
+        })
+    }
+
+    getById(id) {
+        return new Promise((Result, Err) => {
+            this.model.findOne({
+                    raw: true,
+                    id: id
+                })
+                .then(data => {
+                    Result(data);
+                })
+                .catch(err => {
+                    Err(err);
+                });
         })
     }
 

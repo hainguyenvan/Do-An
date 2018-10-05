@@ -10,6 +10,7 @@ import { ThirdParty } from '../../../third-party/third-party';
 import { AddCetificateComponent } from './add-cetificate/add-cetificate.component';
 import { DetailCetificateComponent } from './detail-cetificate/detail-cetificate.component';
 import { sample } from 'rxjs-compat/operator/sample';
+import { ModalMessageComponent } from './modal/modal-message.component';
 
 
 @Component({
@@ -39,41 +40,41 @@ export class CetificateListComponent implements OnInit {
       ]
     },
     columns: {
-      id: {
-        title: 'ID',
+      code: {
+        title: 'Mã chứng chỉ',
         type: 'number',
         width: '10px'
       },
-      code: {
-        title: 'Mã giảng viên',
+      title: {
+        title: 'Tên chứng chỉ',
         type: 'string',
       },
-      name: {
-        title: 'Họ tên',
+      strCategory: {
+        title: 'Loại chứng chỉ',
         type: 'string',
       },
-      email: {
-        title: 'Email',
+      studentName: {
+        title: 'Tên sinh viên',
         type: 'string',
       },
-      dateOfBirth: {
-        title: 'Ngày sinh',
+      yearOfGraduation: {
+        title: 'Năm tốt nghiệp',
         type: 'string',
       },
-      strSex: {
-        title: 'Giới tính',
+      degreeClassification: {
+        title: 'Xếp loại',
         type: 'string',
       },
-      phone: {
-        title: 'Số điện thoại',
+      modeOfStudy: {
+        title: 'Hình thức đào tạo',
         type: 'string',
       },
-      address: {
-        title: 'Địa chỉ',
+      author: {
+        title: 'Hiệu trưởng',
         type: 'string',
       },
-      position: {
-        title: 'Chức vụ',
+      date: {
+        title: 'Ngày phát hành',
         type: 'string',
       },
       strStatus: {
@@ -101,7 +102,15 @@ export class CetificateListComponent implements OnInit {
         this.service.acction = Config.DETAIL_ACCTION;
         break;
       case Config.DELETE_ACTION:
-        this.deleteAccount(event.data.code);
+        switch (event.data.status) {
+          case -1:
+            break;
+          case 0:
+            this.deleteCetificate(event.data.id);
+            break;
+          case 1:
+            break;
+        }
         break;
       case Config.EDIT_ACTION:
         this.showModalAddAccount();
@@ -112,17 +121,26 @@ export class CetificateListComponent implements OnInit {
     }
   }
 
-  deleteAccount(accountCode) {
-    let deleteFlag = confirm("Bạn có muốn xóa giảng viên " + accountCode);
-    if (deleteFlag == true) {
-      this.service.deleteAccount(accountCode).subscribe(res => {
-        if (res.status != 200) {
-          console.log('Err : ', res.msg);
-          return;
-        }
-        this.onSearch();
-      })
-    }
+  deleteCetificate(id) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Modal Warning';
+    activeModal.componentInstance.modalMessage = 'Are you sure ?';
+    activeModal.componentInstance.statusButtonSubmit = true;
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_SUBMIT:
+          this.service.deleteCeticateList(id).subscribe(res => {
+            if (res.status != 200) {
+              console.log('Err : ', res.msg);
+              return;
+            }
+            this.onSearch();
+          });
+          break;
+        default:
+      }
+    });
   }
 
   showModalDeatailAccount() {
@@ -145,31 +163,32 @@ export class CetificateListComponent implements OnInit {
   }
 
   onSearch() {
-    this.service.getAllAccount().subscribe(res => {
+    this.service.getAllCeticateList().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
         alert('Đã xảy ra lỗi');
       }
-      res.data.forEach(item => {
-        switch (item.sex) {
+      res.data.forEach((item, index) => {
+        switch (item.status) {
           case 0:
-            item.strSex = 'Nam';
+            item.strStatus = 'Chưa phát hành';
             break;
           case 1:
-            item.strSex = 'Nữ';
+            item.strStatus = 'Đã phát hành';
             break;
-          default:
-            item.strSex = 'Khác';
+          case -1:
+            item.strStatus = 'Đã xóa';
+            break;
         }
-        if (item.status == -1) {
-          item.strStatus = 'Ngừng hoạt động';
-        } else {
-          item.strStatus = 'Đang hoạt động';
-        }
+        item.strCategory = item.category.dsc;
         item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
         item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
+        if (index == res.data.length - 1) {
+          this.source.load(res.data);
+          return;
+        }
       });
-      this.source.load(res.data);
+
     })
   }
 }

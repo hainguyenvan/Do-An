@@ -193,6 +193,21 @@ class AccountModel {
                 )
         })
     }
+
+    getById(id) {
+        return new Promise((Result, Err) => {
+            this.model.findOne({
+                    raw: true,
+                    id: id
+                })
+                .then(data => {
+                    Result(data);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        })
+    }
 }
 
 module.exports = new AccountModel();

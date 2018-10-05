@@ -6,74 +6,12 @@
 </div>
 <div class="modal-body">
   <div class="row">
-    <div class="col-sm-8">
-      <div class="form-group">
-        <label for="inputFirstName">Họ Tên <span style="color:red">*</span></label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Họ tên" [(ngModel)]="user.name">
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="inputFirstName">Mã giảng viên <span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" *ngIf="!actionEdit">
-            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" readonly *ngIf="actionEdit">
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="inputFirstName">Email <span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="inputFirstName" placeholder="Email" [(ngModel)]="user.email">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="imgadd">
-        <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple>
-      </div>
-      <span *ngIf="actionEdit">{{user.img}}</span>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="inputFirstName">Ngày sinh <span style="color:red">*</span></label>
-        <input type="date" class="form-control" id="inputFirstName" [(ngModel)]="user.dateOfBirth">
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="inputFirstName">Giới tính <span style="color:red">*</span></label>
-        <select class="form-control" [(ngModel)]="user.sex">
-          <option *ngFor="let anApp of sexList" [value]="anApp.id">{{anApp.value}}</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="inputFirstName">Số điện thoại <span style="color:red">*</span></label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Số điện thoại" [(ngModel)]="user.phone">
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="inputFirstName">Chức vụ <span style="color:red">*</span></label>
-        <select class="form-control" [(ngModel)]="user.position">
-          <option *ngFor="let anApp of positionList" [value]="anApp.dsc">{{anApp.dsc}}</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col-sm-12">
       <div class="form-group">
-        <label for="inputFirstName">Địa chỉ</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Địa chỉ" [(ngModel)]="user.address">
+        <label for="inputFirstName">Tên chứng chỉ
+          <span style="color:red">*</span>
+        </label>
+        <input type="text" class="form-control" [(ngModel)]="cetificate.title" placeholder="Tên chứng chỉ">
       </div>
     </div>
   </div>
@@ -81,34 +19,94 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Mật khẩu <span style="color:red">*</span></label>
-        <input type="password" class="form-control" id="inputFirstName" placeholder="Mật khẩu" [(ngModel)]="user.password">
+        <label for="inputFirstName">Loại chứng chỉ
+          <span style="color:red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="cetificate.categoryId">
+          <option *ngFor="let anApp of categoryList" [value]="anApp.id">{{anApp.dsc}}</option>
+        </select>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Re-Mật khẩu <span style="color:red">*</span></label>
-        <input type="password" class="form-control" id="inputFirstName" placeholder="Nhập lại mật khẩu" [(ngModel)]="user.rePassword">
+        <label for="inputFirstName">Tên sinh viên
+          <span style="color:red">*</span>
+        </label>
+        <input type="text" class="form-control" placeholder="Tên sinh viên" [(ngModel)]="cetificate.studentName">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Ngày sinh
+          <span style="color:red">*</span>
+        </label>
+        <input type="date" class="form-control" [(ngModel)]="cetificate.dateOfBirth">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Năm tốt nghiệp
+          <span style="color:red">*</span>
+        </label>
+        <input type="number" class="form-control" placeholder="Năm tốt nghiệp" [(ngModel)]="cetificate.yearOfGraduation">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Xếp loại
+          <span style="color:red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="cetificate.degreeClassification">
+          <option *ngFor="let anApp of positionList" [value]="anApp.value">{{anApp.value}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Hình thức đào tạo
+          <span style="color:red">*</span>
+        </label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Hình thức đào tạo" [(ngModel)]="cetificate.modeOfStudy">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Hiệu trưởng
+          <span style="color:red">*</span>
+        </label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Ký tên" [(ngModel)]="cetificate.author">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Ngày cấp
+          <span style="color:red">*</span>
+        </label>
+        <input type="date" class="form-control" id="inputFirstName" placeholder="Ngày cấp" [(ngModel)]="cetificate.date">
       </div>
     </div>
   </div>
 
   <div class="row" *ngIf="actionEdit">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Trạng thái</label>
-        <select class="form-control" [(ngModel)]="user.status">
+        <label for="inputFirstName">Trạng thái
+          <span style="color:red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="cetificate.status">
           <option *ngFor="let anApp of statusList" [value]="anApp.id">{{anApp.value}}</option>
         </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="form-group">
-        <label for="inputFirstName">Mô tả</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Mô tả" [(ngModel)]="user.dsc">
       </div>
     </div>
   </div>

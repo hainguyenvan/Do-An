@@ -52,9 +52,11 @@ export class CetificateService {
   }
 
 
-
-  getAllAccount(): Observable<any> {
-    return this.http.post(Config.API_GET_ALL_ACCOUNT, { token: this.token })
+  // Cetificate List
+  addCeticateList(body): Observable<any> {
+    body.token = this.token;
+    body.yearOfGraduation = Number(body.yearOfGraduation);
+    return this.http.post(Config.API_INSERT_CETIFICATE_LIST, body)
       .map((res: Response) => {
         let json = res.json();
         return json;
@@ -62,8 +64,8 @@ export class CetificateService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  getAllPosition(): Observable<any> {
-    return this.http.post(Config.API_GET_ALL_POSITION, {})
+  getAllCeticateList(): Observable<any> {
+    return this.http.post(Config.API_GET_ALL_CETIFICATE_LIST, {})
       .map((res: Response) => {
         let json = res.json();
         return json;
@@ -71,8 +73,9 @@ export class CetificateService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  addAccount(body): Observable<any> {
-    return this.http.post(Config.API_ADD_ACCOUNT, body)
+  deleteCeticateList(id): Observable<any> {
+    let body = { token: this.token, id: id };
+    return this.http.post(Config.API_DELETE_CETIFICATE_LIST, body)
       .map((res: Response) => {
         let json = res.json();
         return json;
@@ -80,17 +83,9 @@ export class CetificateService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  deleteAccount(code): Observable<any> {
-    return this.http.post(Config.API_DELETE_ACCOUNT, { code: code })
-      .map((res: Response) => {
-        let json = res.json();
-        return json;
-      })
-      .catch((error: any) => Observable.throw(error || 'Server error'));
-  }
-
-  updateAccount(body): Observable<any> {
-    return this.http.post(Config.API_UPDATE_ACCOUNT, body)
+  updateCeticateList(body): Observable<any> {
+    body.token = this.token;
+    return this.http.post(Config.API_UPDATE_CETIFICATE_LIST, body)
       .map((res: Response) => {
         let json = res.json();
         return json;

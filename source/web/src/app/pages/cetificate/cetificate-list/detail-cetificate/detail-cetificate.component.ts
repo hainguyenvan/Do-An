@@ -11,13 +11,13 @@ import { CetificateService } from '../../cetificate.service';
 export class DetailCetificateComponent implements OnInit {
 
   private modalHeader: string;
-  public account: any;
+  public cetificate: any;
 
   constructor(private activeModal: NgbActiveModal, private service: CetificateService) { }
 
   ngOnInit() {
     this.modalHeader = 'Thông tin tài khoản';
-    this.account = this.service.dataItem;
+    this.cetificate = this.service.dataItem;
   }
 
   closeModal() {

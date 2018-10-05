@@ -7,6 +7,7 @@ var thirdparty = require('./third-party');
 var accController = require('./controller/account-controller');
 var positionController = require('./controller/position-controller');
 var cetificateCategoryController = require('./controller/cetificate-category-controller');
+var cetificaetListController = require('./controller/cetificate-list-controller');
 
 // API
 router.get('/', function (req, res) {
@@ -77,7 +78,7 @@ router.route('/deletePosition').post(validate({
 }), positionController.delete);
 
 
-// Cetificate list
+// Cetificate category
 router.route('/getAllCetificateCategory').post(cetificateCategoryController.getAll);
 
 router.route('/insertCetificateCategory').post(validate({
@@ -93,6 +94,43 @@ router.route('/updateCetificateCategory').post(validate({
 router.route('/deleteCetificateCategory').post(validate({
     id: Joi.number().required()
 }), cetificateCategoryController.delete);
+
+
+// Cetificate list
+router.route('/getAllCetificateList').post(cetificaetListController.getAll);
+
+router.route('/insertCetificateList').post(validate({
+    token: Joi.string().required(),
+    title: Joi.string().required(),
+    categoryId: Joi.number().required(),
+    studentName: Joi.string().required(),
+    dateOfBirth: Joi.string().required(),
+    yearOfGraduation: Joi.number().required(),
+    degreeClassification: Joi.string().required(),
+    modeOfStudy: Joi.string().required(),
+    author: Joi.string().required(),
+    date: Joi.string().required()
+}), cetificaetListController.insert);
+
+router.route('/updateCetificateList').post(validate({
+    id: Joi.number().required(),
+    token: Joi.string().required(),
+    title: Joi.string().required(),
+    categoryId: Joi.number().required(),
+    studentName: Joi.string().required(),
+    dateOfBirth: Joi.string().required(),
+    yearOfGraduation: Joi.number().required(),
+    degreeClassification: Joi.string().required(),
+    modeOfStudy: Joi.string().required(),
+    author: Joi.string().required(),
+    date: Joi.string().required(),
+    status: Joi.string().required()
+}), cetificaetListController.update);
+
+router.route('/deleteCetificateList').post(validate({
+    token: Joi.string().required(),
+    id: Joi.number().required()
+}), cetificaetListController.delete);
 
 // Upload images
 router.route("/upload").post(thirdparty.upload);

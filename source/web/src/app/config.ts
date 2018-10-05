@@ -30,4 +30,8 @@ export class Config {
     public static API_DELETE_CETIFICATE_CATEGORY = `${Config.API_ROOT}/deleteCetificateCategory`;
 
     // Cetificate list
+    public static API_GET_ALL_CETIFICATE_LIST = `${Config.API_ROOT}/getAllCetificateList`;
+    public static API_INSERT_CETIFICATE_LIST = `${Config.API_ROOT}/insertCetificateList`;
+    public static API_UPDATE_CETIFICATE_LIST = `${Config.API_ROOT}/updateCetificateList`;
+    public static API_DELETE_CETIFICATE_LIST = `${Config.API_ROOT}/deleteCetificateList`;
 }

@@ -5,6 +5,7 @@ import { routing } from './cetificate-list.routing';
 import { CetificateListComponent } from './cetificate-list.component';
 import { AddCetificateComponent } from './add-cetificate/add-cetificate.component';
 import { DetailCetificateComponent } from './detail-cetificate/detail-cetificate.component';
+import { ModalMessageComponent } from './modal/modal-message.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { FileUploadModule } from "ng2-file-upload";
 
@@ -19,11 +20,13 @@ import { FileUploadModule } from "ng2-file-upload";
   declarations: [
     CetificateListComponent,
     AddCetificateComponent,
-    DetailCetificateComponent
+    DetailCetificateComponent,
+    ModalMessageComponent
   ],
   entryComponents: [
     AddCetificateComponent,
-    DetailCetificateComponent
+    DetailCetificateComponent,
+    ModalMessageComponent
   ],
 })
 export class CetificateListModule { }
