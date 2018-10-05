@@ -24,6 +24,10 @@ router.route('/login').post(validate({
     }
 }), accController.login);
 
+router.route('/getInfoAccount').post(validate({
+    token: Joi.string().required()
+}), accController.getInfo);
+
 router.route('/getAllAccount').post(accController.getAll);
 
 router.route('/addAccount').post(validate({

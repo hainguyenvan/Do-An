@@ -72,7 +72,6 @@ exports.delete = function (req, res) {
         })
 }
 
-
 exports.update = function (req, res) {
     Account.update(req.body)
         .then(result => {
@@ -86,4 +85,24 @@ exports.update = function (req, res) {
                 msg: err
             })
         })
+}
+
+exports.getInfo = function (req, res) {
+    let token = req.body.token;
+    let tokenJson = JWT.decode(token, {
+        complete: true
+    });
+    Account.getById(tokenJson.payload.id)
+        .then(acc => {
+            res.send({
+                status: 200,
+                data: acc
+            });
+        })
+        .catch(err => {
+            res.send({
+                status: 400,
+                msg: err
+            })
+        });
 }

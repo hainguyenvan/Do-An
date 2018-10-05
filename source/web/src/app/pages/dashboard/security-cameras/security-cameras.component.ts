@@ -24,9 +24,9 @@ export class SecurityCamerasComponent {
   selectedCamera: any = this.cameras[0];
 
   userMenu = [{
-    title: 'Profile',
+    title: 'Hồ sơ',
   }, {
-    title: 'Log out',
+    title: 'Đăng xuất',
   }];
 
   isSingleView = false;

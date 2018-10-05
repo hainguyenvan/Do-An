@@ -1,7 +1,9 @@
 
-import { of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Config } from '../../config';
 
 let counter = 0;
 
@@ -18,13 +20,20 @@ export class UserService {
   };
 
   private userArray: any[];
+  private token: String;
+  private
 
-  constructor() {
-    // this.userArray = Object.values(this.users);
+  constructor(private http: Http) {
+    this.token = localStorage.getItem(Config.TOKEN_KEY);
   }
 
   getUsers(): Observable<any> {
-    return observableOf(this.users);
+    return this.http.post(Config.API_GET_INFO_ACCOUNT, { token: this.token })
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
   getUserArray(): Observable<any[]> {

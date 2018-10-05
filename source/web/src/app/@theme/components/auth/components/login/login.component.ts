@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthSocialLink } from '../../auth.options';
 import { getDeepFromObject } from '../../helpers';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthHttp, AuthConfig, JwtHelper } from 'angular2-jwt';
 
 import { AuthCustomService } from "../../auth-custom.service";
 
 import { Config } from '../../../../../config';
+import { ModalMessageComponent } from '../../modal/modal-message.component';
 
 @Component({
   selector: 'nb-login',
@@ -32,7 +34,8 @@ export class NbLoginComponent {
   constructor(protected service: AuthCustomService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     protected cd: ChangeDetectorRef,
-    protected router: Router) {
+    protected router: Router,
+    private modalService: NgbModal) {
 
     this.redirectDelay = this.getConfigValue('forms.login.redirectDelay');
     this.showMessages = this.getConfigValue('forms.login.showMessages');
@@ -55,7 +58,9 @@ export class NbLoginComponent {
         localStorage.setItem(Config.TOKEN_KEY, res.data.token);
         this.router.navigate(link);
       } else {
-        alert('Email hoặc mật khẩu không đúng');
+        const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+        activeModal.componentInstance.modalHeader = 'Thông báo';
+        activeModal.componentInstance.modalMessage = 'Email hoặc mật khẩu không đúng';
       }
     });
   }

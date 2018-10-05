@@ -84,6 +84,8 @@ export function nbNoOpInterceptorFilter(req: HttpRequest<any>): boolean {
   return true;
 }
 
+import { ModalMessageComponent } from './modal/modal-message.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -105,6 +107,7 @@ export function nbNoOpInterceptorFilter(req: HttpRequest<any>): boolean {
     NbRequestPasswordComponent,
     NbResetPasswordComponent,
     NbLogoutComponent,
+    ModalMessageComponent
   ],
   exports: [
     NbAuthComponent,
@@ -115,10 +118,13 @@ export function nbNoOpInterceptorFilter(req: HttpRequest<any>): boolean {
     NbResetPasswordComponent,
     NbLogoutComponent,
   ],
+  entryComponents: [
+    ModalMessageComponent
+  ],
 })
 export class NbAuthModule {
   static forRoot(nbAuthOptions?: NbAuthOptions): ModuleWithProviders {
-    return <ModuleWithProviders> {
+    return <ModuleWithProviders>{
       ngModule: NbAuthModule,
       providers: [
         { provide: NB_AUTH_USER_OPTIONS, useValue: nbAuthOptions },

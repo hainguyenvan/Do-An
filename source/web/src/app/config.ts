@@ -16,6 +16,7 @@ export class Config {
     public static API_ADD_ACCOUNT = `${Config.API_ROOT}/addAccount`;
     public static API_DELETE_ACCOUNT = `${Config.API_ROOT}/deleteAccount`;
     public static API_UPDATE_ACCOUNT = `${Config.API_ROOT}/updateAccount`;
+    public static API_GET_INFO_ACCOUNT = `${Config.API_ROOT}/getInfoAccount`;
 
     // Position
     public static API_GET_ALL_POSITION = `${Config.API_ROOT}/getAllPosition`;
