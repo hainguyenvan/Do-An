@@ -16,10 +16,12 @@ contract Cetification {
         uint authorId; // Id của người sửa dữ liệu
     }
 
+    // 0: Active, -1: Delete
     struct Author {
         string id;
         string name;
         string sign;
+        string status;
     }
 
     // Lưu trữ số lượng người có quyền phát hành bằng tốt nghiệp
@@ -40,9 +42,15 @@ contract Cetification {
     }
 
     // Add author
-    function addAuthor(string _id,string _name, string _sign) public {
+    function addAuthor(string _id,string _name, string _sign) public returns (bool) {
         authorsCount ++;
-        authors[authorsCount] = Author(_id, _name, _sign);
+        authors[authorsCount] = Author(_id, _name, _sign,"0");
+        return true;
+    }
+
+    // Delete author
+    function updateStatusAuthor(uint id,string status) public returns (bool){
+        authors[id].status = status;
     }
 
     // Add cetificates

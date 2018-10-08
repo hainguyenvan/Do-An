@@ -8,6 +8,7 @@ var accController = require('./controller/account-controller');
 var positionController = require('./controller/position-controller');
 var cetificateCategoryController = require('./controller/cetificate-category-controller');
 var cetificaetListController = require('./controller/cetificate-list-controller');
+var smartContractsController = require('./controller/smart-contracts-controller');
 
 // API
 router.get('/', function (req, res) {
@@ -135,6 +136,25 @@ router.route('/deleteCetificateList').post(validate({
     token: Joi.string().required(),
     id: Joi.number().required()
 }), cetificaetListController.delete);
+
+
+// Smart Contracts
+router.route('/smartcontracts/getAuthorList').post(smartContractsController.getAuthorList);
+
+router.route('/smartcontracts/addAuthor').post(validate({
+    id: Joi.string().required(),
+    name: Joi.string().required(),
+    sign: Joi.string().required(),
+    account: Joi.string().required()
+}), smartContractsController.addAuthor);
+
+router.route('/smartcontracts/updateStatusAuthor').post(validate({
+    id: Joi.number().required(),
+    status: Joi.string().required(),
+    account: Joi.string().required()
+}), smartContractsController.updateStatusAuthor);
+
+
 
 // Upload images
 router.route("/upload").post(thirdparty.upload);
