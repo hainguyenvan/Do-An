@@ -149,7 +149,7 @@ router.route('/smartcontracts/addAuthor').post(validate({
 }), smartContractsController.addAuthor);
 
 router.route('/smartcontracts/updateStatusAuthor').post(validate({
-    id: Joi.number().required(),
+    index: Joi.number().required(),
     status: Joi.string().required(),
     account: Joi.string().required()
 }), smartContractsController.updateStatusAuthor);

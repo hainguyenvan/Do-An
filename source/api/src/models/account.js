@@ -3,6 +3,7 @@ var JWT = require('jsonwebtoken');
 
 var connect = require('../connect');
 var Sequelize = require('sequelize');
+var SmartContracts = require('../smart-contracts/smart-contracts');
 
 class AccountModel {
     constructor() {
@@ -112,7 +113,17 @@ class AccountModel {
                     raw: true
                 })
                 .then(accList => {
-                    Result(accList);
+                    if (accList.length == 0) {
+                        Result([]);
+                    }
+                    for (let i = 0; i < accList.length; i++) {
+                        SmartContracts.getAuthorBySign(accList[i].sign).then(res => {
+                            accList[i].publicPermission = res;
+                            if (i == accList.length - 1) {
+                                Result(accList);
+                            }
+                        });
+                    }
                 })
                 .catch(err => {
                     Err(err);

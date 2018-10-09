@@ -49,8 +49,8 @@ contract Cetification {
     }
 
     // Delete author
-    function updateStatusAuthor(uint id,string status) public returns (bool){
-        authors[id].status = status;
+    function updateStatusAuthor(uint index,string status) public returns (bool){
+        authors[index].status = status;
     }
 
     // Add cetificates

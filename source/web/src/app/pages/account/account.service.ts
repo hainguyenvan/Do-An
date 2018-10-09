@@ -59,4 +59,22 @@ export class AccountService {
       })
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
+
+  updateStatusAuthor(body): Observable<any> {
+    return this.http.post(Config.API_UPDATE_STATUS_AUTHOR_SMART_CONTRACTS, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  addAuthor(body): Observable<any> {
+    return this.http.post(Config.API_INSERT_AUTHOR_SMART_CONTRACTS, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
 }

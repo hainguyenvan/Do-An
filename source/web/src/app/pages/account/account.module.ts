@@ -8,6 +8,7 @@ import { DetailAccountComponent } from './detail-account/detail-account.componen
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { FileUploadModule } from "ng2-file-upload";
 import { ModalMessageComponent } from './modal/modal-message.component';
+import { SmartContractsComponent } from './smart-contracts/smart-contracts.component';
 
 @NgModule({
   imports: [
@@ -21,12 +22,14 @@ import { ModalMessageComponent } from './modal/modal-message.component';
     AccountComponent,
     AddAccountComponent,
     DetailAccountComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    SmartContractsComponent
   ],
   entryComponents: [
     AddAccountComponent,
     DetailAccountComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    SmartContractsComponent
   ],
 })
 export class AccountModule { }

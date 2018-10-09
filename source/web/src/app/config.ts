@@ -6,6 +6,9 @@ export class Config {
     public static DETAIL_ACCTION = 'detail';
     public static DELETE_ACTION = 'delete';
     public static EDIT_ACTION = 'edit';
+    public static SMART_CONTRACTS_ACTION = 'smartcontracts';
+
+    public static ACCOUNT = '0xCf3dD57B2D5764Ca66E0a600d718AD51942af21e';
 
     // Upload
     public static API_UPLOAD = `${Config.API_ROOT}/upload`;
@@ -35,4 +38,8 @@ export class Config {
     public static API_INSERT_CETIFICATE_LIST = `${Config.API_ROOT}/insertCetificateList`;
     public static API_UPDATE_CETIFICATE_LIST = `${Config.API_ROOT}/updateCetificateList`;
     public static API_DELETE_CETIFICATE_LIST = `${Config.API_ROOT}/deleteCetificateList`;
+
+    // Smart contracts
+    public static API_UPDATE_STATUS_AUTHOR_SMART_CONTRACTS = `${Config.API_ROOT}/smartcontracts/updateStatusAuthor`;
+    public static API_INSERT_AUTHOR_SMART_CONTRACTS = `${Config.API_ROOT}/smartcontracts/addAuthor`;
 }

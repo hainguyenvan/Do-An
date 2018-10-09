@@ -79,13 +79,49 @@ class SmartContracts {
         });
     }
 
+    getAuthorBySign(sign) {
+        return new Promise((Result, Err) => {
+            let dataAuthor = {};
+            this.cetification.authorsCount().then(count => {
+                if (count == 0) {
+                    Result(author);
+                }
+                for (let i = 1; i <= count; i++) {
+                    this.cetification.authors(i).then(author => {
+                        if (sign == author[2]) {
+                            let id = author[0];
+                            let name = author[1];
+                            let sign = author[2];
+                            let status = author[3];
+
+                            dataAuthor = {
+                                index: i,
+                                id: id,
+                                name: name,
+                                sign: sign,
+                                status: status
+                            };
+                            Result(dataAuthor);
+                        }
+                        if (i == count) {
+                            Result(dataAuthor);
+                        }
+                    });
+                }
+
+            }).catch(err => {
+                Err(err);
+            });
+        });
+    }
+
     updateStatus(data) {
         return new Promise((Result, Err) => {
             let config = {
                 from: data.account,
                 gas: 6000000
             }
-            this.cetification.updateStatusAuthor(data.id, data.status, config)
+            this.cetification.updateStatusAuthor(data.index, data.status, config)
                 .then(status => {
                     Result(true);
                 })

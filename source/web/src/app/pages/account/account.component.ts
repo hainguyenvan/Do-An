@@ -11,6 +11,7 @@ import { AddAccountComponent } from './add-account/add-account.component';
 import { DetailAccountComponent } from './detail-account/detail-account.component';
 import { sample } from 'rxjs-compat/operator/sample';
 import { ModalMessageComponent } from './modal/modal-message.component';
+import { SmartContractsComponent } from './smart-contracts/smart-contracts.component';
 
 
 @Component({
@@ -36,6 +37,10 @@ export class AccountComponent implements OnInit {
         {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
+        },
+        {
+          name: 'smartcontracts',
+          title: '<i class="ion-clipboard"></i>'
         }
       ]
     },
@@ -77,6 +82,10 @@ export class AccountComponent implements OnInit {
         title: 'Chức vụ',
         type: 'string',
       },
+      strPublicPermission: {
+        title: 'Trạng thái cấp bằng',
+        type: 'string',
+      },
       strStatus: {
         title: 'Trạng thái',
         type: 'string',
@@ -111,6 +120,9 @@ export class AccountComponent implements OnInit {
         this.showModalAddAccount();
         this.service.acction = Config.EDIT_ACTION;
         break;
+      case Config.SMART_CONTRACTS_ACTION:
+        this.showModalUpadteStatusSmartContracts();
+        break;
       default:
         break;
     }
@@ -138,6 +150,19 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  showModalUpadteStatusSmartContracts() {
+    const activeModal = this.modalService.open(SmartContractsComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_SUBMIT:
+          this.onSearch();
+          break;
+        default:
+      }
+    });
+  }
+
   showModalDeatailAccount() {
     const activeModal = this.modalService.open(DetailAccountComponent, { size: 'lg', container: 'nb-layout' });
   }
@@ -155,6 +180,13 @@ export class AccountComponent implements OnInit {
         default:
       }
     });
+  }
+
+  getStrOfPulicPermission(permission) {
+    if (permission.status == undefined || permission.status == -1) {
+      return 'Không được phép';
+    }
+    return 'Được phép';
   }
 
   onSearch() {
@@ -181,6 +213,7 @@ export class AccountComponent implements OnInit {
         }
         item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
         item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
+        item.strPublicPermission = this.getStrOfPulicPermission(item.publicPermission);
       });
       this.source.load(res.data);
     })
