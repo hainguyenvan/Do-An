@@ -154,6 +154,37 @@ router.route('/smartcontracts/updateStatusAuthor').post(validate({
     account: Joi.string().required()
 }), smartContractsController.updateStatusAuthor);
 
+// Certificate
+router.route('/smartcontracts/getCertificateList').post(smartContractsController.getCertificateList);
+
+router.route('/smartcontracts/addCertificate').post(validate({
+    code: Joi.string().required(),
+    title: Joi.string().required(),
+    studentName: Joi.string().required(),
+    dataOfBirth: Joi.string().required(),
+    yearOfGraduation: Joi.number().required(),
+    degreeClassification: Joi.string().required(),
+    modeOfStudy: Joi.string().required(),
+    date: Joi.string().required(),
+    author: Joi.string().required(),
+    updateBy: Joi.number().required(),
+    account: Joi.string().required()
+}), smartContractsController.addCetificate);
+
+router.route('/smartcontracts/updateCertificate').post(validate({
+    index: Joi.number().required(),
+    title: Joi.string().required(),
+    studentName: Joi.string().required(),
+    dataOfBirth: Joi.string().required(),
+    yearOfGraduation: Joi.number().required(),
+    degreeClassification: Joi.string().required(),
+    modeOfStudy: Joi.string().required(),
+    date: Joi.string().required(),
+    author: Joi.string().required(),
+    updateBy: Joi.number().required(),
+    status: Joi.number().required(),
+    account: Joi.string().required()
+}), smartContractsController.updateCertificate);
 
 
 // Upload images

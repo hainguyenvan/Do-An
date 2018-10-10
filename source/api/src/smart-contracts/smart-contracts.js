@@ -130,6 +130,101 @@ class SmartContracts {
                 });
         });
     }
+
+    getCertificateList() {
+        return new Promise((Result, Err) => {
+            let dataList = [];
+            this.cetification.certificatesCount().then(count => {
+                if (count == 0) {
+                    Result(dataList);
+                }
+                for (let i = 1; i <= count; i++) {
+                    this.cetification.certificates(i).then(result => {
+                        let item = {
+                            code: web3.utils.hexToUtf8(result[0]),
+                            title: web3.utils.hexToUtf8(result[1]), // Tên bằng tốt nghiệp
+                            studentName: web3.utils.hexToUtf8(result[2]), // Tên sinh viên
+                            dataOfBirth: web3.utils.hexToUtf8(result[3]), // Ngày tháng năm sinh
+                            yearOfGraduation: Number(result[4]), // Năng tốt nghiệp
+                            degreeClassification: web3.utils.hexToUtf8(result[5]), // Loại bằng
+                            modeOfStudy: web3.utils.hexToUtf8(result[6]), // Hình thức đào tạo
+                            date: web3.utils.hexToUtf8(result[7]), // Ngày phát hành
+                            author: web3.utils.hexToUtf8(result[8]), // Người cấp bằng
+                            updateBy: Number(result[9]), // Id của người sửa dữ liệu
+                            status: Number(result[10]) // Trang thai bang
+                        };
+                        dataList.push(item);
+                        if (i == count) {
+                            Result(dataList);
+                        }
+                    });
+                }
+
+            }).catch(err => {
+                Err(err);
+            });
+        });
+    }
+
+    addCertificate(data) {
+        return new Promise((Result, Err) => {
+            let config = {
+                from: data.account,
+                gas: 6000000
+            };
+            let code = web3.utils.fromAscii(data.code);
+            let title = web3.utils.fromAscii(data.title);
+            let studentName = web3.utils.fromAscii(data.studentName);
+            let dataOfBirth = web3.utils.fromAscii(data.dateOfBirth);
+            let yearOfGraduation = data.yearOfGraduation;
+            let degreeClassification = web3.utils.fromAscii(data.degreeClassification);
+            let modeOfStudy = web3.utils.fromAscii(data.modeOfStudy);
+            let date = web3.utils.fromAscii(data.date);
+            let author = web3.utils.fromAscii(data.author);
+            let updateBy = data.updateBy;
+            this.cetification.addCertificate(code, title, studentName, dataOfBirth,
+                    yearOfGraduation, degreeClassification, modeOfStudy, date,
+                    author, updateBy, config)
+                .then(status => {
+                    Result(status);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
+    updateCertificate(data) {
+        return new Promise((Result, Err) => {
+            let config = {
+                from: data.account,
+                gas: 6000000
+            };
+            let title = web3.utils.fromAscii(data.title);
+            let index = data.index;
+            let studentName = web3.utils.fromAscii(data.studentName);
+            let dataOfBirth = web3.utils.fromAscii(data.dateOfBirth);
+            let yearOfGraduation = data.yearOfGraduation;
+            let degreeClassification = web3.utils.fromAscii(data.degreeClassification);
+            let modeOfStudy = web3.utils.fromAscii(data.modeOfStudy);
+            let date = web3.utils.fromAscii(data.date);
+            let author = web3.utils.fromAscii(data.author);
+            let updateBy = data.updateBy;
+            let status = data.status;
+            this.cetification.updateCertificate(index, title,
+                    studentName, dataOfBirth,
+                    yearOfGraduation, degreeClassification,
+                    modeOfStudy, date,
+                    author, updateBy, status, config)
+                .then(status => {
+                    Result(status);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
 }
 
 module.exports = new SmartContracts();

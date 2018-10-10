@@ -4,16 +4,17 @@ contract Cetification {
     
     // Cấu trúc của một bằng tốt nghiệp
     struct Certificate {
-        bytes32 id;
+        bytes32 code;
         bytes32 title; // Tên bằng tốt nghiệp
         bytes32 studentName; // Tên sinh viên
         bytes32 dataOfBirth; // Ngày tháng năm sinh
         uint yearOfGraduation; // Năng tốt nghiệp
         bytes32 degreeClassification; // Loại bằng
         bytes32 modeOfStudy; // Hình thức đào tạo
-        bytes32 timeCreate; // Ngày phát hành
+        bytes32 date; // Ngày phát hành
         bytes32 author; // Người cấp bằng
-        uint authorId; // Id của người sửa dữ liệu
+        uint updateBy; // Id của người sửa dữ liệu
+        uint status; // Trang thai bang
     }
 
     // 0: Active, -1: Delete
@@ -54,31 +55,32 @@ contract Cetification {
     }
 
     // Add cetificates
-    function editCertificate(bytes32 id, bytes32 title, 
+    function addCertificate(bytes32 code, bytes32 title, 
         bytes32 studentName, bytes32 dataOfBirth ,
         uint yearOfGraduation, bytes32 degreeClassification, 
-        bytes32 modeOfStudy, bytes32 timeCreate, 
-        bytes32 author, uint authorId) public
+        bytes32 modeOfStudy, bytes32 date, 
+        bytes32 author, uint updateBy) public
     {
         certificatesCount ++;
-        certificates[certificatesCount] = Certificate(id, title, studentName, dataOfBirth , yearOfGraduation, degreeClassification, modeOfStudy, timeCreate, author, authorId);
+        certificates[certificatesCount] = Certificate(code, title, studentName, dataOfBirth , yearOfGraduation, degreeClassification, modeOfStudy, date, author, updateBy,0);
     }
 
-
-    // // Vote
-    // function vote(uint _candidateId) public {
-    //     // require that they haven't voted before
-    //     require(!voters[msg.sender]);
-
-    //     // require a valid candidate
-    //     require(_candidateId > 0 && _candidateId <= candidatesCount);
-
-    //     voters[msg.sender] = true;
-
-    //     // update candidate vote count
-    //     candidates[_candidateId].voteCount ++;
-
-    //     // trigger voted event
-    //     // emit votedEvent(_candidateId);
-    // }
+    // Update cetificates
+     function updateCertificate(uint index, bytes32 title, 
+        bytes32 studentName, bytes32 dataOfBirth ,
+        uint yearOfGraduation, bytes32 degreeClassification, 
+        bytes32 modeOfStudy, bytes32 date, 
+        bytes32 author, uint updateBy, uint status) public
+    {
+        certificates[index].title = title;
+        certificates[index].studentName = studentName;
+        certificates[index].dataOfBirth = dataOfBirth;
+        certificates[index].yearOfGraduation = yearOfGraduation;
+        certificates[index].degreeClassification = degreeClassification;
+        certificates[index].modeOfStudy = modeOfStudy;
+        certificates[index].date = date;
+        certificates[index].author = author;
+        certificates[index].updateBy = updateBy;
+        certificates[index].status = status;
+    }
 }
