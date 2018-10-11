@@ -3,6 +3,7 @@ var JWT = require('jsonwebtoken');
 var Crypto = require('crypto');
 
 var Account = require('../models/account');
+var SmartContracts = require('../smart-contracts/smart-contracts');
 
 var accountModel = Account.model;
 
@@ -12,9 +13,12 @@ exports.login = function (req, res) {
     let password = req.body.password;
     Account.login(email, password)
         .then(acc => {
-            res.send({
-                status: 200,
-                data: acc
+            SmartContracts.getAuthorBySign(acc.sign).then(author => {
+                acc.authorSmartContracts = author;
+                res.send({
+                    status: 200,
+                    data: acc
+                });
             });
         })
         .catch(err => {

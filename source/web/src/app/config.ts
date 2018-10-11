@@ -1,6 +1,7 @@
 export class Config {
     public static API_ROOT = 'http://localhost:3002';
     public static TOKEN_KEY = 'CETIFICATIONS_WEB_ADMIN';
+    public static OJBJECT_KEY = 'CETIFICATIONS_OBJECT_KEY';
     public static EVENT_CLOSE = 'close';
     public static EVENT_SUBMIT = 'submit';
     public static DETAIL_ACCTION = 'detail';
@@ -42,4 +43,7 @@ export class Config {
     // Smart contracts
     public static API_UPDATE_STATUS_AUTHOR_SMART_CONTRACTS = `${Config.API_ROOT}/smartcontracts/updateStatusAuthor`;
     public static API_INSERT_AUTHOR_SMART_CONTRACTS = `${Config.API_ROOT}/smartcontracts/addAuthor`;
+
+    public static API_INSERT_CERTIFICATE_SMAERT_CONTRACTS = `${Config.API_ROOT}/smartcontracts/addCertificate`;
+    public static API_UPDATE_CERTIFICATE_SMART_CONTRACTS = `${Config.API_ROOT}//smartcontracts/updateCertificate`;
 }

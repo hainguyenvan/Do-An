@@ -6,6 +6,7 @@ import { CetificateListComponent } from './cetificate-list.component';
 import { AddCetificateComponent } from './add-cetificate/add-cetificate.component';
 import { DetailCetificateComponent } from './detail-cetificate/detail-cetificate.component';
 import { ModalMessageComponent } from './modal/modal-message.component';
+import { SmartContractsComponent } from './smart-contracts/smart-contracts.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { FileUploadModule } from "ng2-file-upload";
 
@@ -21,12 +22,14 @@ import { FileUploadModule } from "ng2-file-upload";
     CetificateListComponent,
     AddCetificateComponent,
     DetailCetificateComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    SmartContractsComponent
   ],
   entryComponents: [
     AddCetificateComponent,
     DetailCetificateComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    SmartContractsComponent
   ],
 })
 export class CetificateListModule { }

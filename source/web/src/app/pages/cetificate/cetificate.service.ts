@@ -8,11 +8,14 @@ import { Config } from '../../config';
 export class CetificateService {
 
   private token: String;
+  private infoAccount: any;
   public dataItem: any;
   public acction: String;
 
   constructor(private http: Http) {
     this.token = localStorage.getItem(Config.TOKEN_KEY);
+    let dataAccount = localStorage.getItem(Config.OJBJECT_KEY);
+    this.infoAccount = JSON.parse(dataAccount);
   }
 
   getAllCeticateCategory(): Observable<any> {
@@ -86,6 +89,28 @@ export class CetificateService {
   updateCeticateList(body): Observable<any> {
     body.token = this.token;
     return this.http.post(Config.API_UPDATE_CETIFICATE_LIST, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  // Smart contracts
+  updateCeticateSmartContracts(body): Observable<any> {
+    body.token = this.token;
+    body.status = Number(body.status);
+    return this.http.post(Config.API_UPDATE_CERTIFICATE_SMART_CONTRACTS, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  addCeticateSmartContracts(body): Observable<any> {
+    body.token = this.token;
+    return this.http.post(Config.API_INSERT_CERTIFICATE_SMAERT_CONTRACTS, body)
       .map((res: Response) => {
         let json = res.json();
         return json;

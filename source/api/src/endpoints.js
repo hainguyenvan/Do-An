@@ -114,7 +114,7 @@ router.route('/insertCetificateList').post(validate({
     degreeClassification: Joi.string().required(),
     modeOfStudy: Joi.string().required(),
     author: Joi.string().required(),
-    date: Joi.string().required()
+    date: Joi.string().required(),
 }), cetificaetListController.insert);
 
 router.route('/updateCetificateList').post(validate({
@@ -129,7 +129,7 @@ router.route('/updateCetificateList').post(validate({
     modeOfStudy: Joi.string().required(),
     author: Joi.string().required(),
     date: Joi.string().required(),
-    status: Joi.string().required()
+    status: Joi.string().required(),
 }), cetificaetListController.update);
 
 router.route('/deleteCetificateList').post(validate({
@@ -144,14 +144,12 @@ router.route('/smartcontracts/getAuthorList').post(smartContractsController.getA
 router.route('/smartcontracts/addAuthor').post(validate({
     id: Joi.string().required(),
     name: Joi.string().required(),
-    sign: Joi.string().required(),
-    account: Joi.string().required()
+    sign: Joi.string().required()
 }), smartContractsController.addAuthor);
 
 router.route('/smartcontracts/updateStatusAuthor').post(validate({
     index: Joi.number().required(),
-    status: Joi.string().required(),
-    account: Joi.string().required()
+    status: Joi.string().required()
 }), smartContractsController.updateStatusAuthor);
 
 // Certificate
@@ -167,8 +165,7 @@ router.route('/smartcontracts/addCertificate').post(validate({
     modeOfStudy: Joi.string().required(),
     date: Joi.string().required(),
     author: Joi.string().required(),
-    updateBy: Joi.number().required(),
-    account: Joi.string().required()
+    updateBy: Joi.number().required()
 }), smartContractsController.addCetificate);
 
 router.route('/smartcontracts/updateCertificate').post(validate({
@@ -183,7 +180,6 @@ router.route('/smartcontracts/updateCertificate').post(validate({
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
     status: Joi.number().required(),
-    account: Joi.string().required()
 }), smartContractsController.updateCertificate);
 
 

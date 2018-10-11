@@ -28,7 +28,8 @@ export class AddCetificateComponent implements OnInit {
   public cetificate: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: CetificateService) { }
+  constructor(private activeModal: NgbActiveModal, private service: CetificateService) {
+  }
 
   ngOnInit() {
     this.modalHeader = 'Thêm chứng chỉ';

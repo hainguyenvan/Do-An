@@ -1,6 +1,7 @@
 const Config = {
     HTTP_PORT: 3002,
     HTTP_ROOT: 'http://localhost:3002',
+    ACCOUNT: '0xCf3dD57B2D5764Ca66E0a600d718AD51942af21e',
 
     // DB
     DB_HOST: '172.104.167.189',
@@ -12,7 +13,7 @@ const Config = {
 
 
     // Contract ID
-    CONTRACTS_ID: '0x299d8b6aee264dbae07f989e767e58d685f2deab',
+    CONTRACTS_ID: '0xd807d1002b52d153237bf7f1524ef23cbb59c116',
 }
 
 module.exports = Config;

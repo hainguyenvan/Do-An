@@ -11,6 +11,7 @@ import { AddCetificateComponent } from './add-cetificate/add-cetificate.componen
 import { DetailCetificateComponent } from './detail-cetificate/detail-cetificate.component';
 import { sample } from 'rxjs-compat/operator/sample';
 import { ModalMessageComponent } from './modal/modal-message.component';
+import { SmartContractsComponent } from './smart-contracts/smart-contracts.component';
 
 
 @Component({
@@ -36,6 +37,10 @@ export class CetificateListComponent implements OnInit {
         {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
+        },
+        {
+          name: 'smartcontracts',
+          title: '<i class="ion-document-text"></i>'
         }
       ]
     },
@@ -113,8 +118,11 @@ export class CetificateListComponent implements OnInit {
         }
         break;
       case Config.EDIT_ACTION:
-        this.showModalAddAccount();
         this.service.acction = Config.EDIT_ACTION;
+        this.showModalAddAccount();
+        break;
+      case Config.SMART_CONTRACTS_ACTION:
+        this.showModalSmartContracts();
         break;
       default:
         break;
@@ -145,6 +153,21 @@ export class CetificateListComponent implements OnInit {
 
   showModalDeatailAccount() {
     const activeModal = this.modalService.open(DetailCetificateComponent, { size: 'lg', container: 'nb-layout' });
+  }
+
+  showModalSmartContracts() {
+    const activeModal = this.modalService.open(SmartContractsComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_CLOSE:
+          break;
+        case Config.EVENT_SUBMIT:
+          this.onSearch();
+          break;
+        default:
+      }
+    });
   }
 
   showModalAddAccount() {

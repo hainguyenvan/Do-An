@@ -56,6 +56,7 @@ export class NbLoginComponent {
     this.service.login(email, pass).subscribe(res => {
       if (res.status == 200) {
         localStorage.setItem(Config.TOKEN_KEY, res.data.token);
+        localStorage.setItem(Config.OJBJECT_KEY, JSON.stringify(res.data));
         this.router.navigate(link);
       } else {
         const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
