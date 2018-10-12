@@ -14,7 +14,8 @@ contract Cetification {
         bytes32 date; // Ngày phát hành
         bytes32 author; // Người cấp bằng
         uint updateBy; // Id của người sửa dữ liệu
-        uint status; // Trang thai bang
+        uint status; // Trang thai bang,
+        bytes32 timeUpdate;
     }
 
     // 0: Active, -1: Delete
@@ -42,6 +43,21 @@ contract Cetification {
         addAuthor("GV001", "hainv", "0x0000000000112121212121212");
     }
 
+    event eventUpdateCertificate(
+        bytes32 _code, 
+        bytes32 _title, 
+        bytes32 _studentName, 
+        bytes32 _dataOfBirth, 
+        uint _yearOfGraduation, 
+        bytes32 _degreeClassification, 
+        bytes32 _modeOfStudy,
+        bytes32 _date, 
+        bytes32 _author, 
+        uint _updateBy, 
+        uint _status,
+        bytes32 _timeUpdate
+    );
+
     // Add author
     function addAuthor(string _id,string _name, string _sign) public returns (bool) {
         authorsCount ++;
@@ -59,10 +75,11 @@ contract Cetification {
         bytes32 studentName, bytes32 dataOfBirth ,
         uint yearOfGraduation, bytes32 degreeClassification, 
         bytes32 modeOfStudy, bytes32 date, 
-        bytes32 author, uint updateBy) public
+        bytes32 author, uint updateBy,bytes32 timeUpdate) public
     {
         certificatesCount ++;
-        certificates[certificatesCount] = Certificate(code, title, studentName, dataOfBirth , yearOfGraduation, degreeClassification, modeOfStudy, date, author, updateBy,0);
+        certificates[certificatesCount] = Certificate(code, title, studentName, dataOfBirth , yearOfGraduation, degreeClassification, modeOfStudy, date, author, updateBy,1,timeUpdate);
+        emit eventUpdateCertificate(code, title, studentName, dataOfBirth , yearOfGraduation, degreeClassification, modeOfStudy, date, author, updateBy,1,timeUpdate);
     }
 
     // Update cetificates
@@ -70,7 +87,7 @@ contract Cetification {
         bytes32 studentName, bytes32 dataOfBirth ,
         uint yearOfGraduation, bytes32 degreeClassification, 
         bytes32 modeOfStudy, bytes32 date, 
-        bytes32 author, uint updateBy, uint status) public
+        bytes32 author, uint updateBy, uint status,bytes32 timeUpdate) public
     {
         certificates[index].title = title;
         certificates[index].studentName = studentName;
@@ -82,5 +99,7 @@ contract Cetification {
         certificates[index].author = author;
         certificates[index].updateBy = updateBy;
         certificates[index].status = status;
+        certificates[index].timeUpdate = timeUpdate;
+        emit eventUpdateCertificate(certificates[index].code, title, studentName, dataOfBirth , yearOfGraduation, degreeClassification, modeOfStudy, date, author, updateBy,status,timeUpdate);
     }
 }

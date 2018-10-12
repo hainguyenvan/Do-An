@@ -1,5 +1,6 @@
 const Web3 = require('web3');
 const Config = require('../config');
+const ABI = require('../abi');
 
 const NETWORK_ADDRS = "http://localhost:7545";
 let provider = new Web3.providers.HttpProvider(NETWORK_ADDRS);
@@ -11,6 +12,17 @@ var resolve = require('path').resolve;
 var pathFileContracts = resolve('../smart-contracts/build/contracts/Cetification.json');
 const cetificationArtifacts = require(pathFileContracts);
 
+var getCurrentDate = function () {
+    var d = new Date;
+    var dformat = [d.getMonth() + 1,
+            d.getDate(),
+            d.getFullYear()
+        ].join('/') + ' ' + [d.getHours(),
+            d.getMinutes(),
+            d.getSeconds()
+        ].join(':');
+    return dformat;
+}
 
 class SmartContracts {
     constructor() {
@@ -151,7 +163,8 @@ class SmartContracts {
                             date: web3.utils.hexToUtf8(result[7]), // Ngày phát hành
                             author: web3.utils.hexToUtf8(result[8]), // Người cấp bằng
                             updateBy: Number(result[9]), // Id của người sửa dữ liệu
-                            status: Number(result[10]) // Trang thai bang
+                            status: Number(result[10]), // Trang thai bang
+                            timeUpdate: web3.utils.hexToUtf8(result[11])
                         };
                         dataList.push(item);
                         if (i == count) {
@@ -189,7 +202,8 @@ class SmartContracts {
                                 date: web3.utils.hexToUtf8(result[7]), // Ngày phát hành
                                 author: web3.utils.hexToUtf8(result[8]), // Người cấp bằng
                                 updateBy: Number(result[9]), // Id của người sửa dữ liệu
-                                status: Number(result[10]) // Trang thai bang
+                                status: Number(result[10]), // Trang thai bang
+                                timeUpdate: web3.utils.hexToUtf8(result[11])
                             };
                             Result(certificate);
                         }
@@ -220,9 +234,10 @@ class SmartContracts {
             let date = web3.utils.fromAscii(data.date);
             let author = web3.utils.fromAscii(data.author);
             let updateBy = data.updateBy;
+            let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             this.cetification.addCertificate(code, title, studentName, dataOfBirth,
                     yearOfGraduation, degreeClassification, modeOfStudy, date,
-                    author, updateBy, config)
+                    author, updateBy, timeUpdate, config)
                 .then(status => {
                     Result(status);
                 })
@@ -249,11 +264,12 @@ class SmartContracts {
             let author = web3.utils.fromAscii(data.author);
             let updateBy = data.updateBy;
             let status = data.status;
+            let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             this.cetification.updateCertificate(index, title,
                     studentName, dataOfBirth,
                     yearOfGraduation, degreeClassification,
                     modeOfStudy, date,
-                    author, updateBy, status, config)
+                    author, updateBy, status, timeUpdate, config)
                 .then(status => {
                     Result(status);
                 })
@@ -263,6 +279,29 @@ class SmartContracts {
         });
     }
 
+
+    getDataChanegs() {
+        return new Promise((Result, Err) => {
+            try {
+                var contract = new web3.eth.Contract(ABI.abi, Config.CONTRACTS_ID);
+                contract.getPastEvents('eventUpdateCertificate', {
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                }, function (error, events) {
+                    if (error) {
+                        console.log('Error in myEvent event handler: ' + error);
+                        Err(error);
+                    } else {
+                        console.log('myEvent: ' + events);
+                        Result(events);
+                    }
+                });
+            } catch (err) {
+                console.log('Err : ', err);
+                Err(err)
+            }
+        });
+    }
 }
 
 module.exports = new SmartContracts();

@@ -144,7 +144,7 @@ router.route('/smartcontracts/getAuthorList').post(smartContractsController.getA
 router.route('/smartcontracts/addAuthor').post(validate({
     id: Joi.string().required(),
     name: Joi.string().required(),
-    sign: Joi.string().required()
+    sign: Joi.string().required(),
 }), smartContractsController.addAuthor);
 
 router.route('/smartcontracts/updateStatusAuthor').post(validate({
@@ -165,7 +165,8 @@ router.route('/smartcontracts/addCertificate').post(validate({
     modeOfStudy: Joi.string().required(),
     date: Joi.string().required(),
     author: Joi.string().required(),
-    updateBy: Joi.number().required()
+    updateBy: Joi.number().required(),
+    token:Joi.string().required()
 }), smartContractsController.addCetificate);
 
 router.route('/smartcontracts/updateCertificate').post(validate({
@@ -180,7 +181,10 @@ router.route('/smartcontracts/updateCertificate').post(validate({
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
     status: Joi.number().required(),
+    token:Joi.string().required()
 }), smartContractsController.updateCertificate);
+
+router.route('/smartcontracts/getDataChanegs').post(smartContractsController.getDataChanegs);
 
 
 // Upload images

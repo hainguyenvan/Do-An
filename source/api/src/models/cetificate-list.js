@@ -200,6 +200,22 @@ class CetificateListModel {
         })
     }
 
+    updateStatus(data) {
+        return new Promise((Result, Err) => {
+            this.model.update(data, {
+                    where: {
+                        id: data.id
+                    }
+                })
+                .then(result =>
+                    Result(result)
+                )
+                .catch(err =>
+                    Err(err)
+                )
+        })
+    }
+
 }
 
 module.exports = new CetificateListModel();
