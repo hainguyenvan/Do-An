@@ -15,12 +15,12 @@ const cetificationArtifacts = require(pathFileContracts);
 var getCurrentDate = function () {
     var d = new Date;
     var dformat = [d.getMonth() + 1,
-            d.getDate(),
-            d.getFullYear()
-        ].join('/') + ' ' + [d.getHours(),
-            d.getMinutes(),
-            d.getSeconds()
-        ].join(':');
+        d.getDate(),
+        d.getFullYear()
+    ].join('/') + ' ' + [d.getHours(),
+        d.getMinutes(),
+        d.getSeconds()
+    ].join(':');
     return dformat;
 }
 
@@ -121,6 +121,33 @@ class SmartContracts {
                     });
                 }
 
+            }).catch(err => {
+                Err(err);
+            });
+        });
+    }
+
+    getAuthorByIndex(index) {
+        return new Promise((Result, Err) => {
+            let dataAuthor = {};
+            this.cetification.authorsCount().then(count => {
+                if (count == 0) {
+                    Result(dataAuthor);
+                }
+                this.cetification.authors(index).then(author => {
+                    let id = author[0];
+                    let name = author[1];
+                    let sign = author[2];
+                    let status = author[3];
+                    dataAuthor = {
+                        index: index,
+                        id: id,
+                        name: name,
+                        sign: sign,
+                        status: status
+                    };
+                    Result(dataAuthor);
+                });
             }).catch(err => {
                 Err(err);
             });
@@ -292,7 +319,6 @@ class SmartContracts {
                         console.log('Error in myEvent event handler: ' + error);
                         Err(error);
                     } else {
-                        console.log('myEvent: ' + events);
                         Result(events);
                     }
                 });

@@ -2,6 +2,19 @@ var SmartContracts = require('../smart-contracts/smart-contracts');
 var JWT = require('jsonwebtoken');
 var CertificateList = require('../models/cetificate-list');
 
+const Web3 = require('web3');
+const Config = require('../config');
+
+const NETWORK_ADDRS = "http://localhost:7545";
+let provider = new Web3.providers.HttpProvider(NETWORK_ADDRS);
+const web3 = new Web3(provider);
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
+}
+
 exports.getAuthorList = function (req, res) {
     SmartContracts.getAuthorList()
         .then(accList => {
@@ -77,7 +90,7 @@ exports.addCetificate = function (req, res) {
         updateBy: tokenJson.payload.id,
         timeUpdate: new Date().getTime(),
         status: 1,
-        id:req.body.id
+        id: req.body.id
     }
     SmartContracts.addCertificate(req.body)
         .then(result => {
@@ -106,7 +119,7 @@ exports.updateCertificate = function (req, res) {
         updateBy: tokenJson.payload.id,
         timeUpdate: new Date().getTime(),
         status: 1,
-        id:req.body.id
+        id: req.body.id
     }
     SmartContracts.updateCertificate(req.body)
         .then(result => {
@@ -129,13 +142,43 @@ exports.updateCertificate = function (req, res) {
 
 exports.getDataChanegs = function (req, res) {
     SmartContracts.getDataChanegs()
-        .then(result => {
+        .then(async (dataList) => {
+            if (dataList.length == 0) {
+                res.send({
+                    status: 200,
+                    data: dataList
+                });
+                return;
+            }
+            let dataSource = [];
+            // Sync data
+            await asyncForEach(dataList, async (item) => {
+                let indexUpdateBy = Number(item.returnValues[9]);
+                await SmartContracts.getAuthorByIndex(indexUpdateBy).then(updateBy => {
+                    let log = {
+                        code: web3.utils.hexToUtf8(item.returnValues[0]),
+                        title: web3.utils.hexToUtf8(item.returnValues[1]),
+                        studentName: web3.utils.hexToUtf8(item.returnValues[2]),
+                        dataOfBirth: web3.utils.hexToUtf8(item.returnValues[3]),
+                        yearOfGraduation: Number(item.returnValues[4]),
+                        degreeClassification: web3.utils.hexToUtf8(item.returnValues[5]),
+                        modeOfStudy: web3.utils.hexToUtf8(item.returnValues[6]),
+                        date: web3.utils.hexToUtf8(item.returnValues[7]),
+                        author: web3.utils.hexToUtf8(item.returnValues[8]),
+                        updateBy: updateBy,
+                        status: Number(item.returnValues[10]),
+                        timeUpdate: web3.utils.hexToUtf8(item.returnValues[11])
+                    };
+                    dataSource.push(log);
+                });
+            });
             res.send({
                 status: 200,
-                data: result
+                data: dataSource
             });
         })
         .catch(err => {
+            console.log(err);
             res.send({
                 status: 400,
                 msg: err
