@@ -5,6 +5,7 @@ import { UserService } from '../../../@core/data/users.service';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { LayoutService } from '../../../@core/data/layout.service';
 import { Router } from '@angular/router';
+import { Config } from '../../../config';
 
 @Component({
   selector: 'ngx-header',
@@ -28,17 +29,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(res => {
-      if (res.status != 200) {
-        console.log('Err: ', res.msg);
-        this.user = {
-          name: '',
-          img: ''
-        }
-        return;
-      }
-      this.user = res.data;
-    });
+    let dataUser = localStorage.getItem(Config.OJBJECT_KEY);
+    this.user =  JSON.parse(dataUser);
+    this.user.picture = this.user.img;
   }
 
   toggleSidebar(): boolean {
