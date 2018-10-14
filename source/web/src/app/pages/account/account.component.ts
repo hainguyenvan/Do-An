@@ -40,7 +40,7 @@ export class AccountComponent implements OnInit {
         },
         {
           name: 'smartcontracts',
-          title: '<i class="ion-clipboard"></i>'
+          title: '<i class="ion-clipboard icon-public"></i>'
         }
       ]
     },

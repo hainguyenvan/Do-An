@@ -19,9 +19,9 @@ export class AddCetificateComponent implements OnInit {
     { id: -1, value: 'Đã xóa' }
   ];
   public positionList: any = [
-    { value: 'Giỏi' },
-    { value: 'Khá' },
-    { value: 'Trung Bình' }
+    { value: 'Gioi' },
+    { value: 'Kha' },
+    { value: 'Trung Binh' }
   ];
 
   public modalHeader: string;

@@ -40,7 +40,7 @@ export class CetificateListComponent implements OnInit {
         },
         {
           name: 'smartcontracts',
-          title: '<i class="ion-document-text"></i>'
+          title: '<i class="ion-document-text icon-public"></i>'
         }
       ]
     },
