@@ -22,6 +22,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'DS chứng chỉ',
         link: '/pages/cetificate-list',
+      },
+      {
+        title: 'Lịch sử  cập nhật',
+        link: '/pages/cetificate-log',
       }
     ]
     // },

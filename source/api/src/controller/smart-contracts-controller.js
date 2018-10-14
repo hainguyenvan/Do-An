@@ -167,7 +167,8 @@ exports.getDataChanegs = function (req, res) {
                         author: web3.utils.hexToUtf8(item.returnValues[8]),
                         updateBy: updateBy,
                         status: Number(item.returnValues[10]),
-                        timeUpdate: web3.utils.hexToUtf8(item.returnValues[11])
+                        timeUpdate: web3.utils.hexToUtf8(item.returnValues[11]),
+                        log: item
                     };
                     dataSource.push(log);
                 });

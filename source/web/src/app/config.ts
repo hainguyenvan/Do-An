@@ -45,5 +45,8 @@ export class Config {
     public static API_INSERT_AUTHOR_SMART_CONTRACTS = `${Config.API_ROOT}/smartcontracts/addAuthor`;
 
     public static API_INSERT_CERTIFICATE_SMAERT_CONTRACTS = `${Config.API_ROOT}/smartcontracts/addCertificate`;
-    public static API_UPDATE_CERTIFICATE_SMART_CONTRACTS = `${Config.API_ROOT}//smartcontracts/updateCertificate`;
+    public static API_UPDATE_CERTIFICATE_SMART_CONTRACTS = `${Config.API_ROOT}/smartcontracts/updateCertificate`;
+
+
+    public static API_GET_LOG_SMART_CONTRACTS = `${Config.API_ROOT}/smartcontracts/getDataChanegs`;
 }

@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: './cetificate/cetificate-list/cetificate-list.module#CetificateListModule',
       },
       {
+        path: 'cetificate-log',
+        loadChildren: './cetificate/log/log.module#LogModule',
+      },
+      {
         path: 'iot-dashboard',
         component: DashboardComponent,
       },

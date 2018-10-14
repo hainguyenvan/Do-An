@@ -117,4 +117,13 @@ export class CetificateService {
       })
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
+
+  getLogCeticateSmartContracts(): Observable<any> {
+    return this.http.post(Config.API_GET_LOG_SMART_CONTRACTS, {})
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
 }
