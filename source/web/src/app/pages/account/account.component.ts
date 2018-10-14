@@ -129,9 +129,16 @@ export class AccountComponent implements OnInit {
   }
 
   deleteAccount(accountCode) {
+    if (Number(this.service.accountItem.publicPermission.status) == 0) {
+      const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+      activeModal.componentInstance.modalHeader = 'Thông báo';
+      activeModal.componentInstance.modalMessage = 'Bạn cần ngừng cấp phép cho giảng viên ' + this.service.accountItem.name + ' trước khi xóa';
+      activeModal.componentInstance.statusButtonSubmit = false;
+      return;
+    }
     const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
     activeModal.componentInstance.modalHeader = 'Thông báo';
-    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa mã giảng viên ' + accountCode + ' ?';
+    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa giảng viên ' + this.service.accountItem.name + ' ?';
     activeModal.componentInstance.statusButtonSubmit = true;
     activeModal.result.then((event) => {
       this.service.acction = null;
@@ -151,6 +158,13 @@ export class AccountComponent implements OnInit {
   }
 
   showModalUpadteStatusSmartContracts() {
+    if (Number(this.service.accountItem.status) == -1) {
+      const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+      activeModal.componentInstance.modalHeader = 'Thông báo';
+      activeModal.componentInstance.modalMessage = 'Bạn cần cấp quyền hoạt động cho giảng viên ' + this.service.accountItem.name + ' trước khi cấp quyền phát hành';
+      activeModal.componentInstance.statusButtonSubmit = false;
+      return;
+    }
     const activeModal = this.modalService.open(SmartContractsComponent, { size: 'lg', container: 'nb-layout' });
     activeModal.result.then((event) => {
       this.service.acction = null;
