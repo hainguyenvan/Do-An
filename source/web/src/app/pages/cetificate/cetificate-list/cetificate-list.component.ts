@@ -83,7 +83,12 @@ export class CetificateListComponent implements OnInit {
         type: 'string',
       },
       strStatus: {
-        title: 'Trạng thái',
+        title: 'Trạng thái cập nhật',
+        type: 'string',
+        width: '15px'
+      },
+      strStatusPublic: {
+        title: 'Trạng thái phát hành',
         type: 'string',
         width: '15px'
       }
@@ -107,14 +112,9 @@ export class CetificateListComponent implements OnInit {
         this.service.acction = Config.DETAIL_ACCTION;
         break;
       case Config.DELETE_ACTION:
-        switch (event.data.status) {
-          case -1:
-            break;
-          case 0:
-            this.deleteCetificate(event.data.id);
-            break;
-          case 1:
-            break;
+        if (event.data.certificateSmartContracts === undefined) {
+          this.deleteCetificate(event.data.id);
+          break;
         }
         break;
       case Config.EDIT_ACTION:
@@ -156,6 +156,13 @@ export class CetificateListComponent implements OnInit {
   }
 
   showModalSmartContracts() {
+    if (Number(this.service.dataItem.status) == -1) {
+      const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+      activeModal.componentInstance.modalHeader = 'Thông báo';
+      activeModal.componentInstance.modalMessage = 'Bạn cần cấp quyền hoạt động cho chứng chỉ ' + this.service.dataItem.code + ' trước khi phát hành';
+      activeModal.componentInstance.statusButtonSubmit = false;
+      return;
+    }
     const activeModal = this.modalService.open(SmartContractsComponent, { size: 'lg', container: 'nb-layout' });
     activeModal.result.then((event) => {
       this.service.acction = null;
@@ -196,12 +203,23 @@ export class CetificateListComponent implements OnInit {
           case 0:
             item.strStatus = 'Chưa phát hành';
             break;
+          case 101:
+            item.strStatus = 'Đã chỉnh sửa';
+            break;
           case 1:
             item.strStatus = 'Đã phát hành';
             break;
           case -1:
             item.strStatus = 'Đã xóa';
             break;
+        }
+        if (item.certificateSmartContracts == undefined) {
+          item.strStatusPublic = 'Chưa phát hành';
+          item.certificateSmartContracts = {
+            status: ''
+          }
+        } else {
+          item.strStatusPublic = item.certificateSmartContracts.status == 1 ? 'Đã phát hành' : 'Ngừng phát hành';
         }
         item.strCategory = item.category.dsc;
         item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
@@ -211,7 +229,6 @@ export class CetificateListComponent implements OnInit {
           return;
         }
       });
-
     })
   }
 }

@@ -55,6 +55,7 @@ export class AddCetificateComponent implements OnInit {
   }
 
   insert() {
+    this.cetificate.status = 101;
     this.service.addCeticateList(this.cetificate).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
@@ -66,6 +67,7 @@ export class AddCetificateComponent implements OnInit {
   }
 
   update() {
+    this.cetificate.status = 101;
     this.service.updateCeticateList(this.cetificate).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
