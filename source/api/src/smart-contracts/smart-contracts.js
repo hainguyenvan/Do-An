@@ -2,7 +2,8 @@ const Web3 = require('web3');
 const Config = require('../config');
 const ABI = require('../abi');
 
-const NETWORK_ADDRS = "http://localhost:7545";
+// const NETWORK_ADDRS = "http://localhost:7545";
+const NETWORK_ADDRS = "http://172.104.167.189:7545";
 let provider = new Web3.providers.HttpProvider(NETWORK_ADDRS);
 const web3 = new Web3(provider);
 
