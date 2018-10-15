@@ -11,6 +11,12 @@ export class Config {
 
     public static ACCOUNT = '0xCf3dD57B2D5764Ca66E0a600d718AD51942af21e';
 
+    // Student
+    public static API_ADD_STUDENT = `${Config.API_ROOT}/insertStudent`;
+    public static API_UPDATE_STUDENT = `${Config.API_ROOT}/updateStudent`;
+    public static API_GET_ALL_STUDENTS = `${Config.API_ROOT}/getAllStudents`;
+    public static API_DELETE_STUDENTS = `${Config.API_ROOT}/updateStudentStatus`;
+
     // Upload
     public static API_UPLOAD = `${Config.API_ROOT}/upload`;
 

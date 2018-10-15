@@ -9,6 +9,7 @@ var positionController = require('./controller/position-controller');
 var cetificateCategoryController = require('./controller/cetificate-category-controller');
 var cetificaetListController = require('./controller/cetificate-list-controller');
 var smartContractsController = require('./controller/smart-contracts-controller');
+var studentController = require('./controller/student-controller');
 
 // API
 router.get('/', function (req, res) {
@@ -166,7 +167,7 @@ router.route('/smartcontracts/addCertificate').post(validate({
     date: Joi.string().required(),
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
-    token:Joi.string().required()
+    token: Joi.string().required()
 }), smartContractsController.addCetificate);
 
 router.route('/smartcontracts/updateCertificate').post(validate({
@@ -181,10 +182,47 @@ router.route('/smartcontracts/updateCertificate').post(validate({
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
     status: Joi.number().required(),
-    token:Joi.string().required()
+    token: Joi.string().required()
 }), smartContractsController.updateCertificate);
 
 router.route('/smartcontracts/getDataChanegs').post(smartContractsController.getDataChanegs);
+
+
+// Student
+router.route('/insertStudent').post(validate({
+    name: Joi.string().required(),
+    code: Joi.string().required(),
+    numberId: Joi.string().required(),
+    email: Joi.string().required(),
+    phone: Joi.string().required(),
+    sex: Joi.number().required(),
+    dateOfBirth: Joi.string().required(),
+    address: Joi.string().required(),
+    img: Joi.string().required(),
+    token: Joi.string().required()
+}), studentController.insert);
+
+router.route('/updateStudent').post(validate({
+    name: Joi.string().required(),
+    code: Joi.string().required(),
+    numberId: Joi.string().required(),
+    email: Joi.string().required(),
+    phone: Joi.string().required(),
+    sex: Joi.number().required(),
+    dateOfBirth: Joi.string().required(),
+    address: Joi.string().required(),
+    img: Joi.string().required(),
+    token: Joi.string().required(),
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), studentController.update);
+
+router.route('/updateStudentStatus').post(validate({
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), studentController.updateByStatus);
+
+router.route('/getAllStudents').post(studentController.getAllStudent);
 
 
 // Upload images

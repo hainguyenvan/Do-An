@@ -12,6 +12,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/position',
   },
   {
+    title: 'DS sinh viên',
+    icon: 'nb-list',
+    link: '/pages/students',
+  },
+  {
+    title: 'Quản lý lớp học',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Danh sách lớp học',
+        link: '/pages/cetificate-category',
+      },
+      {
+        title: 'Quản lý đào tạo',
+        link: '/pages/cetificate-list',
+      }
+    ]
+  },
+  {
     title: 'Chứng chỉ',
     icon: 'nb-keypad',
     children: [

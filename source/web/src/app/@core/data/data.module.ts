@@ -20,6 +20,7 @@ import { AccountService } from '../../pages/account/account.service';
 import { PositionService } from '../../pages/position/position.service';
 import { AuthCustomService } from '../../@theme/components/auth/auth-custom.service';
 import { CetificateService } from '../../pages/cetificate/cetificate.service';
+import { StudentService } from '../../pages/student/student.service';
 
 const SERVICES = [
   UserService,
@@ -40,7 +41,8 @@ const SERVICES = [
   AccountService,
   PositionService,
   AuthCustomService,
-  CetificateService
+  CetificateService,
+  StudentService
 ];
 
 @NgModule({
