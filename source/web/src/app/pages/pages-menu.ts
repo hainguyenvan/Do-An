@@ -22,11 +22,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Danh sách lớp học',
-        link: '/pages/cetificate-category',
+        link: '/pages/classroom-list',
       },
       {
         title: 'Quản lý đào tạo',
-        link: '/pages/cetificate-list',
+        link: '/pages/study-manager',
       }
     ]
   },
