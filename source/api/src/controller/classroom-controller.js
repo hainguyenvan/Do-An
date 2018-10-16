@@ -76,3 +76,20 @@ exports.getAllClassroom = function (req, res) {
             })
         })
 }
+
+
+exports.getClassroomActive = function (req, res) {
+    classroom.getClassroomActive()
+        .then(result => {
+            res.send({
+                status: 200,
+                data: result
+            })
+        })
+        .catch(err => {
+            res.send({
+                status: 200,
+                msg: err
+            })
+        })
+}

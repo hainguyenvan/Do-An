@@ -16,6 +16,7 @@ export class Config {
     public static API_UPDATE_STUDENT = `${Config.API_ROOT}/updateStudent`;
     public static API_GET_ALL_STUDENTS = `${Config.API_ROOT}/getAllStudents`;
     public static API_DELETE_STUDENTS = `${Config.API_ROOT}/updateStudentStatus`;
+    public static API_GET_STUDENT_AVAILABLE = `${Config.API_ROOT}/getStudentAvailable`;
 
 
     // Classroom
@@ -23,6 +24,7 @@ export class Config {
     public static API_UPDATE_CLASS_ROOM = `${Config.API_ROOT}/updateClassroom`;
     public static API_DELETE_CLASS_ROOM = `${Config.API_ROOT}/updateStatusClassroom`;
     public static API_GET_ALL_CLASS_ROOM = `${Config.API_ROOT}/getAllClassroom`;
+    public static API_GET_CLASS_ROOM_ACTIVE = `${Config.API_ROOT}/getClassroomActive`;
 
     // Upload
     public static API_UPLOAD = `${Config.API_ROOT}/upload`;

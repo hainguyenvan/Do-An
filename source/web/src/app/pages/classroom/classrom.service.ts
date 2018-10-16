@@ -58,5 +58,24 @@ export class ClassroomService {
       })
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
+
+  getClassroomActive():Observable<any> {
+    return this.http.post(Config.API_GET_CLASS_ROOM_ACTIVE, {})
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  getStudentAvailable():Observable<any> {
+    return this.http.post(Config.API_GET_STUDENT_AVAILABLE, {})
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
   
 }

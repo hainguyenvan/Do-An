@@ -225,6 +225,8 @@ router.route('/updateStudentStatus').post(validate({
 
 router.route('/getAllStudents').post(studentController.getAllStudent);
 
+router.route('/getStudentAvailable').post(studentController.getStudentAvailable);
+
 
 // Classroom
 router.route('/insertClassroom').post(validate({
@@ -249,7 +251,7 @@ router.route('/updateStatusClassroom').post(validate({
 
 router.route('/getAllClassroom').post(classroomController.getAllClassroom);
 
-
+router.route('/getClassroomActive').post(classroomController.getClassroomActive);
 
 
 // Upload images

@@ -4,7 +4,7 @@ var Sequelize = require('sequelize');
 class StudentModel {
     constructor() {
         var sequelize = connect.sequelize;
-        this.model = sequelize.define('student', {
+        this.model = sequelize.define('student_class_room', {
             id: {
                 field: 'id',
                 type: Sequelize.INTEGER,
@@ -24,7 +24,7 @@ class StudentModel {
                 type: Sequelize.INTEGER
             }
         }, {
-            tableName: 'student'
+            tableName: 'student_class_room'
         });
     }
 
@@ -81,6 +81,39 @@ class StudentModel {
                 .catch(err =>
                     Err(err)
                 )
+        });
+    }
+
+    getAll() {
+        return new Promise((Result, Err) => {
+            this.model.findAll({
+                    raw: true
+                })
+                .then(studentList => {
+                    Result(studentList);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
+    getAvailable() {
+        return new Promise((Result, Err) => {
+            this.model.findAll({
+                    raw: true,
+                    where: {
+                        status: {
+                            $eq: -1
+                        }
+                    }
+                })
+                .then(studentList => {
+                    Result(studentList);
+                })
+                .catch(err => {
+                    Err(err);
+                });
         });
     }
 }

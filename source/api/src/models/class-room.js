@@ -50,7 +50,7 @@ class StudentModel {
         return new Promise((Result, Err) => {
             let dto = {
                 code: data.code,
-                dsc: data.code,
+                dsc: data.dsc,
                 timeCreate: new Date().getTime(),
                 timeUpdate: new Date().getTime(),
                 classroomSign: generateClassroomSign()
@@ -69,7 +69,7 @@ class StudentModel {
         return new Promise((Result, Err) => {
             let dto = {
                 code: data.code,
-                dsc: data.code,
+                dsc: data.dsc,
                 timeUpdate: new Date().getTime(),
                 status: data.status
             }
@@ -113,6 +113,25 @@ class StudentModel {
                 })
                 .then(classroomList => {
                     Result(classroomList);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
+    getClassroomActive() {
+        return new Promise((Result, Err) => {
+            this.model.findAll({
+                    raw: true,
+                    where: {
+                        status: {
+                            $ne: -1
+                        }
+                    }
+                })
+                .then(studentList => {
+                    Result(studentList);
                 })
                 .catch(err => {
                     Err(err);

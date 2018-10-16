@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassroomService } from '../../classrom.service';
 import { Config } from '../../../../config';
+import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 
 @Component({
   selector: 'add-study',
@@ -11,91 +12,97 @@ import { Config } from '../../../../config';
 
 export class AddStudyComponent implements OnInit {
 
-  public sexList: any = [
-    { id: 0, value: 'Nam' },
-    { id: 1, value: 'Nữ' },
-    { id: -1, value: 'Khác' }
-  ];
-  public statusList: any = [
-    { id: 0, value: 'Hoạt động' },
-    { id: -1, value: 'Ngừng hoạt động' }
-  ];
-  public positionList: any = [];
+  settings = {
+    selectMode: 'multi',
+    actions: {
+      delete: false,
+      add: false,
+      edit: false,
+      select: true,
+    },
+    columns: {
+      code: {
+        title: 'Mã sinh viên',
+        type: 'string',
+      },
+      name: {
+        title: 'Họ tên',
+        type: 'string',
+      },
+      email: {
+        title: 'Email',
+        type: 'string',
+      },
+      dateOfBirth: {
+        title: 'Ngày sinh',
+        type: 'string',
+      },
+      strSex: {
+        title: 'Giới tính',
+        type: 'string',
+      }
+    },
+  };
 
+  source: LocalDataSource = new LocalDataSource();
+
+  public classroomList: any = [];
   public modalHeader: string;
-  public user: any = {};
+  public data: any = {};
   public actionEdit: boolean;
 
   constructor(private activeModal: NgbActiveModal, private service: ClassroomService) { }
 
   ngOnInit() {
-    this.modalHeader = 'Thêm tài khoản';
-    // // Get all position
-    // this.service.getAllPosition().subscribe(res => {
-    //   if (res.status != 200) {
-    //     console.log("Err : ", res.msg);
-    //     return;
-    //   }
-    //   this.positionList = res.data;
-    // });
+    this.modalHeader = 'Quản lý đào tạo';
 
-    // if (this.service.acction == Config.EDIT_ACTION) {
-    //   this.modalHeader = 'Cập nhật tài khoản';
-    //   this.actionEdit = true;
-    //   this.user = this.service.accountItem;
-    //   this.user.curentPassword = this.user.password;
-    //   this.user.password = '';
-    // }
+    // Get all classroom active
+    this.service.getClassroomActive().subscribe(res => {
+      if (res.status != 200) {
+        console.log("Err : ", res.msg);
+        return;
+      }
+      this.classroomList = res.data;
+    });
+
+    this.service.getStudentAvailable().subscribe(res => {
+      if (res.status != 200) {
+        console.log('Err : ', res.msg);
+        return;
+      }
+      res.data.forEach(item => {
+        switch (item.sex) {
+          case 0:
+            item.strSex = 'Nam';
+            break;
+          case 1:
+            item.strSex = 'Nữ';
+            break;
+          default:
+            item.strSex = 'Khác';
+        }
+        item.selected = 'Fucking';
+      });
+      this.source.load(res.data);
+    });
+
+    if (this.service.acction == Config.EDIT_ACTION) {
+      this.modalHeader = 'Cập nhật thông tin đào tạo';
+      this.actionEdit = true;
+      this.data = this.service.dataItem;
+    }
   }
 
   closeModal() {
     this.activeModal.close(Config.EVENT_CLOSE);
   }
 
-  addAccount() {
-    // this.user.sex = Number(this.user.sex);
-    // this.service.addAccount(this.user).subscribe(res => {
-    //   if (res.status != 200) {
-    //     this.activeModal.close(Config.EVENT_CLOSE);
-    //     console.log("Err : ", res.msg);
-    //     return;
-    //   }
-    // });
-    // this.activeModal.close(Config.EVENT_SUBMIT);
-  }
-
-  updateAccount() {
-    // this.user.status = Number(this.user.status);
-    // this.user.password = this.user.password == '' ? this.user.curentPassword : this.user.password;
-    // this.service.updateAccount(this.user).subscribe(res => {
-    //   if (res.status != 200) {
-    //     this.activeModal.close(Config.EVENT_CLOSE);
-    //     console.log("Err : ", res.msg);
-    //     return;
-    //   }
-    //   this.activeModal.close(Config.EVENT_SUBMIT);
-    // })
+  onUserRowSelect(event) {
+    this.data.students = event.selected;
   }
 
   onSubmit() {
-    // if (this.flagWarringNullImage) {
-    //   if (this.actionEdit) {
-    //     this.updateAccount();
-    //     return;
-    //   }
-    //   this.addAccount();
-    //   return;
-    // }
-
-    // this.uploader.uploadItem(this.uploader.queue[this.uploader.queue.length - 1]);
-    // this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-    //   var responsePath = JSON.parse(response);
-    //   this.user.img = responsePath.data.img;
-    //   if (this.actionEdit) {
-    //     this.updateAccount();
-    //     return;
-    //   }
-    //   this.addAccount();
-    // }
+    console.log('Data : ', this.data);
+    this.activeModal.close(Config.EVENT_CLOSE);
   }
 }

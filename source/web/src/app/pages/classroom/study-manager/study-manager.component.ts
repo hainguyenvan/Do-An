@@ -117,7 +117,7 @@ export class StudyManagerComponent implements OnInit {
         this.deleteAccount(event.data.code);
         break;
       case Config.EDIT_ACTION:
-        this.showModalAddAccount();
+        this.showModalAddStudy();
         this.service.acction = Config.EDIT_ACTION;
         break;
       case Config.SMART_CONTRACTS_ACTION:
@@ -181,19 +181,19 @@ export class StudyManagerComponent implements OnInit {
     // const activeModal = this.modalService.open(DetailAccountComponent, { size: 'lg', container: 'nb-layout' });
   }
 
-  showModalAddAccount() {
-    // const activeModal = this.modalService.open(AddAccountComponent, { size: 'lg', container: 'nb-layout' });
-    // activeModal.result.then((event) => {
-    //   this.service.acction = null;
-    //   switch (event) {
-    //     case Config.EVENT_CLOSE:
-    //       break;
-    //     case Config.EVENT_SUBMIT:
-    //       this.onSearch();
-    //       break;
-    //     default:
-    //   }
-    // });
+  showModalAddStudy() {
+    const activeModal = this.modalService.open(AddStudyComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_CLOSE:
+          break;
+        case Config.EVENT_SUBMIT:
+          this.onSearch();
+          break;
+        default:
+      }
+    });
   }
 
   getStrOfPulicPermission(permission) {

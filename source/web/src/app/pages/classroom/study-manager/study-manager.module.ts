@@ -16,20 +16,20 @@ import { SmartContractsComponent } from './smart-contracts/smart-contracts.compo
     ThemeModule,
     NgxEchartsModule,
     FileUploadModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
   ],
   declarations: [
     StudyManagerComponent,
     AddStudyComponent,
     DetailStudyComponent,
     ModalMessageComponent,
-    SmartContractsComponent
+    SmartContractsComponent,
   ],
   entryComponents: [
     AddStudyComponent,
     DetailStudyComponent,
     ModalMessageComponent,
-    SmartContractsComponent
+    SmartContractsComponent,
   ],
 })
 export class StudyManagerModule { }

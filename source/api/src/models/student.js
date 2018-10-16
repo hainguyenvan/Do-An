@@ -1,10 +1,18 @@
 var connect = require('../connect');
 var Sequelize = require('sequelize');
 
+var StudentClassroom = require('./student-class-room');
+
 function generateStudentSign() {
     var numberRandom = Math.floor(100000 + Math.random() * 900000);
     var code = (new Date()).getFullYear() + '' + numberRandom;
     return code;
+}
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
 }
 
 class StudentModel {
@@ -187,6 +195,49 @@ class StudentModel {
                     Result(studentList);
                 })
                 .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
+    getStudentById(id) {
+        return new Promise((Result, Err) => {
+            this.model.findOne({
+                    raw: true,
+                    where: {
+                        id: id
+                    }
+                })
+                .then(studentList => {
+                    Result(studentList);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
+    getStudentAvailable() {
+        return new Promise((Result, Err) => {
+            StudentClassroom.getAvailable()
+                .then(async (dataList) => {
+                    if (dataList.length == 0) {
+                        this.getStudentActive().then(studentList => {
+                            Result(studentList);
+                        });
+                    } else {
+                        let dataSource = [];
+                        await asyncForEach(dataList, async (item) => {
+                            await this.getStudentById(item.studentId)
+                                .then(async (student) => {
+                                    dataSource.push(student);
+                                })
+                        });
+                        Result(dataSource);
+                    }
+                })
+                .catch(err => {
+                    console.log('Err : ', err);
                     Err(err);
                 });
         });
