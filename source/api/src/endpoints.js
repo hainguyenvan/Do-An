@@ -10,6 +10,7 @@ var cetificateCategoryController = require('./controller/cetificate-category-con
 var cetificaetListController = require('./controller/cetificate-list-controller');
 var smartContractsController = require('./controller/smart-contracts-controller');
 var studentController = require('./controller/student-controller');
+var classroomController = require('./controller/classroom-controller');
 
 // API
 router.get('/', function (req, res) {
@@ -223,6 +224,32 @@ router.route('/updateStudentStatus').post(validate({
 }), studentController.updateByStatus);
 
 router.route('/getAllStudents').post(studentController.getAllStudent);
+
+
+// Classroom
+router.route('/insertClassroom').post(validate({
+    token: Joi.string().required(),
+    code: Joi.string().required(),
+    dsc: Joi.string().required()
+}), classroomController.insert);
+
+router.route('/updateClassroom').post(validate({
+    token: Joi.string().required(),
+    code: Joi.string().required(),
+    dsc: Joi.string().required(),
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), classroomController.update);
+
+router.route('/updateStatusClassroom').post(validate({
+    token: Joi.string().required(),
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), classroomController.updateByStatus);
+
+router.route('/getAllClassroom').post(classroomController.getAllClassroom);
+
+
 
 
 // Upload images

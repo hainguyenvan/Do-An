@@ -105,6 +105,20 @@ class StudentModel {
                 )
         });
     }
+
+    getAll() {
+        return new Promise((Result, Err) => {
+            this.model.findAll({
+                    raw: true
+                })
+                .then(classroomList => {
+                    Result(classroomList);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
 }
 
 module.exports = new StudentModel();

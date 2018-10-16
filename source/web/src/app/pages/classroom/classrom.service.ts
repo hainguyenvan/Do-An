@@ -15,12 +15,48 @@ export class ClassroomService {
     this.token = localStorage.getItem(Config.TOKEN_KEY);
   }
 
-  // addAuthor(body): Observable<any> {
-  //   return this.http.post(Config.API_INSERT_AUTHOR_SMART_CONTRACTS, body)
-  //     .map((res: Response) => {
-  //       let json = res.json();
-  //       return json;
-  //     })
-  //     .catch((error: any) => Observable.throw(error || 'Server error'));
-  // }
+  addClassroom(body): Observable<any> {
+    body.token = this.token;
+    return this.http.post(Config.API_ADD_CLASS_ROOM, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  upadateClassroom(body): Observable<any> {
+    body.token = this.token;
+    body.status = Number(body.status);
+    return this.http.post(Config.API_UPDATE_CLASS_ROOM, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  deleteClassroom(id):Observable<any> {
+    let body = {
+      id: id,
+      token: this.token,
+      status: -1
+    }
+    return this.http.post(Config.API_DELETE_CLASS_ROOM, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  getAllClassroom():Observable<any> {
+    return this.http.post(Config.API_GET_ALL_CLASS_ROOM, {})
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+  
 }
