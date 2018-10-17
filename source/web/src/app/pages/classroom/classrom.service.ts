@@ -103,4 +103,13 @@ export class ClassroomService {
       })
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
+
+  destroyStudentOfClassroom(studentId, classroomId): Observable<any> {
+    return this.http.post(Config.API_DESTROY_STUDENT_OF_CLASS_ROOM, { studentId: studentId, classroomId: classroomId })
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
 }

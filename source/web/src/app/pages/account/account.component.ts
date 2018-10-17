@@ -197,7 +197,7 @@ export class AccountComponent implements OnInit {
   }
 
   getStrOfPulicPermission(permission) {
-    if (permission.status == undefined || permission.status == -1) {
+    if (permission == undefined || permission.status == undefined || permission.status == -1) {
       return 'Không được phép';
     }
     return 'Được phép';

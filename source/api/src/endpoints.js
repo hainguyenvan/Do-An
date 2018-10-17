@@ -271,6 +271,11 @@ router.route('/updateStudyManager').post(validate({
     students:Joi.array().required()
 }), studentClassroomControlller.update);
 
+router.route('/destroyStudentOfClassroom').post(validate({
+    studentId: Joi.number().required(),
+    classroomId: Joi.number().required()
+}), studentClassroomControlller.destroy);
+
 
 // Upload images
 router.route("/upload").post(thirdparty.upload);

@@ -67,18 +67,18 @@ exports.update = function (req, res) {
         })
 }
 
-// exports.updateByStatus = function (req, res) {
-//     Student.updateStatusById(req.body)
-//         .then(result => {
-//             res.send({
-//                 status: 200,
-//                 msg: 'Success !'
-//             })
-//         })
-//         .catch(err => {
-//             res.send({
-//                 status: 200,
-//                 msg: err
-//             })
-//         })
-// }
+exports.destroy = function (req, res) {
+    StudentClassroom.destroyRow(req.body.studentId, req.body.classroomId)
+        .then(result => {
+            res.send({
+                status: 200,
+                msg: 'Success !'
+            })
+        })
+        .catch(err => {
+            res.send({
+                status: 200,
+                msg: err
+            })
+        })
+}

@@ -112,7 +112,7 @@ export class StudyManagerComponent implements OnInit {
         if (event.data.status == -1) {
           break;
         }
-        this.deleteAccount(event.data.code);
+        this.deleteStudent(event.data.id);
         break;
       case Config.EDIT_ACTION:
         this.showModalAddStudy();
@@ -126,33 +126,26 @@ export class StudyManagerComponent implements OnInit {
     }
   }
 
-  deleteAccount(accountCode) {
-    // if (Number(this.service.accountItem.publicPermission.status) == 0) {
-    //   const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
-    //   activeModal.componentInstance.modalHeader = 'Thông báo';
-    //   activeModal.componentInstance.modalMessage = 'Bạn cần ngừng cấp phép cho giảng viên ' + this.service.accountItem.name + ' trước khi xóa';
-    //   activeModal.componentInstance.statusButtonSubmit = false;
-    //   return;
-    // }
-    // const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
-    // activeModal.componentInstance.modalHeader = 'Thông báo';
-    // activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa giảng viên ' + this.service.accountItem.name + ' ?';
-    // activeModal.componentInstance.statusButtonSubmit = true;
-    // activeModal.result.then((event) => {
-    //   this.service.acction = null;
-    //   switch (event) {
-    //     case Config.EVENT_SUBMIT:
-    //       this.service.deleteAccount(accountCode).subscribe(res => {
-    //         if (res.status != 200) {
-    //           console.log('Err : ', res.msg);
-    //           return;
-    //         }
-    //         this.onSearch();
-    //       });
-    //       break;
-    //     default:
-    //   }
-    // });
+  deleteStudent(studentId) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa ' + this.service.dataItem.name + ' khỏi lớp học?';
+    activeModal.componentInstance.statusButtonSubmit = true;
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_SUBMIT:
+          this.service.destroyStudentOfClassroom(studentId, this.classroomId).subscribe(res => {
+            if (res.status != 200) {
+              console.log('Err : ', res.msg);
+              return;
+            }
+            this.onSelectClassroom();
+          });
+          break;
+        default:
+      }
+    });
   }
 
   showModalUpadteStatusSmartContracts() {

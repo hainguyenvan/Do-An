@@ -26,6 +26,8 @@ export class Config {
     public static API_GET_CLASS_ROOM_ACTIVE = `${Config.API_ROOT}/getClassroomActive`;
     public static API_GET_STUDENT_OF_CLAS_ROOM = `${Config.API_ROOT}/getStudentOfClassroom`;
 
+    public static API_DESTROY_STUDENT_OF_CLASS_ROOM=`${Config.API_ROOT}/destroyStudentOfClassroom`
+
     // Study manager
     public static API_ADD_STUDY_MANAGER = `${Config.API_ROOT}/addStudyManager`; 
     public static API_UPDATE_STUDY_MANAGER = `${Config.API_ROOT}/updateStudyManager`;

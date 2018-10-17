@@ -96,6 +96,21 @@ class StudentModel {
         });
     }
 
+    destroyRow(studentId,classroomId) {
+        return new Promise((Result, Err) => {
+            this.model.destroy({
+                where: {
+                    studentId: studentId,
+                    classroomId: classroomId
+                }
+            }).then(result => {
+                Result(result)
+            }).catch(err => {
+                Err(err)
+            });
+        });
+    }
+
     updateStatusById(data) {
         return new Promise((Result, Err) => {
             let dto = {
