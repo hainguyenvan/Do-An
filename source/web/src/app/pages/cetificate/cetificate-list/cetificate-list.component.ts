@@ -9,9 +9,51 @@ import { ThirdParty } from '../../../third-party/third-party';
 
 import { AddCetificateComponent } from './add-cetificate/add-cetificate.component';
 import { DetailCetificateComponent } from './detail-cetificate/detail-cetificate.component';
-import { sample } from 'rxjs-compat/operator/sample';
 import { ModalMessageComponent } from './modal/modal-message.component';
 import { SmartContractsComponent } from './smart-contracts/smart-contracts.component';
+
+
+@Component({
+  selector: 'button-view',
+  styleUrls: ['./cetificate-list.component.scss'],
+  template: `
+    <button type="button" class="btn btn-warning btn-xs" id="{{id}}" (click)="onClick()">{{ renderValue }}</button>
+  `,
+})
+export class ShowPublicCertificateComponent implements ViewCell, OnInit {
+  public renderValue: string;
+  public id: string;
+  public status: number = 0;
+
+
+  @Input() value: string | number;
+  @Input() rowData: any;
+
+  @Output() save: EventEmitter<any> = new EventEmitter();
+
+  constructor(private service: CetificateService,
+    private modalService: NgbModal) {
+  }
+
+  ngOnInit() {
+    this.renderValue = this.value.toString().toUpperCase();
+  }
+
+  onClick() {
+    console.log('Data : ', this.rowData);
+    // this.save.emit(this.rowData);
+    if (this.rowData.certificateSmartContracts == undefined) {
+      return;
+    }
+    const activeModal = this.modalService.open(DetailCetificateComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.showCertificate = true;
+    activeModal.componentInstance.modalHeader = 'Chứng chỉ phát hành';
+    let certificate = this.rowData.certificateSmartContracts;
+    certificate.strStatusPublic = certificate.status == 1 ? 'Đã phát hành' : 'Ngừng phát hành';
+    certificate.studentImg = '';
+    activeModal.componentInstance.cetificate = certificate;
+  }
+}
 
 
 @Component({
@@ -89,8 +131,13 @@ export class CetificateListComponent implements OnInit {
       },
       strStatusPublic: {
         title: 'Trạng thái phát hành',
-        type: 'string',
-        width: '15px'
+        type: 'custom',
+        renderComponent: ShowPublicCertificateComponent,
+        onComponentInitFunction(instance) {
+          instance.save.subscribe(row => {
+            // console.log('row : ', row);
+          });
+        }
       }
     },
   };
