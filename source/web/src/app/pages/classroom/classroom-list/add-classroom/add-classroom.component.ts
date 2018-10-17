@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassroomService } from '../../classrom.service';
 import { Config } from '../../../../config';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalMessageComponent } from '../modal/modal-message.component';
+import { ThirdParty } from '../../../../third-party/third-party';
 
 @Component({
   selector: 'add-classroom',
@@ -15,12 +18,14 @@ export class AddClassroomComponent implements OnInit {
     { id: 0, value: 'Hoạt động' },
     { id: -1, value: 'Ngừng hoạt động' }
   ];
-  
+
   public modalHeader: string;
   public classroom: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: ClassroomService) { }
+  constructor(private activeModal: NgbActiveModal,
+    private service: ClassroomService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.modalHeader = 'Thêm lớp học';
@@ -58,7 +63,30 @@ export class AddClassroomComponent implements OnInit {
     })
   }
 
+  showModalMessage(content) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = content;
+    activeModal.componentInstance.statusColorHeader = true;
+  }
+
+  isValidateForm() {
+    if (ThirdParty.isNull(this.classroom.code)) {
+      this.showModalMessage('Mã lớp học là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.classroom.dsc)) {
+      this.showModalMessage('Mô tả lớp học là bắt buộc');
+      return false;
+    }
+    return true;
+  }
+
   onSubmit() {
+    if (!this.isValidateForm()) {
+      this.activeModal.close(Config.EVENT_CLOSE);
+      return;
+    }
     if (this.actionEdit) {
       this.updateClassroom();
       return;
