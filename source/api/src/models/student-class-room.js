@@ -24,8 +24,8 @@ class StudentModel {
                 type: Sequelize.INTEGER
             }
         }, {
-            tableName: 'student_class_room'
-        });
+                tableName: 'student_class_room'
+            });
     }
 
     insert(data) {
@@ -52,10 +52,10 @@ class StudentModel {
                 status: data.status
             }
             this.model.update(dto, {
-                    where: {
-                        id: data.id
-                    }
-                })
+                where: {
+                    id: data.id
+                }
+            })
                 .then(result =>
                     Result(result)
                 )
@@ -65,16 +65,47 @@ class StudentModel {
         });
     }
 
+    getDataByClassroomId(classroomId) {
+        return new Promise((Result, Err) => {
+            this.model.findAll({
+                raw: true,
+                where: {
+                    classroomId: classroomId
+                }
+            })
+                .then(rows => {
+                    Result(rows);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
+    deleteDataByClassroomId(classroomId) {
+        return new Promise((Result, Err) => {
+            this.model.destroy({
+                where: {
+                    classroomId:classroomId
+                }
+            }).then(result => {
+                Result(result)
+            }).catch(err => {
+                Err(err)
+            });
+        });
+    }
+
     updateStatusById(data) {
         return new Promise((Result, Err) => {
             let dto = {
                 status: data.status
             }
             this.model.update(dto, {
-                    where: {
-                        id: data.id
-                    }
-                })
+                where: {
+                    id: data.id
+                }
+            })
                 .then(result =>
                     Result(result)
                 )
@@ -87,8 +118,8 @@ class StudentModel {
     getAll() {
         return new Promise((Result, Err) => {
             this.model.findAll({
-                    raw: true
-                })
+                raw: true
+            })
                 .then(studentList => {
                     Result(studentList);
                 })
@@ -101,13 +132,13 @@ class StudentModel {
     getAvailable() {
         return new Promise((Result, Err) => {
             this.model.findAll({
-                    raw: true,
-                    where: {
-                        status: {
-                            $eq: -1
-                        }
+                raw: true,
+                where: {
+                    status: {
+                        $eq: -1
                     }
-                })
+                }
+            })
                 .then(studentList => {
                     Result(studentList);
                 })

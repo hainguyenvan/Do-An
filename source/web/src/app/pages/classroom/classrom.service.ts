@@ -77,5 +77,21 @@ export class ClassroomService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  
+  addStudyManager(body):Observable<any> {
+    return this.http.post(Config.API_ADD_STUDY_MANAGER, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  updateStudyManager(body):Observable<any> {
+    return this.http.post(Config.API_UPDATE_STUDY_MANAGER,body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
 }
