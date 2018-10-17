@@ -254,6 +254,12 @@ router.route('/getAllClassroom').post(classroomController.getAllClassroom);
 
 router.route('/getClassroomActive').post(classroomController.getClassroomActive);
 
+router.route('/getStudentOfClassroom').post(validate({
+    classroomId: Joi.number().required()
+}),classroomController.getStudentOfClassroom);
+
+
+
 // Study manager
 router.route('/addStudyManager').post(validate({
      classroomId: Joi.number().required(),

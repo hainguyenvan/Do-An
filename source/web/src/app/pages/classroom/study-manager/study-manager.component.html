@@ -6,14 +6,13 @@
       </div>
 
       <div class="col-sm-5">
-        <div class="input-group">
-          <label for="inputLastName"></label>
-          <input type="text" class="form-control" placeholder="Nội dung tìm kiếm...">
-          <span class="input-group-append">
-            <button class="btn btn-danger input-group-text" (click)="onSearch()">
-              Tìm kiếm
-            </button>
-          </span>
+        <div class="form-group">
+          <label for="inputFirstName">Lớp học
+            <span style="color:red">*</span>
+          </label>
+          <select class="form-control" [(ngModel)]="classroomId" (change)="onSelectClassroom()">
+            <option *ngFor="let anApp of classroomList" [value]="anApp.id">{{anApp.dsc}}</option>
+          </select>
         </div>
       </div>
 

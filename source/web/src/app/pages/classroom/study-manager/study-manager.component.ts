@@ -20,6 +20,7 @@ import { SmartContractsComponent } from './smart-contracts/smart-contracts.compo
   templateUrl: './study-manager.component.html',
 })
 export class StudyManagerComponent implements OnInit {
+
   settings = {
     actions: {
       delete: false,
@@ -37,21 +38,16 @@ export class StudyManagerComponent implements OnInit {
         {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
-        },
-        {
-          name: 'smartcontracts',
-          title: '<i class="ion-clipboard icon-public"></i>'
         }
       ]
     },
     columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-        width: '10px'
+      numberId: {
+        title: 'Số chứng minh thư',
+        type: 'string',
       },
       code: {
-        title: 'Mã giảng viên',
+        title: 'Mã sinh viên',
         type: 'string',
       },
       name: {
@@ -78,14 +74,6 @@ export class StudyManagerComponent implements OnInit {
         title: 'Địa chỉ',
         type: 'string',
       },
-      position: {
-        title: 'Chức vụ',
-        type: 'string',
-      },
-      strPublicPermission: {
-        title: 'Trạng thái cấp bằng',
-        type: 'string',
-      },
       strStatus: {
         title: 'Trạng thái',
         type: 'string',
@@ -96,11 +84,21 @@ export class StudyManagerComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
+  public classroomList: any = [];
+  public classroomId: number;
+
   constructor(private service: ClassroomService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
-    this.onSearch();
+     // Get all classroom active
+     this.service.getAllClassroom().subscribe(res => {
+      if (res.status != 200) {
+        console.log("Err : ", res.msg);
+        return;
+      }
+      this.classroomList = res.data;
+    });
   }
 
   onCustom(event) {
@@ -189,47 +187,41 @@ export class StudyManagerComponent implements OnInit {
         case Config.EVENT_CLOSE:
           break;
         case Config.EVENT_SUBMIT:
-          this.onSearch();
           break;
         default:
       }
     });
   }
 
-  getStrOfPulicPermission(permission) {
-    if (permission.status == undefined || permission.status == -1) {
-      return 'Không được phép';
+  onSelectClassroom() {
+    if(this.classroomId == undefined || this.classroomId == null) {
+      return;
     }
-    return 'Được phép';
-  }
-
-  onSearch() {
-    // this.service.getAllAccount().subscribe(res => {
-    //   if (res.status != 200) {
-    //     console.log('Err : ', res.msg);
-    //     alert('Đã xảy ra lỗi');
-    //   }
-    //   res.data.forEach(item => {
-    //     switch (item.sex) {
-    //       case 0:
-    //         item.strSex = 'Nam';
-    //         break;
-    //       case 1:
-    //         item.strSex = 'Nữ';
-    //         break;
-    //       default:
-    //         item.strSex = 'Khác';
-    //     }
-    //     if (item.status == -1) {
-    //       item.strStatus = 'Ngừng hoạt động';
-    //     } else {
-    //       item.strStatus = 'Đang hoạt động';
-    //     }
-    //     item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
-    //     item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
-    //     item.strPublicPermission = this.getStrOfPulicPermission(item.publicPermission);
-    //   });
-    //   this.source.load(res.data);
-    // })
+    this.service.getStudentOfClassroom(this.classroomId).subscribe(res => {
+      if (res.status != 200) {
+        console.log('Err : ', res.msg);
+        alert('Đã xảy ra lỗi');
+      }
+      res.data.forEach(item => {
+        switch (item.sex) {
+          case 0:
+            item.strSex = 'Nam';
+            break;
+          case 1:
+            item.strSex = 'Nữ';
+            break;
+          default:
+            item.strSex = 'Khác';
+        }
+        if (item.status == -1) {
+          item.strStatus = 'Ngừng hoạt động';
+        } else {
+          item.strStatus = 'Đang hoạt động';
+        }
+        item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
+        item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
+      });
+      this.source.load(res.data);
+    })
   }
 }

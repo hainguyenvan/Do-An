@@ -36,7 +36,7 @@ export class ClassroomService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  deleteClassroom(id):Observable<any> {
+  deleteClassroom(id): Observable<any> {
     let body = {
       id: id,
       token: this.token,
@@ -50,7 +50,7 @@ export class ClassroomService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  getAllClassroom():Observable<any> {
+  getAllClassroom(): Observable<any> {
     return this.http.post(Config.API_GET_ALL_CLASS_ROOM, {})
       .map((res: Response) => {
         let json = res.json();
@@ -59,7 +59,7 @@ export class ClassroomService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  getClassroomActive():Observable<any> {
+  getClassroomActive(): Observable<any> {
     return this.http.post(Config.API_GET_CLASS_ROOM_ACTIVE, {})
       .map((res: Response) => {
         let json = res.json();
@@ -68,7 +68,7 @@ export class ClassroomService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  getStudentAvailable():Observable<any> {
+  getStudentAvailable(): Observable<any> {
     return this.http.post(Config.API_GET_STUDENT_AVAILABLE, {})
       .map((res: Response) => {
         let json = res.json();
@@ -77,7 +77,7 @@ export class ClassroomService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  addStudyManager(body):Observable<any> {
+  addStudyManager(body): Observable<any> {
     return this.http.post(Config.API_ADD_STUDY_MANAGER, body)
       .map((res: Response) => {
         let json = res.json();
@@ -86,8 +86,17 @@ export class ClassroomService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  updateStudyManager(body):Observable<any> {
-    return this.http.post(Config.API_UPDATE_STUDY_MANAGER,body)
+  updateStudyManager(body): Observable<any> {
+    return this.http.post(Config.API_UPDATE_STUDY_MANAGER, body)
+      .map((res: Response) => {
+        let json = res.json();
+        return json;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
+
+  getStudentOfClassroom(classroomId): Observable<any> {
+    return this.http.post(Config.API_GET_STUDENT_OF_CLAS_ROOM, { classroomId: classroomId })
       .map((res: Response) => {
         let json = res.json();
         return json;

@@ -93,3 +93,19 @@ exports.getClassroomActive = function (req, res) {
             })
         })
 }
+
+exports.getStudentOfClassroom = function (req, res) {
+    classroom.getStudentOfClassroomById(req.body.classroomId)
+        .then(result => {
+            res.send({
+                status: 200,
+                data: result
+            })
+        })
+        .catch(err => {
+            res.send({
+                status: 200,
+                msg: err
+            })
+        })
+}

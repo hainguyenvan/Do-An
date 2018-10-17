@@ -1,10 +1,18 @@
 var connect = require('../connect');
 var Sequelize = require('sequelize');
+var StudentClassroom = require('./student-class-room');
+var Student =  require('./student');
 
 function generateClassroomSign() {
     var numberRandom = Math.floor(100000 + Math.random() * 900000);
     var code = (new Date()).getFullYear() + '' + numberRandom;
     return code;
+}
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
 }
 
 class StudentModel {
@@ -136,6 +144,25 @@ class StudentModel {
                 .catch(err => {
                     Err(err);
                 });
+        });
+    }
+
+    getStudentOfClassroomById(classroomId) {
+        return new Promise((Result, Err) => {
+            StudentClassroom.getDataByClassroomId(classroomId)
+            .then(async (classroomist) => {
+                let dataSource = [];
+                await asyncForEach(classroomist, async (item) => {
+                    await Student.getStudentById(item.studentId)
+                        .then(student => {
+                            dataSource.push(student);
+                        })
+                });
+                Result(dataSource);
+            })
+            .catch(err => {
+                Err(err);
+            })
         });
     }
 }
