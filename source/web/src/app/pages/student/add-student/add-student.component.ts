@@ -3,6 +3,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StudentService } from '../student.service';
 import { Config } from '../../../config';
 import { FileUploader } from 'ng2-file-upload';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalMessageComponent } from '../modal/modal-message.component';
+import { ThirdParty } from '../../../third-party/third-party';
 
 @Component({
   selector: 'add-student',
@@ -30,7 +33,9 @@ export class AddStudentComponent implements OnInit {
   public user: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: StudentService) { }
+  constructor(private activeModal: NgbActiveModal, 
+    private service: StudentService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.modalHeader = 'Thêm sinh viên';
@@ -82,7 +87,54 @@ export class AddStudentComponent implements OnInit {
     })
   }
 
+  showModalMessage(content) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = content;
+    activeModal.componentInstance.statusColorHeader = true;
+  }
+
+  isValidateForm() {
+    if (ThirdParty.isNull(this.user.name)) {
+      this.showModalMessage('Tên sinh viên là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.user.code)) {
+      this.showModalMessage('Mã sinh viên là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.user.email)) {
+      this.showModalMessage('Địa chỉ email là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.user.dateOfBirth)) {
+      this.showModalMessage('Ngày sinh là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.user.sex)) {
+      this.showModalMessage('Giới tính là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.user.phone)) {
+      this.showModalMessage('Số điện thoại là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.user.numberId)) {
+      this.showModalMessage('Số chứng minh thư là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.user.address)) {
+      this.showModalMessage('Địa chỉ là bắt buộc');
+      return false;
+    }
+    return true;
+  }
+
   onSubmit() {
+    if (!this.isValidateForm()) {
+      this.activeModal.close(Config.EVENT_CLOSE);
+      return;
+    }
     if (this.flagWarringNullImage) {
       if (this.actionEdit) {
         this.updateStudent();
