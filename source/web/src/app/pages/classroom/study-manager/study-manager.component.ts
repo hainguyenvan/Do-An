@@ -34,10 +34,6 @@ export class StudyManagerComponent implements OnInit {
         {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
-        },
-        {
-          name: 'smartcontracts',
-          title: '<i class="ion-clipboard icon-public"></i>'
         }
       ]
     },
