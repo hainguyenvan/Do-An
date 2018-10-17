@@ -10,6 +10,7 @@ export class ClassroomService {
   private token: String;
   public dataItem: any;
   public acction: String;
+  public classroomId: number;
 
   constructor(private http: Http) {
     this.token = localStorage.getItem(Config.TOKEN_KEY);

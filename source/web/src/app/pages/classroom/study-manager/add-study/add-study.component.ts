@@ -105,9 +105,13 @@ export class AddStudyComponent implements OnInit {
     this.service.addStudyManager(this.data).subscribe(res => {
       if(res.status != 200) {
         console.log('Err : ', res.msg);
+        this.activeModal.close(Config.EVENT_CLOSE);
         return;
       }
+      this.service.classroomId = this.data.classroomId;
+      this.activeModal.close(Config.EVENT_SUBMIT);
     })
-    this.activeModal.close(Config.EVENT_CLOSE);
+   
+    
   }
 }

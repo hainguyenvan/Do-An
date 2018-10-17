@@ -91,8 +91,8 @@ export class StudyManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-     // Get all classroom active
-     this.service.getAllClassroom().subscribe(res => {
+    // Get all classroom active
+    this.service.getAllClassroom().subscribe(res => {
       if (res.status != 200) {
         console.log("Err : ", res.msg);
         return;
@@ -180,6 +180,8 @@ export class StudyManagerComponent implements OnInit {
         case Config.EVENT_CLOSE:
           break;
         case Config.EVENT_SUBMIT:
+          this.classroomId = this.service.classroomId;
+          this.onSelectClassroom();
           break;
         default:
       }
@@ -187,7 +189,7 @@ export class StudyManagerComponent implements OnInit {
   }
 
   onSelectClassroom() {
-    if(this.classroomId == undefined || this.classroomId == null) {
+    if (this.classroomId == undefined || this.classroomId == null) {
       return;
     }
     this.service.getStudentOfClassroom(this.classroomId).subscribe(res => {

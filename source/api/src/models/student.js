@@ -86,8 +86,8 @@ class StudentModel {
                 type: Sequelize.STRING
             }
         }, {
-            tableName: 'student'
-        });
+                tableName: 'student'
+            });
     }
 
     insert(data) {
@@ -135,10 +135,10 @@ class StudentModel {
                 status: data.status
             }
             this.model.update(dto, {
-                    where: {
-                        id: data.id
-                    }
-                })
+                where: {
+                    id: data.id
+                }
+            })
                 .then(result =>
                     Result(result)
                 )
@@ -154,10 +154,10 @@ class StudentModel {
                 status: data.status
             }
             this.model.update(dto, {
-                    where: {
-                        id: data.id
-                    }
-                })
+                where: {
+                    id: data.id
+                }
+            })
                 .then(result =>
                     Result(result)
                 )
@@ -170,8 +170,8 @@ class StudentModel {
     getAllStudent() {
         return new Promise((Result, Err) => {
             this.model.findAll({
-                    raw: true
-                })
+                raw: true
+            })
                 .then(studentList => {
                     Result(studentList);
                 })
@@ -184,13 +184,13 @@ class StudentModel {
     getStudentActive() {
         return new Promise((Result, Err) => {
             this.model.findAll({
-                    raw: true,
-                    where: {
-                        status: {
-                            $ne: -1
-                        }
+                raw: true,
+                where: {
+                    status: {
+                        $ne: -1
                     }
-                })
+                }
+            })
                 .then(studentList => {
                     Result(studentList);
                 })
@@ -203,11 +203,11 @@ class StudentModel {
     getStudentById(id) {
         return new Promise((Result, Err) => {
             this.model.findOne({
-                    raw: true,
-                    where: {
-                        id: id
-                    }
-                })
+                raw: true,
+                where: {
+                    id: id
+                }
+            })
                 .then(studentList => {
                     Result(studentList);
                 })
@@ -219,27 +219,35 @@ class StudentModel {
 
     getStudentAvailable() {
         return new Promise((Result, Err) => {
-            StudentClassroom.getAvailable()
-                .then(async (dataList) => {
+            StudentClassroom.getAll()
+                .then(dataList => {
                     if (dataList.length == 0) {
                         this.getStudentActive().then(studentList => {
                             Result(studentList);
                         });
                     } else {
-                        let dataSource = [];
-                        await asyncForEach(dataList, async (item) => {
-                            await this.getStudentById(item.studentId)
-                                .then(async (student) => {
-                                    dataSource.push(student);
-                                })
-                        });
-                        Result(dataSource);
+                        this.getStudentActive().then( async (students) => {
+                            let dataSource = [];
+                            await asyncForEach(students, async (student) => {
+                                 let  isStudentAvailable = true;
+                                 await asyncForEach(dataList, item => {
+                                     if (student.id == item.studentId) {
+                                         isStudentAvailable =  false;
+                                         return;
+                                     }
+                                 });
+                                 if(isStudentAvailable) {
+                                     dataSource.push(student);
+                                 }
+                            });
+                            Result(dataSource);
+                        })
                     }
                 })
                 .catch(err => {
                     console.log('Err : ', err);
                     Err(err);
-                });
+                })
         });
     }
 }
