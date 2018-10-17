@@ -32,12 +32,12 @@ export class StudyManagerComponent implements OnInit {
           title: '<i class="fas fa-eye"></i>'
         },
         {
-          name: 'edit',
-          title: '<i class="nb-edit"></i>'
-        },
-        {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
+        },
+        {
+          name: 'smartcontracts',
+          title: '<i class="ion-clipboard icon-public"></i>'
         }
       ]
     },
@@ -105,7 +105,7 @@ export class StudyManagerComponent implements OnInit {
     this.service.dataItem = event.data;
     switch (event.action) {
       case Config.DETAIL_ACCTION:
-        this.showModalDeatailAccount();
+        this.showModalDeatailStudent();
         this.service.acction = Config.DETAIL_ACCTION;
         break;
       case Config.DELETE_ACTION:
@@ -113,10 +113,6 @@ export class StudyManagerComponent implements OnInit {
           break;
         }
         this.deleteStudent(event.data.id);
-        break;
-      case Config.EDIT_ACTION:
-        this.showModalAddStudy();
-        this.service.acction = Config.EDIT_ACTION;
         break;
       case Config.SMART_CONTRACTS_ACTION:
         this.showModalUpadteStatusSmartContracts();
@@ -168,8 +164,8 @@ export class StudyManagerComponent implements OnInit {
     // });
   }
 
-  showModalDeatailAccount() {
-    // const activeModal = this.modalService.open(DetailAccountComponent, { size: 'lg', container: 'nb-layout' });
+  showModalDeatailStudent() {
+    const activeModal = this.modalService.open(DetailStudyComponent, { size: 'lg', container: 'nb-layout' });
   }
 
   showModalAddStudy() {

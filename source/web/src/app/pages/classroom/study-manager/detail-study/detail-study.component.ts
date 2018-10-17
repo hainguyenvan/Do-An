@@ -16,7 +16,7 @@ export class DetailStudyComponent implements OnInit {
   constructor(private activeModal: NgbActiveModal, private service: ClassroomService) { }
 
   ngOnInit() {
-    this.modalHeader = 'Thông tin tài khoản';
+    this.modalHeader = 'Thông tin sinh viên';
     this.account = this.service.dataItem;
   }
 
