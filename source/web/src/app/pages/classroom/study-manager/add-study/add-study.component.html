@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="form-group">
-        <label for="inputFirstName">Danh sách sinh viên</label>
+        <label for="inputFirstName">Danh sách sinh viên <span style="color:red">*</span></label>
         <ng2-smart-table class="tableequipment" [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)">
         </ng2-smart-table>
       </div>
