@@ -45,11 +45,6 @@ export class AccountComponent implements OnInit {
       ]
     },
     columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-        width: '10px'
-      },
       code: {
         title: 'Mã giảng viên',
         type: 'string',

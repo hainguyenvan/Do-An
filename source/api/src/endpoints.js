@@ -41,7 +41,7 @@ router.route('/addAccount').post(validate({
     dateOfBirth: Joi.string().required(),
     sex: Joi.number().required(),
     phone: Joi.string().required(),
-    address: Joi.string().required(),
+    address: Joi.string(),
     img: Joi.string(),
     position: Joi.string().required(),
     password: Joi.string().required(),

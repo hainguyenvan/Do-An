@@ -3,6 +3,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from '../account.service';
 import { Config } from '../../../config';
 import { FileUploader } from 'ng2-file-upload';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalMessageComponent } from '../modal/modal-message.component';
+import { ThirdParty } from '../../../third-party/third-party';
 
 @Component({
   selector: 'add-account',
@@ -31,7 +34,9 @@ export class AddAccountComponent implements OnInit {
   public user: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: AccountService) { }
+  constructor(private activeModal: NgbActiveModal,
+    private service: AccountService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.modalHeader = 'Thêm tài khoản';
@@ -94,7 +99,80 @@ export class AddAccountComponent implements OnInit {
     })
   }
 
+  showModalMessage(content) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = content;
+    activeModal.componentInstance.statusColorHeader = true;
+  }
+
+  isValidateForm() {
+
+    if (ThirdParty.isNull(this.user.name)) {
+      this.showModalMessage('Tên của tài khoản là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.code)) {
+      this.showModalMessage('Mã giảng viên là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.email)) {
+      this.showModalMessage('Email là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.dateOfBirth)) {
+      this.showModalMessage('Ngày sinh là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.sex)) {
+      this.showModalMessage('Giới tính là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.phone)) {
+      this.showModalMessage('Số điện thoại là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.position)) {
+      this.showModalMessage('Chức vụ là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.address)) {
+      this.showModalMessage('Địa chỉ là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.dsc)) {
+      this.showModalMessage('Mô tả là bắt buộc');
+      return false;
+    }
+
+    if (this.actionEdit) {
+      if (!ThirdParty.isNull(this.user.password) && this.user.password != this.user.rePassword) {
+        this.showModalMessage('Mật khẩu không đúng');
+        return false;
+      }
+    } else {
+      if (ThirdParty.isNull(this.user.password) || this.user.password != this.user.rePassword) {
+        this.showModalMessage('Mật khẩu không đúng');
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   onSubmit() {
+    if (!this.isValidateForm()) {
+      this.activeModal.close(Config.EVENT_CLOSE);
+      return;
+    }
     if (this.flagWarringNullImage) {
       if (this.actionEdit) {
         this.updateAccount();

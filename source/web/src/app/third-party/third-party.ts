@@ -12,4 +12,11 @@ export class ThirdParty {
         let d = data.substring(6, 8);
         return (y + '-' + m + '-' + d);
     }
+
+    public static isNull(data) {
+        if (data == undefined || data == null) {
+            return true;
+        }
+        return false;
+    }
 }
