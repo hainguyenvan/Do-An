@@ -114,9 +114,6 @@ export class StudyManagerComponent implements OnInit {
         }
         this.deleteStudent(event.data.id);
         break;
-      case Config.SMART_CONTRACTS_ACTION:
-        this.showModalUpadteStatusSmartContracts();
-        break;
       default:
         break;
     }
@@ -142,26 +139,6 @@ export class StudyManagerComponent implements OnInit {
         default:
       }
     });
-  }
-
-  showModalUpadteStatusSmartContracts() {
-    // if (Number(this.service.accountItem.status) == -1) {
-    //   const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
-    //   activeModal.componentInstance.modalHeader = 'Thông báo';
-    //   activeModal.componentInstance.modalMessage = 'Bạn cần cấp quyền hoạt động cho giảng viên ' + this.service.accountItem.name + ' trước khi cấp quyền phát hành';
-    //   activeModal.componentInstance.statusButtonSubmit = false;
-    //   return;
-    // }
-    // const activeModal = this.modalService.open(SmartContractsComponent, { size: 'lg', container: 'nb-layout' });
-    // activeModal.result.then((event) => {
-    //   this.service.acction = null;
-    //   switch (event) {
-    //     case Config.EVENT_SUBMIT:
-    //       this.onSearch();
-    //       break;
-    //     default:
-    //   }
-    // });
   }
 
   showModalDeatailStudent() {
