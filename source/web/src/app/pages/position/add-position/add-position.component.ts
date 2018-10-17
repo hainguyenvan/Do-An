@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PositionService } from '../position.service';
 import { Config } from '../../../config';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalMessageComponent } from '../modal/modal-message.component';
+import { ThirdParty } from '../../../third-party/third-party';
 
 @Component({
   selector: 'add-position',
@@ -20,7 +23,9 @@ export class AddPositionComponent implements OnInit {
   public position: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: PositionService) { }
+  constructor(private activeModal: NgbActiveModal,
+    private service: PositionService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.modalHeader = 'Thêm chức vụ';
@@ -48,7 +53,7 @@ export class AddPositionComponent implements OnInit {
   }
 
   update() {
-    this.position.status =  Number(this.position.status);
+    this.position.status = Number(this.position.status);
     this.service.updatePosition(this.position).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
@@ -59,7 +64,26 @@ export class AddPositionComponent implements OnInit {
     });
   }
 
+  showModalMessage(content) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = content;
+    activeModal.componentInstance.statusColorHeader = true;
+  }
+
+  isValidateForm() {
+    if (ThirdParty.isNull(this.position.dsc)) {
+      this.showModalMessage('Tên chức vụ là bắt buộc');
+      return false;
+    }
+    return true;
+  }
+
   onSubmit() {
+    if (!this.isValidateForm()) {
+      this.activeModal.close(Config.EVENT_CLOSE);
+      return;
+    }
     if (this.actionEdit) {
       this.update();
       return;
