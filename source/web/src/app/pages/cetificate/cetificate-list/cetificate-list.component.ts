@@ -50,7 +50,7 @@ export class ShowPublicCertificateComponent implements ViewCell, OnInit {
     activeModal.componentInstance.modalHeader = 'Chứng chỉ phát hành';
     let certificate = this.rowData.certificateSmartContracts;
     certificate.strStatusPublic = certificate.status == 1 ? 'Đã phát hành' : 'Ngừng phát hành';
-    certificate.studentImg = '';
+    certificate.studentImg = this.rowData.student.img;
     activeModal.componentInstance.cetificate = certificate;
   }
 }
@@ -102,6 +102,10 @@ export class CetificateListComponent implements OnInit {
       },
       studentName: {
         title: 'Tên sinh viên',
+        type: 'string',
+      },
+      dateOfBirth: {
+        title: 'Ngày sinh',
         type: 'string',
       },
       yearOfGraduation: {
@@ -271,6 +275,9 @@ export class CetificateListComponent implements OnInit {
         item.strCategory = item.category.dsc;
         item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
         item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
+        item.dateOfBirth = item.student.dateOfBirth;
+        item.studentName = item.student.name;
+        item.studentSign= item.student.studentSign;
         if (index == res.data.length - 1) {
           this.source.load(res.data);
           return;

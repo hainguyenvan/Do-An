@@ -24,6 +24,8 @@ export class AddCetificateComponent implements OnInit {
     { value: 'Trung Binh' }
   ];
 
+  public studentList: any = [];
+
   public modalHeader: string;
   public cetificate: any = {};
   public actionEdit: boolean;
@@ -42,6 +44,14 @@ export class AddCetificateComponent implements OnInit {
       }
       this.categoryList = res.data;
     });
+
+    this.service.getStudentActive().subscribe(res => {
+      if (res.status != 200) {
+        console.log('Err : ', res.msg);
+        return;
+      }
+      this.studentList = res.data;
+    })
 
     if (this.service.acction == Config.EDIT_ACTION) {
       this.modalHeader = 'Cập nhật chứng chỉ';

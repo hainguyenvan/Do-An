@@ -33,8 +33,16 @@ export class LogComponent implements OnInit {
         title: 'Tên chứng chỉ',
         type: 'string',
       },
+      studentSign: {
+        title: 'Chữ ký',
+        type: 'string',
+      },
       studentName: {
         title: 'Tên sinh viên',
+        type: 'string',
+      },
+      dateOfBirth: {
+        title: 'Ngày sinh',
         type: 'string',
       },
       yearOfGraduation: {

@@ -2,7 +2,7 @@ var JWT = require('jsonwebtoken');
 
 var Student = require('../models/student');
 
-exports.insert = function (req, res) {
+exports.insert = function(req, res) {
     let token = req.body.token;
     let tokenJson = JWT.decode(token, {
         complete: true
@@ -24,7 +24,7 @@ exports.insert = function (req, res) {
         })
 }
 
-exports.update = function (req, res) {
+exports.update = function(req, res) {
     let token = req.body.token;
     let tokenJson = JWT.decode(token, {
         complete: true
@@ -45,7 +45,7 @@ exports.update = function (req, res) {
         })
 }
 
-exports.updateByStatus = function (req, res) {
+exports.updateByStatus = function(req, res) {
     Student.updateStatusById(req.body)
         .then(result => {
             res.send({
@@ -61,7 +61,7 @@ exports.updateByStatus = function (req, res) {
         })
 }
 
-exports.getAllStudent = function (req, res) {
+exports.getAllStudent = function(req, res) {
     Student.getAllStudent()
         .then(result => {
             res.send({
@@ -77,18 +77,36 @@ exports.getAllStudent = function (req, res) {
         })
 }
 
-exports.getStudentAvailable = function (req, res) {
+exports.getStudentAvailable = function(req, res) {
     Student.getStudentAvailable()
-    .then(result => {
-        res.send({
-            status: 200,
-            data: result
+        .then(result => {
+            res.send({
+                status: 200,
+                data: result
+            })
         })
-    })
-    .catch(err => {
-        res.send({
-            status: 200,
-            msg: err
+        .catch(err => {
+            res.send({
+                status: 200,
+                msg: err
+            })
         })
+}
+
+exports.getStudentActive = function(req, res) {
+    return new Promise((Result, Err) => {
+        Student.getStudentActive()
+            .then(result => {
+                res.send({
+                    status: 200,
+                    data: result
+                })
+            })
+            .catch(err => {
+                res.send({
+                    status: 200,
+                    msg: err
+                })
+            })
     })
 }

@@ -111,8 +111,7 @@ router.route('/insertCetificateList').post(validate({
     token: Joi.string().required(),
     title: Joi.string().required(),
     categoryId: Joi.number().required(),
-    studentName: Joi.string().required(),
-    dateOfBirth: Joi.string().required(),
+    studentId: Joi.number().required(),
     yearOfGraduation: Joi.number().required(),
     degreeClassification: Joi.string().required(),
     modeOfStudy: Joi.string().required(),
@@ -125,8 +124,7 @@ router.route('/updateCetificateList').post(validate({
     token: Joi.string().required(),
     title: Joi.string().required(),
     categoryId: Joi.number().required(),
-    studentName: Joi.string().required(),
-    dateOfBirth: Joi.string().required(),
+    studentId: Joi.number().required(),
     yearOfGraduation: Joi.number().required(),
     degreeClassification: Joi.string().required(),
     modeOfStudy: Joi.string().required(),
@@ -169,7 +167,8 @@ router.route('/smartcontracts/addCertificate').post(validate({
     date: Joi.string().required(),
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
-    token: Joi.string().required()
+    token: Joi.string().required(),
+    studentSign: Joi.string().required()
 }), smartContractsController.addCetificate);
 
 router.route('/smartcontracts/updateCertificate').post(validate({
@@ -184,7 +183,8 @@ router.route('/smartcontracts/updateCertificate').post(validate({
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
     status: Joi.number().required(),
-    token: Joi.string().required()
+    token: Joi.string().required(),
+    studentSign: Joi.string().required()
 }), smartContractsController.updateCertificate);
 
 router.route('/smartcontracts/getDataChanegs').post(smartContractsController.getDataChanegs);
@@ -227,6 +227,8 @@ router.route('/updateStudentStatus').post(validate({
 router.route('/getAllStudents').post(studentController.getAllStudent);
 
 router.route('/getStudentAvailable').post(studentController.getStudentAvailable);
+
+router.route('/getStudentActive').post(studentController.getStudentActive);
 
 
 // Classroom

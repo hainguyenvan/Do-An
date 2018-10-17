@@ -17,19 +17,20 @@ export class Config {
     public static API_GET_ALL_STUDENTS = `${Config.API_ROOT}/getAllStudents`;
     public static API_DELETE_STUDENTS = `${Config.API_ROOT}/updateStudentStatus`;
     public static API_GET_STUDENT_AVAILABLE = `${Config.API_ROOT}/getStudentAvailable`;
+    public static API_GET_STUDENT_ACTIVE = `${Config.API_ROOT}/getStudentActive`;
 
     // Classroom
-    public static API_ADD_CLASS_ROOM =  `${Config.API_ROOT}/insertClassroom`;
+    public static API_ADD_CLASS_ROOM = `${Config.API_ROOT}/insertClassroom`;
     public static API_UPDATE_CLASS_ROOM = `${Config.API_ROOT}/updateClassroom`;
     public static API_DELETE_CLASS_ROOM = `${Config.API_ROOT}/updateStatusClassroom`;
     public static API_GET_ALL_CLASS_ROOM = `${Config.API_ROOT}/getAllClassroom`;
     public static API_GET_CLASS_ROOM_ACTIVE = `${Config.API_ROOT}/getClassroomActive`;
     public static API_GET_STUDENT_OF_CLAS_ROOM = `${Config.API_ROOT}/getStudentOfClassroom`;
 
-    public static API_DESTROY_STUDENT_OF_CLASS_ROOM=`${Config.API_ROOT}/destroyStudentOfClassroom`
+    public static API_DESTROY_STUDENT_OF_CLASS_ROOM = `${Config.API_ROOT}/destroyStudentOfClassroom`
 
     // Study manager
-    public static API_ADD_STUDY_MANAGER = `${Config.API_ROOT}/addStudyManager`; 
+    public static API_ADD_STUDY_MANAGER = `${Config.API_ROOT}/addStudyManager`;
     public static API_UPDATE_STUDY_MANAGER = `${Config.API_ROOT}/updateStudyManager`;
 
     // Upload

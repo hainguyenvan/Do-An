@@ -27,13 +27,9 @@ class CetificateListModel {
                 field: 'title',
                 type: Sequelize.STRING
             },
-            studentName: {
-                field: 'student_name',
-                type: Sequelize.STRING
-            },
-            dateOfBirth: {
-                field: 'date_of_birth',
-                type: Sequelize.STRING
+            studentId: {
+                field: 'student_id',
+                type: Sequelize.INTEGER
             },
             yearOfGraduation: {
                 field: 'year_of_graduation',
@@ -80,18 +76,18 @@ class CetificateListModel {
                 type: Sequelize.INTEGER
             }
         }, {
-            tableName: 'cetificate_list'
-        });
+                tableName: 'cetificate_list'
+            });
     }
 
     getAll() {
         return new Promise((Result, Err) => {
             this.model.findAll({
-                    raw: true,
-                    status: {
-                        $ne: -1
-                    }
-                })
+                raw: true,
+                status: {
+                    $ne: -1
+                }
+            })
                 .then(dataList => {
                     if (dataList.length == 0) {
                         Result([]);
@@ -126,22 +122,21 @@ class CetificateListModel {
     insert(data) {
         return new Promise((Result, Err) => {
             this.model.create({
-                    code: generateCetificateCode(),
-                    title: data.title,
-                    studentName: data.studentName,
-                    dateOfBirth: data.dateOfBirth,
-                    yearOfGraduation: data.yearOfGraduation,
-                    degreeClassification: data.degreeClassification,
-                    modeOfStudy: data.modeOfStudy,
-                    author: data.author,
-                    createBy: data.createBy,
-                    updateBy: data.updateBy,
-                    status: 0,
-                    timeCreate: new Date().getTime(),
-                    timeUpdate: new Date().getTime(),
-                    date: data.date,
-                    categoryId: data.categoryId
-                })
+                code: generateCetificateCode(),
+                title: data.title,
+                studentId: data.studentId,
+                yearOfGraduation: data.yearOfGraduation,
+                degreeClassification: data.degreeClassification,
+                modeOfStudy: data.modeOfStudy,
+                author: data.author,
+                createBy: data.createBy,
+                updateBy: data.updateBy,
+                status: 0,
+                timeCreate: new Date().getTime(),
+                timeUpdate: new Date().getTime(),
+                date: data.date,
+                categoryId: data.categoryId
+            })
                 .then(res => {
                     Result(res);
                 })
@@ -154,10 +149,10 @@ class CetificateListModel {
     delete(data) {
         return new Promise((Result, Err) => {
             this.model.update({
-                    status: -1,
-                    updateBy: data.updateBy,
-                    timeUpdate: new Date().getTime()
-                }, {
+                status: -1,
+                updateBy: data.updateBy,
+                timeUpdate: new Date().getTime()
+            }, {
                     where: {
                         id: data.id
                     }
@@ -174,19 +169,18 @@ class CetificateListModel {
     update(data) {
         return new Promise((Result, Err) => {
             this.model.update({
-                    title: data.title,
-                    studentName: data.studentName,
-                    dateOfBirth: data.dateOfBirth,
-                    yearOfGraduation: data.yearOfGraduation,
-                    degreeClassification: data.degreeClassification,
-                    modeOfStudy: data.modeOfStudy,
-                    author: data.author,
-                    updateBy: data.updateBy,
-                    status: data.status,
-                    timeUpdate: new Date().getTime(),
-                    date: data.date,
-                    categoryId: data.categoryId
-                }, {
+                title: data.title,
+                studentId: data.studentId,
+                yearOfGraduation: data.yearOfGraduation,
+                degreeClassification: data.degreeClassification,
+                modeOfStudy: data.modeOfStudy,
+                author: data.author,
+                updateBy: data.updateBy,
+                status: data.status,
+                timeUpdate: new Date().getTime(),
+                date: data.date,
+                categoryId: data.categoryId
+            }, {
                     where: {
                         id: data.id
                     }
@@ -203,10 +197,10 @@ class CetificateListModel {
     updateStatus(data) {
         return new Promise((Result, Err) => {
             this.model.update(data, {
-                    where: {
-                        id: data.id
-                    }
-                })
+                where: {
+                    id: data.id
+                }
+            })
                 .then(result =>
                     Result(result)
                 )
