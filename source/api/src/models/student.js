@@ -1,12 +1,18 @@
 var connect = require('../connect');
 var Sequelize = require('sequelize');
+const SHA256 = require("crypto-js/sha256");
 
 var StudentClassroom = require('./student-class-room');
+var CertificateList = require('./cetificate-list');
 
 function generateStudentSign() {
     var numberRandom = Math.floor(100000 + Math.random() * 900000);
     var code = (new Date()).getFullYear() + '' + numberRandom;
     return code;
+}
+
+function getHash(data) {
+    return SHA256(JSON.stringify(this.data)).toString();
 }
 
 async function asyncForEach(array, callback) {
@@ -84,6 +90,14 @@ class StudentModel {
             studentSign: {
                 field: 'student_sign',
                 type: Sequelize.STRING
+            },
+            hashName: {
+                field: 'hash_name',
+                type: Sequelize.STRING
+            },
+            hashDateOfBirth: {
+                field: 'hash_date_of_birth',
+                type: Sequelize.STRING
             }
         }, {
                 tableName: 'student'
@@ -106,7 +120,9 @@ class StudentModel {
                 createBy: data.createBy,
                 updateBy: data.updateBy,
                 img: data.img,
-                studentSign: generateStudentSign()
+                studentSign: generateStudentSign(),
+                hashName: getHash(data.name),
+                hashDateOfBirth: getHash(data.dateOfBirth)
             }
             this.model.create(dto)
                 .then(res => {
@@ -132,19 +148,35 @@ class StudentModel {
                 timeUpdate: new Date().getTime(),
                 updateBy: data.updateBy,
                 img: data.img,
-                status: data.status
+                status: data.status,
+                hashName: getHash(data.name),
+                hashDateOfBirth: getHash(data.dateOfBirth)
             }
-            this.model.update(dto, {
-                where: {
-                    id: data.id
+            this.isEditHash(data.id, dto.name, dto.dateOfBirth).then(status => {
+                if (!status) {
+                    delete dto.hashName;
+                    delete dto.hashDateOfBirth;
                 }
-            })
-                .then(result =>
-                    Result(result)
-                )
-                .catch(err =>
-                    Err(err)
-                )
+                this.model.update(dto, {
+                    where: {
+                        id: data.id
+                    }
+                })
+                    .then(result => {
+                        if (status) {
+                            CertificateList.updateStatusEditByStudentId(data.id)
+                                .then(result => {
+                                    Result(result)
+                                })
+                        } else {
+                            Result(result)
+                        }
+                    })
+                    .catch(err =>
+                        Err(err)
+                    )
+            });
+
         });
     }
 
@@ -226,19 +258,19 @@ class StudentModel {
                             Result(studentList);
                         });
                     } else {
-                        this.getStudentActive().then( async (students) => {
+                        this.getStudentActive().then(async (students) => {
                             let dataSource = [];
                             await asyncForEach(students, async (student) => {
-                                 let  isStudentAvailable = true;
-                                 await asyncForEach(dataList, item => {
-                                     if (student.id == item.studentId) {
-                                         isStudentAvailable =  false;
-                                         return;
-                                     }
-                                 });
-                                 if(isStudentAvailable) {
-                                     dataSource.push(student);
-                                 }
+                                let isStudentAvailable = true;
+                                await asyncForEach(dataList, item => {
+                                    if (student.id == item.studentId) {
+                                        isStudentAvailable = false;
+                                        return;
+                                    }
+                                });
+                                if (isStudentAvailable) {
+                                    dataSource.push(student);
+                                }
                             });
                             Result(dataSource);
                         })
@@ -249,6 +281,29 @@ class StudentModel {
                     Err(err);
                 })
         });
+    }
+
+    isEditHash(id, name, dateOfBirth) {
+        return new Promise((Result, Err) => {
+            this.model.findOne({
+                raw: true,
+                where: {
+                    id: id
+                }
+            })
+                .then(row => {
+                    let hashName = getHash(name);
+                    let hashDateOfBirth = getHash(dateOfBirth);
+                    if (row.hashName != hashName || row.hashDateOfBirth != hashDateOfBirth) {
+                        Result(true);
+                    } else {
+                        Result(false);
+                    }
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        })
     }
 }
 

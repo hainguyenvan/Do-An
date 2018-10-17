@@ -210,6 +210,24 @@ class CetificateListModel {
         })
     }
 
+    updateStatusEditByStudentId(studentId) {
+        return new Promise((Result, Err) => {
+            this.model.update({
+                status: 101
+            }, {
+                    where: {
+                        studentId: studentId
+                    }
+                })
+                .then(result =>
+                    Result(result)
+                )
+                .catch(err =>
+                    Err(err)
+                )
+        })
+    }
+
 }
 
 module.exports = new CetificateListModel();
