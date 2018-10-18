@@ -1,0 +1,51 @@
+/*
+ * Header Styles
+ */
+
+.hero{
+	text-align: center;
+	color: white;
+	.container{
+		padding-top: 100px;
+		padding-bottom: 100px;
+	}
+	.branding{
+		margin-bottom: 100px;
+		display: inline-block;
+	}
+}
+
+.hero-content{
+	margin-bottom: 100px;
+	color: white;
+	text-align: center;
+
+	.footer-cta & {margin-bottom: 50px;}
+	h1{
+		@include em(50);
+	}
+}
+
+.subscribe-form{
+	position: relative;
+	width: 50%;
+	max-width: 100%;
+	margin: 0 auto 100px;
+	
+	@media screen and (max-width: 768px){width: 100%}
+
+	.footer-cta &{ margin-bottom: 0;}
+
+	input[type="text"],input[type="email"]{
+		width: 100%;
+		padding: 15px 150px 15px 15px;
+		
+	}
+	input[type="submit"]{
+		position: absolute;
+		right: 5px;
+		top:5px;
+		bottom:5px;
+
+	}
+}
