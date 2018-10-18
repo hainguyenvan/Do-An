@@ -16,6 +16,18 @@ const routes: Routes = [
         component: ECommerceComponent,
       },
       {
+        path: 'students',
+        loadChildren: './student/student.module#StudentModule',
+      },
+      {
+        path: 'classroom-list',
+        loadChildren: './classroom/classroom-list/classroom-list.module#ClassroomListModule',
+      },
+      {
+        path: 'study-manager',
+        loadChildren: './classroom/study-manager/study-manager.module#StudyManagerModule',
+      },
+      {
         path: 'account',
         loadChildren: './account/account.module#AccountModule',
       },
@@ -30,6 +42,10 @@ const routes: Routes = [
       {
         path: 'cetificate-list',
         loadChildren: './cetificate/cetificate-list/cetificate-list.module#CetificateListModule',
+      },
+      {
+        path: 'cetificate-log',
+        loadChildren: './cetificate/log/log.module#LogModule',
       },
       {
         path: 'iot-dashboard',

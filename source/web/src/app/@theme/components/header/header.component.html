@@ -3,7 +3,7 @@
      [class.right]="position === 'inverse'">
   <div class="logo-containter">
     <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
-    <div class="logo" (click)="goToHome()"><span>ĐH Bách Khoa Hà Nội</span></div>
+    <div class="logo" (click)="goToHome()"><span>Hệ Thống Quản Lý Chứng Chỉ</span></div>
   </div>
   <ngx-theme-switcher></ngx-theme-switcher>
 </div>
@@ -16,7 +16,7 @@
     [class.left]="position === 'inverse'">
     <!-- <nb-action icon="nb-gear" class="toggle-layout" (click)="toggleSettings()"></nb-action> -->
     <nb-action *nbIsGranted="['view', 'user']" >
-      <nb-user [nbContextMenu]="userMenu" [name]="user?.name" [picture]="user?.img"></nb-user>
+      <nb-user [nbContextMenu]="userMenu" [name]="user?.name" [picture]="user?.picture"></nb-user>
     </nb-action>
     <nb-action class="control-item" disabled icon="nb-notifications"></nb-action>
     <nb-action class="control-item" icon="nb-email"></nb-action>

@@ -3,6 +3,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CetificateService } from '../../cetificate.service';
 import { Config } from '../../../../config';
 import { FileUploader } from 'ng2-file-upload';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalMessageComponent } from '../modal/modal-message.component';
+import { ThirdParty } from '../../../../third-party/third-party';
 
 @Component({
   selector: 'add-cetificate',
@@ -19,16 +22,20 @@ export class AddCetificateComponent implements OnInit {
     { id: -1, value: 'Đã xóa' }
   ];
   public positionList: any = [
-    { value: 'Giỏi' },
-    { value: 'Khá' },
-    { value: 'Trung Bình' }
+    { value: 'Gioi' },
+    { value: 'Kha' },
+    { value: 'Trung Binh' }
   ];
+
+  public studentList: any = [];
 
   public modalHeader: string;
   public cetificate: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: CetificateService) {
+  constructor(private activeModal: NgbActiveModal,
+    private service: CetificateService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -43,6 +50,14 @@ export class AddCetificateComponent implements OnInit {
       this.categoryList = res.data;
     });
 
+    this.service.getStudentActive().subscribe(res => {
+      if (res.status != 200) {
+        console.log('Err : ', res.msg);
+        return;
+      }
+      this.studentList = res.data;
+    })
+
     if (this.service.acction == Config.EDIT_ACTION) {
       this.modalHeader = 'Cập nhật chứng chỉ';
       this.actionEdit = true;
@@ -55,6 +70,7 @@ export class AddCetificateComponent implements OnInit {
   }
 
   insert() {
+    this.cetificate.status = 101;
     this.service.addCeticateList(this.cetificate).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
@@ -66,6 +82,7 @@ export class AddCetificateComponent implements OnInit {
   }
 
   update() {
+    this.cetificate.status = 101;
     this.service.updateCeticateList(this.cetificate).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
@@ -76,7 +93,55 @@ export class AddCetificateComponent implements OnInit {
     });
   }
 
+  showModalMessage(content) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = content;
+    activeModal.componentInstance.statusColorHeader = true;
+  }
+
+  isValidateForm() {
+    if (ThirdParty.isNull(this.cetificate.title)) {
+      this.showModalMessage('Tên chứng chỉ là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.cetificate.categoryId)) {
+      this.showModalMessage('Loại chứng chỉ là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.cetificate.studentId)) {
+      this.showModalMessage('Sinh viên là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.cetificate.yearOfGraduation)) {
+      this.showModalMessage('Năm tốt nghiệp là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.cetificate.degreeClassification)) {
+      this.showModalMessage('Hỉnh thức đào tạo là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.cetificate.modeOfStudy)) {
+      this.showModalMessage('Xếp loại chứng chỉ là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.cetificate.author)) {
+      this.showModalMessage('Hiệu trưởng là bắt buộc');
+      return false;
+    }
+    if (ThirdParty.isNull(this.cetificate.date)) {
+      this.showModalMessage('Ngày phát hành là bắt buộc');
+      return false;
+    }
+    return true;
+  }
+
   onSubmit() {
+    if (!this.isValidateForm()) {
+      this.activeModal.close(Config.EVENT_CLOSE);
+      return;
+    }
     if (this.actionEdit) {
       this.update();
       return;

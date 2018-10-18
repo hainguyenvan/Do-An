@@ -9,6 +9,9 @@ var positionController = require('./controller/position-controller');
 var cetificateCategoryController = require('./controller/cetificate-category-controller');
 var cetificaetListController = require('./controller/cetificate-list-controller');
 var smartContractsController = require('./controller/smart-contracts-controller');
+var studentController = require('./controller/student-controller');
+var classroomController = require('./controller/classroom-controller');
+var studentClassroomControlller = require('./controller/student-classroom-controller');
 
 // API
 router.get('/', function (req, res) {
@@ -38,7 +41,7 @@ router.route('/addAccount').post(validate({
     dateOfBirth: Joi.string().required(),
     sex: Joi.number().required(),
     phone: Joi.string().required(),
-    address: Joi.string().required(),
+    address: Joi.string(),
     img: Joi.string(),
     position: Joi.string().required(),
     password: Joi.string().required(),
@@ -108,8 +111,7 @@ router.route('/insertCetificateList').post(validate({
     token: Joi.string().required(),
     title: Joi.string().required(),
     categoryId: Joi.number().required(),
-    studentName: Joi.string().required(),
-    dateOfBirth: Joi.string().required(),
+    studentId: Joi.number().required(),
     yearOfGraduation: Joi.number().required(),
     degreeClassification: Joi.string().required(),
     modeOfStudy: Joi.string().required(),
@@ -122,8 +124,7 @@ router.route('/updateCetificateList').post(validate({
     token: Joi.string().required(),
     title: Joi.string().required(),
     categoryId: Joi.number().required(),
-    studentName: Joi.string().required(),
-    dateOfBirth: Joi.string().required(),
+    studentId: Joi.number().required(),
     yearOfGraduation: Joi.number().required(),
     degreeClassification: Joi.string().required(),
     modeOfStudy: Joi.string().required(),
@@ -166,7 +167,8 @@ router.route('/smartcontracts/addCertificate').post(validate({
     date: Joi.string().required(),
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
-    token:Joi.string().required()
+    token: Joi.string().required(),
+    studentSign: Joi.string().required()
 }), smartContractsController.addCetificate);
 
 router.route('/smartcontracts/updateCertificate').post(validate({
@@ -181,10 +183,100 @@ router.route('/smartcontracts/updateCertificate').post(validate({
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
     status: Joi.number().required(),
-    token:Joi.string().required()
+    token: Joi.string().required(),
+    studentSign: Joi.string().required()
 }), smartContractsController.updateCertificate);
 
 router.route('/smartcontracts/getDataChanegs').post(smartContractsController.getDataChanegs);
+
+
+// Student
+router.route('/insertStudent').post(validate({
+    name: Joi.string().required(),
+    code: Joi.string().required(),
+    numberId: Joi.string().required(),
+    email: Joi.string().required(),
+    phone: Joi.string().required(),
+    sex: Joi.number().required(),
+    dateOfBirth: Joi.string().required(),
+    address: Joi.string().required(),
+    img: Joi.string().required(),
+    token: Joi.string().required()
+}), studentController.insert);
+
+router.route('/updateStudent').post(validate({
+    name: Joi.string().required(),
+    code: Joi.string().required(),
+    numberId: Joi.string().required(),
+    email: Joi.string().required(),
+    phone: Joi.string().required(),
+    sex: Joi.number().required(),
+    dateOfBirth: Joi.string().required(),
+    address: Joi.string().required(),
+    img: Joi.string().required(),
+    token: Joi.string().required(),
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), studentController.update);
+
+router.route('/updateStudentStatus').post(validate({
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), studentController.updateByStatus);
+
+router.route('/getAllStudents').post(studentController.getAllStudent);
+
+router.route('/getStudentAvailable').post(studentController.getStudentAvailable);
+
+router.route('/getStudentActive').post(studentController.getStudentActive);
+
+
+// Classroom
+router.route('/insertClassroom').post(validate({
+    token: Joi.string().required(),
+    code: Joi.string().required(),
+    dsc: Joi.string().required()
+}), classroomController.insert);
+
+router.route('/updateClassroom').post(validate({
+    token: Joi.string().required(),
+    code: Joi.string().required(),
+    dsc: Joi.string().required(),
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), classroomController.update);
+
+router.route('/updateStatusClassroom').post(validate({
+    token: Joi.string().required(),
+    id: Joi.number().required(),
+    status: Joi.number().required()
+}), classroomController.updateByStatus);
+
+router.route('/getAllClassroom').post(classroomController.getAllClassroom);
+
+router.route('/getClassroomActive').post(classroomController.getClassroomActive);
+
+router.route('/getStudentOfClassroom').post(validate({
+    classroomId: Joi.number().required()
+}),classroomController.getStudentOfClassroom);
+
+
+
+// Study manager
+router.route('/addStudyManager').post(validate({
+     classroomId: Joi.number().required(),
+     students:Joi.array().required()
+}), studentClassroomControlller.insert);
+
+router.route('/updateStudyManager').post(validate({
+    classroomId: Joi.number().required(),
+    students:Joi.array().required()
+}), studentClassroomControlller.update);
+
+router.route('/destroyStudentOfClassroom').post(validate({
+    studentId: Joi.number().required(),
+    classroomId: Joi.number().required()
+}), studentClassroomControlller.destroy);
 
 
 // Upload images

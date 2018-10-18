@@ -1,0 +1,7 @@
+version: '2'
+services:
+  dev-blockchain:
+    image: trufflesuite/ganache-cli:v6.1.6
+    ports:
+      - 7545:8545
+    command: ["-h=0.0.0.0"]

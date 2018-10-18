@@ -24,6 +24,9 @@ export class SmartContractsComponent implements OnInit {
   ngOnInit() {
     this.modalHeader = 'Cấp quyền phát hành chứng chỉ';
     this.user = this.service.accountItem;
+    if (this.user.publicPermission == undefined) {
+      this.user.publicPermission = {};
+    }
   }
 
   closeModal() {

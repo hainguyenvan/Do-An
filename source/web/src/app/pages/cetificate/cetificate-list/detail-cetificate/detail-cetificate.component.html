@@ -4,9 +4,14 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
+
+<!-- Detail edit certificate -->
+<div class="modal-body" *ngIf="!showCertificate">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-7 img-detail">
+      <img src="{{cetificate.student.img}}" alt="" />
+    </div>
+    <div class="col-sm-5">
       <div class="row">
         <table class="table table-borderless table-condensed table-hover">
           <tr>
@@ -67,7 +72,63 @@
           </tr>
           <tr>
             <td class="font-bold">Trạng thái</td>
-            <label for="inputFirstName" class="btn btn-success btn-xs">{{cetificate.strStatus}}</label>
+            <label for="inputFirstName" class="btn btn-success btn-xs">{{cetificate.strStatusPublic}}</label>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detail public certificate -->
+<div class="modal-body" *ngIf="showCertificate">
+  <div class="row">
+    <div class="col-sm-7 img-detail">
+      <img src="{{cetificate.studentImg}}" alt="" />
+    </div>
+    <div class="col-sm-5">
+      <div class="row">
+        <table class="table table-borderless table-condensed table-hover">
+          <tr>
+            <td class="font-bold">Mã chứng chỉ</td>
+            <td>{{cetificate.code}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Tên chứng chỉ</td>
+            <td>{{cetificate.title}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Họ tên</td>
+            <td>{{cetificate.studentName}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Ngày sinh</td>
+            <td>{{cetificate.dataOfBirth}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Năm tốt nghiệp</td>
+            <td>{{cetificate.yearOfGraduation}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Xếp loại</td>
+            <td>{{cetificate.degreeClassification}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Hình thức đào tạo</td>
+            <td>{{cetificate.modeOfStudy}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Ngày phát hành</td>
+            <td>{{cetificate.date}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Hiệu trưởng</td>
+            <td>{{cetificate.author}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Trạng thái</td>
+            <label for="inputFirstName" class="btn btn-success btn-xs">{{cetificate.strStatusPublic}}</label>
           </tr>
 
         </table>

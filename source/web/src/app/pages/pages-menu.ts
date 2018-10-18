@@ -12,6 +12,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/position',
   },
   {
+    title: 'DS sinh viên',
+    icon: 'nb-list',
+    link: '/pages/students',
+  },
+  {
+    title: 'Quản lý lớp học',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Danh sách lớp học',
+        link: '/pages/classroom-list',
+      },
+      {
+        title: 'Quản lý đào tạo',
+        link: '/pages/study-manager',
+      }
+    ]
+  },
+  {
     title: 'Chứng chỉ',
     icon: 'nb-keypad',
     children: [
@@ -22,6 +41,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'DS chứng chỉ',
         link: '/pages/cetificate-list',
+      },
+      {
+        title: 'Lịch sử  cập nhật',
+        link: '/pages/cetificate-log',
       }
     ]
     // },

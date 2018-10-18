@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="inputFirstName">Lớp học
+          <span style="color:red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="data.classroomId">
+          <option *ngFor="let anApp of classroomList" [value]="anApp.id">{{anApp.dsc}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="inputFirstName">Danh sách sinh viên <span style="color:red">*</span></label>
+        <ng2-smart-table class="tableequipment" [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)">
+        </ng2-smart-table>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-dark" (click)="closeModal()">CANCEL</button>
+  <button class="btn btn-warning" (click)="onSubmit()">SUBMIT</button>
+</div>

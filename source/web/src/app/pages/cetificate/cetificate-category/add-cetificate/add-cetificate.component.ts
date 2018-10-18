@@ -3,6 +3,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CetificateService } from '../../cetificate.service';
 import { Config } from '../../../../config';
 import { FileUploader } from 'ng2-file-upload';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalMessageComponent } from '../modal/modal-message.component';
+import { ThirdParty } from '../../../../third-party/third-party';
 
 @Component({
   selector: 'add-cetificate',
@@ -21,7 +24,9 @@ export class AddCetificateComponent implements OnInit {
   public cetificate: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, private service: CetificateService) { }
+  constructor(private activeModal: NgbActiveModal,
+    private service: CetificateService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.modalHeader = 'Thêm chứng chỉ';
@@ -49,7 +54,7 @@ export class AddCetificateComponent implements OnInit {
   }
 
   update() {
-    this.cetificate.status =  Number(this.cetificate.status);
+    this.cetificate.status = Number(this.cetificate.status);
     this.service.updateCeticateCategory(this.cetificate).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
@@ -60,7 +65,26 @@ export class AddCetificateComponent implements OnInit {
     });
   }
 
+  showModalMessage(content) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = content;
+    activeModal.componentInstance.statusColorHeader = true;
+  }
+
+  isValidateForm() {
+    if (ThirdParty.isNull(this.cetificate.dsc)) {
+      this.showModalMessage('Tên của chứng chỉ là bắt buộc');
+      return false;
+    }
+    return true;
+  }
+
   onSubmit() {
+    if (!this.isValidateForm()) {
+      this.activeModal.close(Config.EVENT_CLOSE);
+      return;
+    }
     if (this.actionEdit) {
       this.update();
       return;

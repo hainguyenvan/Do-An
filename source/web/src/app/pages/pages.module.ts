@@ -6,13 +6,14 @@ import { ECommerceModule } from './e-commerce/e-commerce.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { ShowPublicCertificateComponent } from './cetificate/cetificate-list/cetificate-list.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
 
 @NgModule({
-  entryComponents: [],
+  entryComponents: [ShowPublicCertificateComponent],
   imports: [
     PagesRoutingModule,
     ThemeModule,
@@ -23,6 +24,7 @@ const PAGES_COMPONENTS = [
   providers: [
   ],
   declarations: [
+    ShowPublicCertificateComponent,
     ...PAGES_COMPONENTS,
   ],
 })

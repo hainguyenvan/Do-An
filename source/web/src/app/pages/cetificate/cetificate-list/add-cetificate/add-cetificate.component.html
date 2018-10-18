@@ -29,25 +29,18 @@
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Tên sinh viên
+        <label for="inputFirstName">Sinh viên
           <span style="color:red">*</span>
         </label>
-        <input type="text" class="form-control" placeholder="Tên sinh viên" [(ngModel)]="cetificate.studentName">
+        <select class="form-control" [(ngModel)]="cetificate.studentId">
+          <option *ngFor="let anApp of studentList" [value]="anApp.id">{{anApp.name}}</option>
+        </select>
       </div>
     </div>
-
   </div>
 
   <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="inputFirstName">Ngày sinh
-          <span style="color:red">*</span>
-        </label>
-        <input type="date" class="form-control" [(ngModel)]="cetificate.dateOfBirth">
-      </div>
-    </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="form-group">
         <label for="inputFirstName">Năm tốt nghiệp
           <span style="color:red">*</span>
@@ -94,19 +87,6 @@
           <span style="color:red">*</span>
         </label>
         <input type="date" class="form-control" id="inputFirstName" placeholder="Ngày cấp" [(ngModel)]="cetificate.date">
-      </div>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="actionEdit">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="inputFirstName">Trạng thái
-          <span style="color:red">*</span>
-        </label>
-        <select class="form-control" [(ngModel)]="cetificate.status">
-          <option *ngFor="let anApp of statusList" [value]="anApp.id">{{anApp.value}}</option>
-        </select>
       </div>
     </div>
   </div>

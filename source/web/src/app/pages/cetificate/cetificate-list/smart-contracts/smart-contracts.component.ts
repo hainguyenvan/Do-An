@@ -17,6 +17,10 @@ export class SmartContractsComponent implements OnInit {
   public infoAccount: any;
 
   constructor(private activeModal: NgbActiveModal, private service: CetificateService) { }
+  public statusList: any = [
+    { id: 1, value: 'Phát hành' },
+    { id: -1, value: 'Ngừng phát hành' }
+  ];
 
   ngOnInit() {
     this.modalHeader = 'Thông báo';
@@ -25,11 +29,6 @@ export class SmartContractsComponent implements OnInit {
 
     let dataAccount = localStorage.getItem(Config.OJBJECT_KEY);
     this.infoAccount = JSON.parse(dataAccount);
-    if (this.user.certificateSmartContracts === undefined) {
-      this.modalMessage = 'Bạn có muốn phát hành chứng chỉ';
-    } else {
-      this.modalMessage = 'Bạn có muốn cập nhật bản phát hành';
-    }
   }
 
   closeModal() {
@@ -51,7 +50,7 @@ export class SmartContractsComponent implements OnInit {
   update() {
     this.user.index = this.user.certificateSmartContracts.index;
     this.user.updateBy = this.infoAccount.authorSmartContracts.index;
-    this.user.status = 1;
+    this.user.status = Number(this.user.certificateSmartContracts.status);
     this.service.updateCeticateSmartContracts(this.user).subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
@@ -63,7 +62,7 @@ export class SmartContractsComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.user.certificateSmartContracts === undefined) {
+    if (this.user.certificateSmartContracts === undefined || this.user.certificateSmartContracts.index === undefined) {
       this.insert();
       return;
     }

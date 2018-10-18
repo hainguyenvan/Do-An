@@ -159,7 +159,7 @@ exports.getDataChanegs = function (req, res) {
                         code: web3.utils.hexToUtf8(item.returnValues[0]),
                         title: web3.utils.hexToUtf8(item.returnValues[1]),
                         studentName: web3.utils.hexToUtf8(item.returnValues[2]),
-                        dataOfBirth: web3.utils.hexToUtf8(item.returnValues[3]),
+                        dateOfBirth: web3.utils.hexToUtf8(item.returnValues[3]),
                         yearOfGraduation: Number(item.returnValues[4]),
                         degreeClassification: web3.utils.hexToUtf8(item.returnValues[5]),
                         modeOfStudy: web3.utils.hexToUtf8(item.returnValues[6]),
@@ -167,7 +167,9 @@ exports.getDataChanegs = function (req, res) {
                         author: web3.utils.hexToUtf8(item.returnValues[8]),
                         updateBy: updateBy,
                         status: Number(item.returnValues[10]),
-                        timeUpdate: web3.utils.hexToUtf8(item.returnValues[11])
+                        timeUpdate: web3.utils.hexToUtf8(item.returnValues[11]),
+                        studentSign: web3.utils.hexToUtf8(item.returnValues[12]),
+                        log: item
                     };
                     dataSource.push(log);
                 });

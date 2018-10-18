@@ -2,7 +2,8 @@ const Web3 = require('web3');
 const Config = require('../config');
 const ABI = require('../abi');
 
-const NETWORK_ADDRS = "http://localhost:7545";
+// const NETWORK_ADDRS = "http://localhost:7545";
+const NETWORK_ADDRS = "http://172.104.167.189:7545";
 let provider = new Web3.providers.HttpProvider(NETWORK_ADDRS);
 const web3 = new Web3(provider);
 
@@ -191,7 +192,8 @@ class SmartContracts {
                             author: web3.utils.hexToUtf8(result[8]), // Người cấp bằng
                             updateBy: Number(result[9]), // Id của người sửa dữ liệu
                             status: Number(result[10]), // Trang thai bang
-                            timeUpdate: web3.utils.hexToUtf8(result[11])
+                            timeUpdate: web3.utils.hexToUtf8(result[11]),
+                            studentSign: web3.utils.hexToUtf8(result[12])
                         };
                         dataList.push(item);
                         if (i == count) {
@@ -230,7 +232,8 @@ class SmartContracts {
                                 author: web3.utils.hexToUtf8(result[8]), // Người cấp bằng
                                 updateBy: Number(result[9]), // Id của người sửa dữ liệu
                                 status: Number(result[10]), // Trang thai bang
-                                timeUpdate: web3.utils.hexToUtf8(result[11])
+                                timeUpdate: web3.utils.hexToUtf8(result[11]),
+                                studentSign: web3.utils.hexToUtf8(result[12])
                             };
                             Result(certificate);
                         }
@@ -254,7 +257,7 @@ class SmartContracts {
             let code = web3.utils.fromAscii(data.code);
             let title = web3.utils.fromAscii(data.title);
             let studentName = web3.utils.fromAscii(data.studentName);
-            let dataOfBirth = web3.utils.fromAscii(data.dateOfBirth);
+            let dateOfBirth = web3.utils.fromAscii(data.dateOfBirth);
             let yearOfGraduation = data.yearOfGraduation;
             let degreeClassification = web3.utils.fromAscii(data.degreeClassification);
             let modeOfStudy = web3.utils.fromAscii(data.modeOfStudy);
@@ -262,9 +265,10 @@ class SmartContracts {
             let author = web3.utils.fromAscii(data.author);
             let updateBy = data.updateBy;
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
+            let studentSign = web3.utils.fromAscii(data.studentSign);
             this.cetification.addCertificate(code, title, studentName, dataOfBirth,
                     yearOfGraduation, degreeClassification, modeOfStudy, date,
-                    author, updateBy, timeUpdate, config)
+                    author, updateBy, timeUpdate,studentSign, config)
                 .then(status => {
                     Result(status);
                 })
@@ -292,11 +296,12 @@ class SmartContracts {
             let updateBy = data.updateBy;
             let status = data.status;
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
+            let studentSign = web3.utils.fromAscii(data.studentSign);
             this.cetification.updateCertificate(index, title,
                     studentName, dataOfBirth,
                     yearOfGraduation, degreeClassification,
                     modeOfStudy, date,
-                    author, updateBy, status, timeUpdate, config)
+                    author, updateBy, status, timeUpdate,studentSign, config)
                 .then(status => {
                     Result(status);
                 })
