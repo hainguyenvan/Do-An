@@ -28,7 +28,6 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 
 	$scope.init = function () {
 		$scope.certificateCode = '';
-		$scope.certificate = {};
 	}
 
 	$scope.getCertificateByCode = function () {
