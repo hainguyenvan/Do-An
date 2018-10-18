@@ -30,9 +30,14 @@
 					</h1>
 				</div>
 
-				<form class="subscribe-form">
-					<input type="text" placeholder="Nhập mã số  bằng..." ng-model="certificateCode" style="color: black">
-					<input type="submit" value="Tìm kiếm" ng-click="getCertificateByCode()">
+				<form class="form-inline" style="background-color:white">
+					<select style="color:black; background-color: white">
+						<option value="0">Lịch sử cập nhật</option>
+						<option value="1">Thông tin bằng</option>
+					</select>
+					<input type="text" class="form-control" style="width: 100px; color: black" placeholder="Nhập mã bằng...">
+					<input type="text" class="form-control" style="width: 100px; color: black" placeholder="Nhập mã số sinh viên..">
+					<button type="submit" class="btn btn-primary">Tìm kiếm</button>
 				</form>
 			</div>
 		</header>
