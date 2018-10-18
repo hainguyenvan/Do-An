@@ -18,16 +18,16 @@
 </head>
 
 <body>
-	<div class="site-content">
+	<div class="site-content" ng-app="appCertificate" ng-controller="ctrlCertificate" ng-init="init()">
 		<header class="hero" data-bg-image="/images/background.jpg">
 			<div class="container">
 				<div class="hero-content">
-					<h1  style="color:black">Hệ Thống Quản Lý Chứng Chỉ<br><strong>Bằng TốT Nghiệp Đại Học</strong></h1>
+					<h1 style="color:black">Hệ Thống Quản Lý Chứng Chỉ<br><strong>Bằng TốT Nghiệp Đại Học</strong></h1>
 				</div>
 
 				<form class="subscribe-form">
-					<input type="text" placeholder="Nhập mã số  bằng...">
-					<input type="submit" value="Tìm kiếm">
+					<input type="text" placeholder="Nhập mã số  bằng..."  ng-model="certificateCode">
+					<input type="submit" value="Tìm kiếm" ng-click="getCertificateByCode()">
 				</form>
 			</div>
 		</header>
@@ -43,7 +43,8 @@
 							<div class="testimonial">
 								<img src="/images/admin1.jpg" alt="" class="user-avatar">
 								<div class="testimonial-content">
-									<span class="meta"><strong>Nguyen Van Hai</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa Hà Nội.</a></em></span>
+									<span class="meta"><strong>Nguyen Van Hai</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa
+												Hà Nội.</a></em></span>
 									<p>Email: hai213k57@gmail.com. </br>
 										Phone: 09889989989
 									</p>
@@ -53,7 +54,8 @@
 							<div class="testimonial">
 								<img src="/images/admin2.jpg" alt="" class="user-avatar">
 								<div class="testimonial-content">
-									<span class="meta"><strong>Nguyen Mau Thoai</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa Hà Nội.</a></em></span>
+									<span class="meta"><strong>Nguyen Mau Thoai</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa
+												Hà Nội.</a></em></span>
 									<p>Email: hai213k57@gmail.com. </br>
 										Phone: 09889989989
 									</p>
@@ -65,7 +67,8 @@
 							<div class="testimonial">
 								<img src="/images/admin1.jpg" alt="" class="user-avatar">
 								<div class="testimonial-content">
-									<span class="meta"><strong>Ta Van Loi</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa Hà Nội.</a></em></span>
+									<span class="meta"><strong>Ta Van Loi</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa Hà
+												Nội.</a></em></span>
 									<p>Email: hai213k57@gmail.com. </br>
 										Phone: 09889989989
 									</p>
@@ -75,7 +78,8 @@
 							<div class="testimonial">
 								<img src="/images/admin4.jpg" alt="" class="user-avatar">
 								<div class="testimonial-content">
-									<span class="meta"><strong>Nguyen Tien Hien</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa Hà Nội.</a></em></span>
+									<span class="meta"><strong>Nguyen Tien Hien</strong>, <em>Quản trị viên hệ thống <a href="#">Đại Học Bách Khoa
+												Hà Nội.</a></em></span>
 									<p>Email: hai213k57@gmail.com. </br>
 										Phone: 09889989989
 									</p>
@@ -83,12 +87,12 @@
 								</div>
 							</div>
 						</div>
-					</div> 
-				</div> 
+					</div>
+				</div>
 			</div>
-		</main> 
+		</main>
 
-		<footer class="site-footer"  data-bg-color="#e6e6e6">
+		<footer class="site-footer" data-bg-color="#e6e6e6">
 			<div class="container">
 				<p>Bản quyền 2018 bởi Nguyễn Văn Hải, Đại Học Bách Khoa Hà Nội</p>
 
@@ -104,6 +108,8 @@
 
 	<script src="/js/jquery-1.11.1.min.js"></script>
 	<script src="/js/plugins.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/angular.min.js"></script>
 	<script src="/js/app.js"></script>
 
 </body>
