@@ -5,6 +5,12 @@ var connect = require('../connect');
 var Sequelize = require('sequelize');
 var SmartContracts = require('../smart-contracts/smart-contracts');
 
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
+}
+
 class AccountModel {
     constructor() {
         var sequelize = connect.sequelize;
@@ -76,8 +82,8 @@ class AccountModel {
                 type: Sequelize.INTEGER
             }
         }, {
-            tableName: 'account'
-        });
+                tableName: 'account'
+            });
     }
 
     login(email, password) {
@@ -110,20 +116,18 @@ class AccountModel {
     getAll() {
         return new Promise((Result, Err) => {
             this.model.findAll({
-                    raw: true
-                })
-                .then(accList => {
+                raw: true
+            })
+                .then(async (accList) => {
                     if (accList.length == 0) {
                         Result([]);
                     }
-                    for (let i = 0; i < accList.length; i++) {
-                        SmartContracts.getAuthorBySign(accList[i].sign).then(res => {
-                            accList[i].publicPermission = res;
-                            if (i == accList.length - 1) {
-                                Result(accList);
-                            }
+                    await asyncForEach(accList, async (item) => {
+                        await SmartContracts.getAuthorBySign(item.sign).then(res => {
+                            item.publicPermission = res;
                         });
-                    }
+                    });
+                    Result(accList);
                 })
                 .catch(err => {
                     Err(err);
@@ -134,21 +138,21 @@ class AccountModel {
     insert(data) {
         return new Promise((Result, Err) => {
             this.model.create({
-                    name: data.name,
-                    email: data.email,
-                    code: data.code,
-                    dateOfBirth: data.dateOfBirth,
-                    sex: data.sex,
-                    phone: data.phone,
-                    address: data.address,
-                    img: data.img,
-                    position: data.position,
-                    password: data.password,
-                    dsc: data.dsc,
-                    sign: data.sign,
-                    timeCreate: new Date().getTime(),
-                    timeUpdate: new Date().getTime()
-                })
+                name: data.name,
+                email: data.email,
+                code: data.code,
+                dateOfBirth: data.dateOfBirth,
+                sex: data.sex,
+                phone: data.phone,
+                address: data.address,
+                img: data.img,
+                position: data.position,
+                password: data.password,
+                dsc: data.dsc,
+                sign: data.sign,
+                timeCreate: new Date().getTime(),
+                timeUpdate: new Date().getTime()
+            })
                 .then(res => {
                     Result(res);
                 })
@@ -161,8 +165,8 @@ class AccountModel {
     delete(accountCode) {
         return new Promise((Result, Err) => {
             this.model.update({
-                    status: -1
-                }, {
+                status: -1
+            }, {
                     where: {
                         code: accountCode
                     }
@@ -179,19 +183,19 @@ class AccountModel {
     update(data) {
         return new Promise((Result, Err) => {
             this.model.update({
-                    name: data.name,
-                    email: data.email,
-                    dateOfBirth: data.dateOfBirth,
-                    sex: data.sex,
-                    phone: data.phone,
-                    address: data.address,
-                    img: data.img,
-                    status: data.status,
-                    position: data.position,
-                    password: data.password,
-                    dsc: data.dsc,
-                    timeUpdate: new Date().getTime()
-                }, {
+                name: data.name,
+                email: data.email,
+                dateOfBirth: data.dateOfBirth,
+                sex: data.sex,
+                phone: data.phone,
+                address: data.address,
+                img: data.img,
+                status: data.status,
+                position: data.position,
+                password: data.password,
+                dsc: data.dsc,
+                timeUpdate: new Date().getTime()
+            }, {
                     where: {
                         code: data.code
                     }
@@ -208,9 +212,9 @@ class AccountModel {
     getById(id) {
         return new Promise((Result, Err) => {
             this.model.findOne({
-                    raw: true,
-                    id: id
-                })
+                raw: true,
+                id: id
+            })
                 .then(data => {
                     Result(data);
                 })
