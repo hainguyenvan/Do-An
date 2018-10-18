@@ -33,6 +33,20 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 
 	$scope.getCertificateByCode = function () {
 		console.log('Certificate code : ', $scope.certificateCode);
+		$scope.certificate = {
+			studentImg: 'https://www.nssi.com/media/wysiwyg/images/2.jpg',
+			code: '20120909',
+			title: 'Bằng TốT Nghiệp',
+			studentName: 'Nguyễn Văn Hải',
+			dateOfBirth: '08/09/1994',
+			yearOfGraduation: '2018',
+			degreeClassification: 'Khá',
+			modeOfStudy: 'Chính Quy',
+			date: '01/12/2018',
+			author: 'Lê Minh Sơn',
+			strStatusPublic: 'Đang phát hành'
+		}
+		$('#myModal').modal();
 		// var body = {
 		// 	code: $scope.certificateCode,
 		// }

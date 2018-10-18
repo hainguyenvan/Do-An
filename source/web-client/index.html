@@ -11,14 +11,16 @@
 	<!-- Loading third party fonts -->
 	<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
 	<link href="/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 	<!-- Loading main css file -->
 	<link rel="stylesheet" href="/style.css">
+	<link rel="stylesheet" href="/custom.css">
 
 </head>
 
-<body>
-	<div class="site-content" ng-app="appCertificate" ng-controller="ctrlCertificate" ng-init="init()">
+<body ng-app="appCertificate" ng-controller="ctrlCertificate" ng-init="init()">
+	<div class="site-content">
 		<header class="hero" data-bg-image="/images/background.jpg">
 			<div class="container">
 				<div class="hero-content">
@@ -26,7 +28,7 @@
 				</div>
 
 				<form class="subscribe-form">
-					<input type="text" placeholder="Nhập mã số  bằng..."  ng-model="certificateCode">
+					<input type="text" placeholder="Nhập mã số  bằng..." ng-model="certificateCode">
 					<input type="submit" value="Tìm kiếm" ng-click="getCertificateByCode()">
 				</form>
 			</div>
@@ -106,9 +108,82 @@
 		</footer>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Thông tin bằng tốt nghiệp</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-7 img-detail">
+							<img src="{{certificate.studentImg}}" alt="" />
+						</div>
+						<div class="col-sm-5">
+							<div class="row">
+								<table class="table table-borderless table-condensed table-hover">
+									<tr>
+										<td class="font-bold">Mã chứng chỉ</td>
+										<td>{{certificate.code}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Tên chứng chỉ</td>
+										<td>{{certificate.title}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Họ tên</td>
+										<td>{{certificate.studentName}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Ngày sinh</td>
+										<td>{{certificate.dateOfBirth}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Năm tốt nghiệp</td>
+										<td>{{certificate.yearOfGraduation}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Xếp loại</td>
+										<td>{{certificate.degreeClassification}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Hình thức đào tạo</td>
+										<td>{{certificate.modeOfStudy}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Ngày phát hành</td>
+										<td>{{certificate.date}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Hiệu trưởng</td>
+										<td>{{certificate.author}}</td>
+									</tr>
+									<tr>
+										<td class="font-bold">Trạng thái</td>
+										<td>
+											<label for="inputFirstName" class="btn btn-success btn-xs">{{certificate.strStatusPublic}}</label>
+										</td>
+									</tr>
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="/js/plugins.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/angular.min.js"></script>
 	<script src="/js/app.js"></script>
 

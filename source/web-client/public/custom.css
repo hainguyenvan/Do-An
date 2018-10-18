@@ -1,0 +1,12 @@
+.font-bold {
+    font-weight: bold;
+}
+
+.table-borderless td,
+.table-borderless th {
+    border: 0;
+}
+
+.td-name-not-bold {
+    padding-left: 20px;
+}
