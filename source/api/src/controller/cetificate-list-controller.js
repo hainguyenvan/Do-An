@@ -30,6 +30,26 @@ exports.getAll = function (req, res) {
         });
 }
 
+exports.getCertificateByCode = function (req, res) {
+    SmartContracts.getCertificateByCode(req.body.code)
+        .then(certificate => {
+            Student.getStudentBySign(certificate.studentSign)
+                .then(student => {
+                    certificate.student = student;
+                    res.send({
+                        status: 200,
+                        data: certificate
+                    });
+                })  
+        })
+        .catch(err => {
+            res.send({
+                status: 400,
+                msg: err
+            });
+        })
+}
+
 exports.insert = function (req, res) {
     let token = req.body.token;
     let tokenJson = JWT.decode(token, {

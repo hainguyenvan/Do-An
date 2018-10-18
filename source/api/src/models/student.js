@@ -283,6 +283,23 @@ class StudentModel {
         });
     }
 
+    getStudentBySign(sign) {
+        return new Promise((Result, Err) => {
+            this.model.findOne({
+                raw: true,
+                where: {
+                    studentSign: sign
+                }
+            })
+                .then(row => {
+                    Result(row);
+                })
+                .catch(err => {
+                    Err(err);
+                });
+        });
+    }
+
     isEditHash(id, name, dateOfBirth) {
         return new Promise((Result, Err) => {
             this.model.findOne({

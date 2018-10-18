@@ -138,6 +138,10 @@ router.route('/deleteCetificateList').post(validate({
     id: Joi.number().required()
 }), cetificaetListController.delete);
 
+router.route('/getCertificateByCode').post(validate({
+    code: Joi.string().required()
+}), cetificaetListController.getCertificateByCode)
+
 
 // Smart Contracts
 router.route('/smartcontracts/getAuthorList').post(smartContractsController.getAuthorList);
