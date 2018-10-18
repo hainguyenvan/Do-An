@@ -19,7 +19,7 @@ import { ModalMessageComponent } from './modal/modal-message.component';
   templateUrl: './student.component.html',
 })
 export class StudentComponent implements OnInit {
-  settings = {
+  settingsAdmin = {
     actions: {
       delete: false,
       add: false,
@@ -81,12 +81,80 @@ export class StudentComponent implements OnInit {
     },
   };
 
+  settingsStaff = {
+    actions: {
+      delete: false,
+      add: false,
+      edit: false,
+      custom: [
+        {
+          name: 'detail',
+          title: '<i class="fas fa-eye"></i>'
+        }
+      ]
+    },
+    columns: {
+      numberId: {
+        title: 'Số chứng minh thư',
+        type: 'string',
+        width: '10px'
+      },
+      code: {
+        title: 'Mã sinh viên',
+        type: 'string',
+      },
+      name: {
+        title: 'Họ tên',
+        type: 'string',
+      },
+      email: {
+        title: 'Email',
+        type: 'string',
+      },
+      dateOfBirth: {
+        title: 'Ngày sinh',
+        type: 'string',
+      },
+      strSex: {
+        title: 'Giới tính',
+        type: 'string',
+      },
+      phone: {
+        title: 'Số điện thoại',
+        type: 'string',
+      },
+      address: {
+        title: 'Địa chỉ',
+        type: 'string',
+      },
+      strStatus: {
+        title: 'Trạng thái',
+        type: 'string',
+        width: '15px'
+      }
+    },
+  };
+
   source: LocalDataSource = new LocalDataSource();
+  public statusAdmin: boolean;
+  public statusStaff: boolean;
+  public isDisableBtnAdd: boolean;
 
   constructor(private service: StudentService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
+    let accountData = localStorage.getItem(Config.OJBJECT_KEY);
+    let account = JSON.parse(accountData);
+    switch (account.position) {
+      case 'Admin':
+        this.statusAdmin = true;
+        this.isDisableBtnAdd = false;
+        break;
+      default:
+        this.statusStaff = true;
+        this.isDisableBtnAdd = true;
+    }
     this.onSearch();
   }
 

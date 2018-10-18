@@ -17,7 +17,7 @@ import { ModalMessageComponent } from './modal/modal-message.component';
   templateUrl: './classroom-list.component.html',
 })
 export class ClassroomListComponent implements OnInit {
-  settings = {
+  settingsAdmin = {
     actions: {
       delete: false,
       add: false,
@@ -62,12 +62,61 @@ export class ClassroomListComponent implements OnInit {
     },
   };
 
+  settingsStaff = {
+    actions: {
+      delete: false,
+      add: false,
+      edit: false
+    },
+    columns: {
+      id: {
+        title: 'ID',
+        type: 'number',
+        width: '10px'
+      },
+      code: {
+        title: 'Mã lớp học',
+        type: 'string',
+      },
+      dsc: {
+        title: 'Tên lớp học',
+        type: 'string',
+      },
+      timeCreate: {
+        title: 'Ngày tạo',
+        type: 'string',
+      },
+      timeUpdate: {
+        title: 'Ngày cập nhật',
+        type: 'string',
+      },
+      strStatus: {
+        title: 'Trạng thái',
+        type: 'string'
+      }
+    },
+  };
+
   source: LocalDataSource = new LocalDataSource();
+  public statusAdmin: boolean;
+  public statusStaff: boolean;
+  public isDisableBtnAdd: boolean;
 
   constructor(private service: ClassroomService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
+    let accountData = localStorage.getItem(Config.OJBJECT_KEY);
+    let account = JSON.parse(accountData);
+    switch (account.position) {
+      case 'Admin':
+        this.statusAdmin = true;
+        this.isDisableBtnAdd = false;
+        break;
+      default:
+        this.statusStaff = true;
+        this.isDisableBtnAdd = true;
+    }
     this.onSearch();
   }
 

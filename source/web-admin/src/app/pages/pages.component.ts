@@ -24,6 +24,9 @@ export class PagesComponent implements OnInit {
     }
     childrens.forEach((item) => {
       item.data.forEach(tmp => {
+        if (item.hidden == false) {
+          return;
+        }
         if (tmp == role) {
           item.hidden = false;
           return;

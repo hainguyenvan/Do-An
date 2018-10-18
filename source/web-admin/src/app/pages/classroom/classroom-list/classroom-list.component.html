@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="col-sm-2">
+      <div class="col-sm-2" *ngIf="!isDisableBtnAdd">
         <div class="input-group d-flex flex-row-reverse">
           <label for="inputLastName"></label>
           <button class="btn btn btn-warning" (click)="showModalAddClassroom()">Thêm</button>
@@ -27,7 +27,9 @@
   </nb-card-header>
 
   <nb-card-body>
-    <ng2-smart-table class="tableequipment" [settings]="settings" [source]="source" (custom)="onCustom($event)">
+    <ng2-smart-table class="tableequipment" [settings]="settingsAdmin" [source]="source" (custom)="onCustom($event)" *ngIf="statusAdmin">
+    </ng2-smart-table>
+    <ng2-smart-table class="tableequipment" [settings]="settingsStaff" [source]="source" (custom)="onCustom($event)" *ngIf="statusStaff">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>

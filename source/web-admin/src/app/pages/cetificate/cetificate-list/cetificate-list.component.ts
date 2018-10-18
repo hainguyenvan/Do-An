@@ -62,7 +62,7 @@ export class ShowPublicCertificateComponent implements ViewCell, OnInit {
   templateUrl: './cetificate-list.component.html',
 })
 export class CetificateListComponent implements OnInit {
-  settings = {
+  settingsPublicer = {
     actions: {
       delete: false,
       add: false,
@@ -146,12 +146,102 @@ export class CetificateListComponent implements OnInit {
     },
   };
 
+  settingsStaff = {
+    actions: {
+      delete: false,
+      add: false,
+      edit: false,
+      custom: [
+        {
+          name: 'detail',
+          title: '<i class="fas fa-eye"></i>'
+        }
+      ]
+    },
+    columns: {
+      code: {
+        title: 'Mã chứng chỉ',
+        type: 'number',
+        width: '10px'
+      },
+      title: {
+        title: 'Tên chứng chỉ',
+        type: 'string',
+      },
+      strCategory: {
+        title: 'Loại chứng chỉ',
+        type: 'string',
+      },
+      studentName: {
+        title: 'Tên sinh viên',
+        type: 'string',
+      },
+      dateOfBirth: {
+        title: 'Ngày sinh',
+        type: 'string',
+      },
+      yearOfGraduation: {
+        title: 'Năm tốt nghiệp',
+        type: 'string',
+      },
+      degreeClassification: {
+        title: 'Xếp loại',
+        type: 'string',
+      },
+      modeOfStudy: {
+        title: 'Hình thức đào tạo',
+        type: 'string',
+      },
+      author: {
+        title: 'Hiệu trưởng',
+        type: 'string',
+      },
+      date: {
+        title: 'Ngày phát hành',
+        type: 'string',
+      },
+      strStatus: {
+        title: 'Trạng thái cập nhật',
+        type: 'string',
+        width: '15px'
+      },
+      strStatusPublic: {
+        title: 'Trạng thái phát hành',
+        type: 'custom',
+        renderComponent: ShowPublicCertificateComponent,
+        onComponentInitFunction(instance) {
+          instance.save.subscribe(row => {
+            // console.log('row : ', row);
+          });
+        }
+      }
+    },
+  };
+
   source: LocalDataSource = new LocalDataSource();
+  public statusPublicer: boolean;
+  public statusStaff: boolean;
+  public isDisableBtnAdd: boolean;
 
   constructor(private service: CetificateService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
+    let accountData = localStorage.getItem(Config.OJBJECT_KEY);
+    let account = JSON.parse(accountData);
+    switch (account.position) {
+      case 'Admin':
+        this.statusPublicer = true;
+        this.isDisableBtnAdd = false;
+        break;
+      case 'Publicer':
+        this.statusPublicer = true;
+        this.isDisableBtnAdd = false;
+        break;
+      default:
+        this.statusStaff = true;
+        this.isDisableBtnAdd = true;
+    }
     this.onSearch();
   }
 
@@ -207,6 +297,16 @@ export class CetificateListComponent implements OnInit {
   }
 
   showModalSmartContracts() {
+    let accountData = localStorage.getItem(Config.OJBJECT_KEY);
+    let account = JSON.parse(accountData);
+    if (account.authorSmartContracts == undefined || account.authorSmartContracts.status == undefined || account.authorSmartContracts.status) {
+      const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+      activeModal.componentInstance.modalHeader = 'Thông báo';
+      activeModal.componentInstance.modalMessage = 'Bạn chưa được cấp quyền để phát hành chứng chỉ';
+      activeModal.componentInstance.statusButtonSubmit = false;
+      return;
+    }
+   
     if (Number(this.service.dataItem.status) == -1) {
       const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
       activeModal.componentInstance.modalHeader = 'Thông báo';
@@ -277,7 +377,7 @@ export class CetificateListComponent implements OnInit {
         item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
         item.dateOfBirth = item.student.dateOfBirth;
         item.studentName = item.student.name;
-        item.studentSign= item.student.studentSign;
+        item.studentSign = item.student.studentSign;
         if (index == res.data.length - 1) {
           this.source.load(res.data);
           return;

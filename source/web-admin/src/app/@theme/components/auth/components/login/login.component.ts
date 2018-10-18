@@ -44,11 +44,25 @@ export class NbLoginComponent {
     this.rememberMe = this.getConfigValue('forms.login.rememberMe');
   }
 
+  getLink(permission) {
+    let link = '/pages/account';
+    switch (permission) {
+      case 'Admin':
+        break;
+      case 'Teacher':
+        link = '/pages/students';
+        break;
+      case 'Publicer':
+        link = '/pages/students';
+        break;
+      default:
+    }
+    return link;
+  }
+
   login(): void {
     this.errors = this.messages = [];
     this.submitted = true;
-
-    let link = ['/pages/account'];
 
     let email = this.user.email;
     let pass = this.user.password;
@@ -57,6 +71,7 @@ export class NbLoginComponent {
       if (res.status == 200) {
         localStorage.setItem(Config.TOKEN_KEY, res.data.token);
         localStorage.setItem(Config.OJBJECT_KEY, JSON.stringify(res.data));
+        let link = [this.getLink(res.data.position)];
         this.router.navigate(link);
       } else {
         const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
