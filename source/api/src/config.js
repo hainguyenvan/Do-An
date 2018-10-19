@@ -14,7 +14,7 @@ const Config = {
 
 
     // Contract ID
-    CONTRACTS_ID: '0xa9f8de17d30a9f4c86661abf9f5b33f1c97b75f5',
+    CONTRACTS_ID: '0x01ef528d4dc91085081d3d3533ab22d63bbc3142',
 }
 
 module.exports = Config;

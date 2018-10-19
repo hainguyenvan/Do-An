@@ -272,7 +272,7 @@ class SmartContracts {
             let updateBy = data.updateBy;
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             let studentSign = web3.utils.fromAscii(data.studentSign);
-            this.cetification.addCertificate(code, title, studentName, dataOfBirth,
+            this.cetification.addCertificate(code, title, studentName, dateOfBirth,
                 yearOfGraduation, degreeClassification, modeOfStudy, date,
                 author, updateBy, timeUpdate, studentSign, config)
                 .then(status => {

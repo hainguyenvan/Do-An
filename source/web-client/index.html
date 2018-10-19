@@ -198,7 +198,8 @@
 									<tr>
 										<td class="font-bold">Trạng thái</td>
 										<td>
-											<label for="inputFirstName" class="btn btn-success btn-xs">{{certificate.strStatusPublic}}</label>
+											<label for="inputFirstName" class="btn btn-success btn-xs" ng-if="certificate.status == 1">{{certificate.strStatusPublic}}</label>
+											<label for="inputFirstName" class="btn btn-danger btn-xs" ng-if="certificate.status != 1">{{certificate.strStatusPublic}}</label>
 										</td>
 									</tr>
 
@@ -228,7 +229,8 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="row">
-								<p> <strong style="padding-left: 10px">Mã chứng chỉ:</strong> {{certificateCode}}</p>
+								<p>
+									<strong style="padding-left: 10px">Mã chứng chỉ:</strong> {{certificateCode}}</p>
 								<table class="table">
 									<thead>
 										<tr>
