@@ -20,7 +20,7 @@
 
 
 // AngularJS
-var ROOT_API = 'http://localhost:3002';
+var ROOT_API = 'http://localhost:3004';
 var API_GET_CERTIFICATE_BY_CODE = ROOT_API + '/getCertificateByCode';
 
 var app = angular.module('appCertificate', []);

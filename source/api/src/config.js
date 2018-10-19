@@ -1,6 +1,6 @@
 const Config = {
-    HTTP_PORT: 3002,
-    HTTP_ROOT: 'http://localhost:3002',
+    HTTP_PORT: 3004,
+    HTTP_ROOT: 'http://localhost:3004',
     ACCOUNT: '0x5e6a3a393487ca392c7314c45e07813b58dbf8a4',
 
     // DB

@@ -1,5 +1,5 @@
 export class Config {
-    public static API_ROOT = 'http://localhost:3002';
+    public static API_ROOT = 'http://localhost:3004';
     public static TOKEN_KEY = 'CETIFICATIONS_WEB_ADMIN';
     public static OJBJECT_KEY = 'CETIFICATIONS_OBJECT_KEY';
     public static EVENT_CLOSE = 'close';
