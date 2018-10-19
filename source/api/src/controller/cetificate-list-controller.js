@@ -3,6 +3,12 @@ var JWT = require('jsonwebtoken');
 var SmartContracts = require('../smart-contracts/smart-contracts');
 var Student = require('../models/student');
 
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
+}
+
 exports.getAll = function (req, res) {
     CetificateList.getAll()
         .then(dataList => {
@@ -30,24 +36,51 @@ exports.getAll = function (req, res) {
         });
 }
 
+// 0: get detail certificate
+// 1: get history edit of certificate
 exports.getCertificateByCode = function (req, res) {
-    SmartContracts.getCertificateByCode(req.body.code)
-        .then(certificate => {
-            Student.getStudentBySign(certificate.studentSign)
-                .then(student => {
-                    certificate.student = student;
-                    res.send({
-                        status: 200,
-                        data: certificate
-                    });
-                })  
-        })
-        .catch(err => {
-            res.send({
-                status: 400,
-                msg: err
-            });
-        })
+    if (req.body.type == 0) {
+        SmartContracts.getCertificateByCode(req.body.code)
+            .then(certificate => {
+                Student.getStudentBySign(certificate.studentSign)
+                    .then(student => {
+                        certificate.student = student;
+                        res.send({
+                            status: 200,
+                            data: certificate
+                        });
+                    })
+            })
+            .catch(err => {
+                res.send({
+                    status: 400,
+                    msg: err
+                });
+            })
+    } else {
+        SmartContracts.getHistoryByCertificateCode(req.body.code)
+            .then(async (historyList) => {
+                let dataSource = [];
+                await asyncForEach(historyList, async (item) => {
+                    await Student.getStudentBySign(item.studentSign)
+                        .then(student => {
+                            item.student = student;
+                            dataSource.push(item);
+                        })
+                });
+                res.send({
+                    status: 200,
+                    data: dataSource
+                });
+            })
+            .catch(err => {
+                res.send({
+                    status: 400,
+                    msg: err
+                });
+            })
+    }
+
 }
 
 exports.insert = function (req, res) {

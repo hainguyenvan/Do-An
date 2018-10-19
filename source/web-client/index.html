@@ -32,10 +32,9 @@
 
 				<form class="subscribe-form form-inline">
 					<select style="color:black; background-color: white;position: absolute; top: 5px;bottom: 5px;border: 0px;
-					outline: 0px;"
-					 ng-model="type">
-						<option value="0">Lịch sử cập nhật</option>
-						<option value="1">Thông tin bằng</option>
+					outline: 0px;" ng-model="type">
+						<option value="0">Thông tin bằng</option>
+						<option value="1">Lịch sử cập nhật</option>
 					</select>
 					<input type="text" placeholder="Nhập mã số  bằng..." ng-model="certificateCode" style="color: black;padding-left: 147px">
 					<input type="submit" value="Tìm kiếm" ng-click="getCertificateByCode()">
@@ -143,7 +142,7 @@
 	</div>
 
 	<!-- Modal info certificate -->
-	<div class="modal fade" id="myModalCertificate" role="dialog">
+	<div class="modal fade" id="myModalCertificate" role="dialog" ng-if="type == '0'">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -215,6 +214,67 @@
 		</div>
 	</div>
 	<!-- End modal info certificate -->
+
+	<!-- Modal show history edit of certificate -->
+	<div class="modal fade" id="myModalHistory" role="dialog" ng-if="type == '1'">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" style="color: black">Lịch sử cập nhật</h4>
+				</div>
+				<div class="modal-body" style="color: black">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="row">
+								<p> <strong style="padding-left: 10px">Mã chứng chỉ:</strong> {{certificateCode}}</p>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Tên chứng chỉ</th>
+											<th>Họ tên</th>
+											<th>Ngày sinh</th>
+											<th>Năm tốt nghiệp</th>
+											<th>Xếp loại</th>
+											<th>Hình thức đào tạo</th>
+											<th>Ngày phát hành</th>
+											<th>Hiệu trưởng</th>
+											<th>Người cập nhật</th>
+											<th>Ngày cập nhật</th>
+											<th>Trạng thái</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in historyList">
+											<td>{{item.title}}</td>
+											<td>{{item.studentName}}</td>
+											<td>{{item.dateOfBirth}}</td>
+											<td>{{item.yearOfGraduation}}</td>
+											<td>{{item.degreeClassification}}</td>
+											<td>{{item.modeOfStudy}}</td>
+											<td>{{item.date}}</td>
+											<td>{{item.author}}</td>
+											<td>{{item.updateBy.name}}</td>
+											<td>{{item.timeUpdate}}</td>
+											<td>
+												<label for="inputFirstName" class="btn btn-success btn-xs" ng-if="item.status == 1">{{item.strStatusPublic}}</label>
+												<label for="inputFirstName" class="btn btn-danger btn-xs" ng-if="item.status != 1">{{item.strStatusPublic}}</label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End modal show history edit of certificate  -->
 
 	<!-- Modal warning -->
 	<div class="modal fade" id="myModalWarning" role="dialog">

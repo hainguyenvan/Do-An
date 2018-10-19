@@ -16,13 +16,19 @@ const cetificationArtifacts = require(pathFileContracts);
 var getCurrentDate = function () {
     var d = new Date;
     var dformat = [d.getMonth() + 1,
-        d.getDate(),
-        d.getFullYear()
+    d.getDate(),
+    d.getFullYear()
     ].join('/') + ' ' + [d.getHours(),
-        d.getMinutes(),
-        d.getSeconds()
+    d.getMinutes(),
+    d.getSeconds()
     ].join(':');
     return dformat;
+}
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
 }
 
 class SmartContracts {
@@ -267,8 +273,8 @@ class SmartContracts {
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             let studentSign = web3.utils.fromAscii(data.studentSign);
             this.cetification.addCertificate(code, title, studentName, dataOfBirth,
-                    yearOfGraduation, degreeClassification, modeOfStudy, date,
-                    author, updateBy, timeUpdate,studentSign, config)
+                yearOfGraduation, degreeClassification, modeOfStudy, date,
+                author, updateBy, timeUpdate, studentSign, config)
                 .then(status => {
                     Result(status);
                 })
@@ -298,10 +304,10 @@ class SmartContracts {
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             let studentSign = web3.utils.fromAscii(data.studentSign);
             this.cetification.updateCertificate(index, title,
-                    studentName, dataOfBirth,
-                    yearOfGraduation, degreeClassification,
-                    modeOfStudy, date,
-                    author, updateBy, status, timeUpdate,studentSign, config)
+                studentName, dataOfBirth,
+                yearOfGraduation, degreeClassification,
+                modeOfStudy, date,
+                author, updateBy, status, timeUpdate, studentSign, config)
                 .then(status => {
                     Result(status);
                 })
@@ -331,6 +337,44 @@ class SmartContracts {
                 console.log('Err : ', err);
                 Err(err)
             }
+        });
+    }
+
+    getHistoryByCertificateCode(code) {
+        return new Promise((Result, Err) => {
+            this.getDataChanegs()
+                .then(async (dataList) => {
+                    let dataSource = [];
+                    // Sync data
+                    await asyncForEach(dataList, async (item) => {
+                        let indexUpdateBy = Number(item.returnValues[9]);
+                        await this.getAuthorByIndex(indexUpdateBy).then(updateBy => {
+                            let log = {
+                                code: web3.utils.hexToUtf8(item.returnValues[0]),
+                                title: web3.utils.hexToUtf8(item.returnValues[1]),
+                                studentName: web3.utils.hexToUtf8(item.returnValues[2]),
+                                dateOfBirth: web3.utils.hexToUtf8(item.returnValues[3]),
+                                yearOfGraduation: Number(item.returnValues[4]),
+                                degreeClassification: web3.utils.hexToUtf8(item.returnValues[5]),
+                                modeOfStudy: web3.utils.hexToUtf8(item.returnValues[6]),
+                                date: web3.utils.hexToUtf8(item.returnValues[7]),
+                                author: web3.utils.hexToUtf8(item.returnValues[8]),
+                                updateBy: updateBy,
+                                status: Number(item.returnValues[10]),
+                                timeUpdate: web3.utils.hexToUtf8(item.returnValues[11]),
+                                studentSign: web3.utils.hexToUtf8(item.returnValues[12]),
+                                log: item
+                            };
+                            if(Number(log.code) == code) {
+                                dataSource.push(log);
+                            }
+                        });
+                    });
+                    Result(dataSource);
+                })
+                .catch(err => {
+                    Err(err);
+                })
         });
     }
 }

@@ -31,6 +31,7 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 		$scope.messageWarning = '';
 		$scope.type = '0';
 		$scope.certificate = {};
+		$scope.histtoryList = [];
 	}
 
 	$scope.getCertificateByCode = function () {
@@ -48,6 +49,8 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 			code: $scope.certificateCode,
 			type: Number($scope.type)
 		}
+		// 0: Get detail certificate
+		// 1: Get history edit certificate
 		$http({
 			url: API_GET_CERTIFICATE_BY_CODE,
 			method: "POST",
@@ -59,11 +62,20 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 				$('#myModalWarning').modal();
 				return;
 			}
-			$scope.certificate = res.data.data;
-			$scope.certificate.studentImg = $scope.certificate.student.img;
-			$scope.certificate.dateOfBirth = $scope.certificate.dataOfBirth;
-			$scope.certificate.strStatusPublic = $scope.certificate.status == 1 ? 'Đang phát hành ' : 'Ngừng phát hành';
-			$('#myModalCertificate').modal();
+			if ($scope.type == '0') {
+				$scope.certificate = res.data.data;
+				$scope.certificate.studentImg = $scope.certificate.student.img;
+				$scope.certificate.dateOfBirth = $scope.certificate.dataOfBirth;
+				$scope.certificate.strStatusPublic = $scope.certificate.status == 1 ? 'Đang phát hành ' : 'Ngừng phát hành';
+				$('#myModalCertificate').modal();
+			} else {
+				$scope.historyList = res.data.data;
+				$scope.historyList.forEach(item => {
+					item.strStatusPublic = item.status == 1 ? 'Đang phát hành ' : 'Ngừng phát hành';
+				});
+				$('#myModalHistory').modal();
+			}
+
 		}, function (err) {
 			// failed
 			console.log('Failed !', err);

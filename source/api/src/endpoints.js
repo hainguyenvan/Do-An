@@ -138,8 +138,11 @@ router.route('/deleteCetificateList').post(validate({
     id: Joi.number().required()
 }), cetificaetListController.delete);
 
+// 0: Get detail certificate
+// 1: Get history edit of certificate
 router.route('/getCertificateByCode').post(validate({
-    code: Joi.string().required()
+    code: Joi.string().required(),
+    type: Joi.number().required()
 }), cetificaetListController.getCertificateByCode)
 
 
