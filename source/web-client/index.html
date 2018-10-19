@@ -30,14 +30,15 @@
 					</h1>
 				</div>
 
-				<form class="form-inline" style="background-color:white">
-					<select style="color:black; background-color: white">
+				<form class="subscribe-form form-inline">
+					<select style="color:black; background-color: white;position: absolute; top: 5px;bottom: 5px;border: 0px;
+					outline: 0px;"
+					 ng-model="type">
 						<option value="0">Lịch sử cập nhật</option>
 						<option value="1">Thông tin bằng</option>
 					</select>
-					<input type="text" class="form-control" style="width: 100px; color: black" placeholder="Nhập mã bằng...">
-					<input type="text" class="form-control" style="width: 100px; color: black" placeholder="Nhập mã số sinh viên..">
-					<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+					<input type="text" placeholder="Nhập mã số  bằng..." ng-model="certificateCode" style="color: black;padding-left: 147px">
+					<input type="submit" value="Tìm kiếm" ng-click="getCertificateByCode()">
 				</form>
 			</div>
 		</header>

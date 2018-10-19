@@ -29,6 +29,7 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 	$scope.init = function () {
 		$scope.certificateCode = '';
 		$scope.messageWarning = '';
+		$scope.type = '0';
 		$scope.certificate = {};
 	}
 
@@ -44,7 +45,8 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 			return;
 		}
 		var body = {
-			code: $scope.certificateCode
+			code: $scope.certificateCode,
+			type: Number($scope.type)
 		}
 		$http({
 			url: API_GET_CERTIFICATE_BY_CODE,
