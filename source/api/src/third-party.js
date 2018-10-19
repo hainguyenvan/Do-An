@@ -24,7 +24,7 @@ exports.upload = function (req, res) {
                 msg: err
             })
         }
-        let img = Config.HTTP_ROOT + '/' + req.files[0].filename;
+        let img = Config.HTTP_SERVER + '/' + req.files[0].filename;
         res.send({
             status: 200,
             data: {
