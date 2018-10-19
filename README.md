@@ -8,3 +8,7 @@ Client: 3003
 API: 3004
 Web: 3005
 ```
+* Set forever
+```
+$ forever --uid myUID start app.js
+```
