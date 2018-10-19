@@ -299,14 +299,14 @@ export class CetificateListComponent implements OnInit {
   showModalSmartContracts() {
     let accountData = localStorage.getItem(Config.OJBJECT_KEY);
     let account = JSON.parse(accountData);
-    if (account.authorSmartContracts == undefined || account.authorSmartContracts.status == undefined || account.authorSmartContracts.status) {
+    if (account.authorSmartContracts == undefined || account.authorSmartContracts.status == undefined || Number(account.authorSmartContracts.status) != 0) {
       const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
       activeModal.componentInstance.modalHeader = 'Thông báo';
       activeModal.componentInstance.modalMessage = 'Bạn chưa được cấp quyền để phát hành chứng chỉ';
       activeModal.componentInstance.statusButtonSubmit = false;
       return;
     }
-   
+
     if (Number(this.service.dataItem.status) == -1) {
       const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
       activeModal.componentInstance.modalHeader = 'Thông báo';
