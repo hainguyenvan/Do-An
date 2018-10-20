@@ -234,7 +234,8 @@ export class StudyManagerComponent implements OnInit {
     this.service.getStudentOfClassroom(this.classroomId).subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
-        alert('Đã xảy ra lỗi');
+        this.state = Config.ACTIVE;
+        return;
       }
       res.data.forEach(item => {
         switch (item.sex) {

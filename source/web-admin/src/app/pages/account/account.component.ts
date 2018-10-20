@@ -204,6 +204,7 @@ export class AccountComponent implements OnInit {
     this.service.getAllAccount().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
+        this.state = Config.ACTIVE;
         alert('Đã xảy ra lỗi');
       }
       res.data.forEach(item => {

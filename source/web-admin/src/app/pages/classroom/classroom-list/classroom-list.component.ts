@@ -181,6 +181,8 @@ export class ClassroomListComponent implements OnInit {
     this.service.getAllClassroom().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
+        this.state = Config.ACTIVE;
+        return;
       }
       res.data.forEach(item => {
         if (item.status == -1) {

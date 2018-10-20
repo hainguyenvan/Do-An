@@ -139,6 +139,7 @@ export class PositionComponent implements OnInit {
     this.service.getAllPosition().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
+        this.state = Config.ACTIVE;
         return;
       }
       res.data.forEach(item => {
