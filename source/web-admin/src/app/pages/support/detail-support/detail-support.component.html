@@ -1,0 +1,68 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-7 img-detail">
+      <img src="{{account.img}}" alt="" />
+    </div>
+    <div class="col-sm-5">
+      <div class="row">
+        <table class="table table-borderless table-condensed table-hover">
+          <tr>
+            <td class="font-bold">Họ tên</td>
+            <td>{{account.name}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Email</td>
+            <td>{{account.email}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Ngày sinh</td>
+            <td>{{account.dateOfBirth}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Giới tính</td>
+            <td>{{account.strSex}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Số điện thoại</td>
+            <td>{{account.phone}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Địa chỉ</td>
+            <td>{{account.address}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Mô tả</td>
+            <td>{{account.dsc}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Chức vụ</td>
+            <td>{{account.position}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Quyền phát hành bằng</td>
+            <td>{{account.strPublicPermission}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Ngày thêm</td>
+            <td>{{account.timeCreate}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Ngày cập nhật</td>
+            <td>{{account.timeUpdate}}</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Trạng thái</td>
+            <label for="inputFirstName" class="btn btn-success btn-xs">{{account.strStatus}}</label>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

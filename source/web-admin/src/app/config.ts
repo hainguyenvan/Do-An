@@ -16,6 +16,12 @@ export class Config {
 
     public static ACCOUNT = '0xCf3dD57B2D5764Ca66E0a600d718AD51942af21e';
 
+    // Support
+    public static API_ADD_SUPPORT = `${Config.API_ROOT}/addSupport`;
+    public static API_UPDATE_SUPPORT = `${Config.API_ROOT}/updateSupport`;
+    public static API_GET_ALL_SUPPORT = `${Config.API_ROOT}/getSupportByStatus`;
+    public static API_DELETE_SUPPORT = `${Config.API_ROOT}/deleteSupport`;
+
     // Student
     public static API_ADD_STUDENT = `${Config.API_ROOT}/insertStudent`;
     public static API_UPDATE_STUDENT = `${Config.API_ROOT}/updateStudent`;

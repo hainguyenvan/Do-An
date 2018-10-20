@@ -49,6 +49,10 @@ class SupportModel {
                 field: 'status',
                 type: Sequelize.INTEGER
             },
+            sex: {
+                field: 'sex',
+                type: Sequelize.INTEGER
+            },
             timeCreate: {
                 field: 'time_create',
                 type: Sequelize.INTEGER
@@ -71,6 +75,7 @@ class SupportModel {
                 img: data.img,
                 company: data.company,
                 dsc: data.dsc,
+                sex:data.sex,
                 positionDsc: data.positionDsc,
                 timeCreate: new Date().getTime(),
                 timeUpdate: new Date().getTime()
@@ -94,6 +99,7 @@ class SupportModel {
                 img: data.img,
                 company: data.company,
                 dsc: data.dsc,
+                sex:data.sex,
                 status: data.status,
                 positionDsc: data.positionDsc,
                 timeUpdate: new Date().getTime()
@@ -131,22 +137,34 @@ class SupportModel {
     }
 
     getDataByStatus(status) {
-        status = Number(status);
         return new Promise((Result, Err) => {
-            this.model.findAll({
-                raw: true,
-                where: {
-                    status: {
-                        $eq: status
-                    }
-                }
-            })
-                .then(studentList => {
-                    Result(studentList);
+            if ( status == undefined || status == null || status == '') {
+                this.model.findAll({
+                    raw: true
                 })
-                .catch(err => {
-                    Err(err);
-                });
+                    .then(studentList => {
+                        Result(studentList);
+                    })
+                    .catch(err => {
+                        Err(err);
+                    });
+            } else {
+                status = Number(status);
+                this.model.findAll({
+                    raw: true,
+                    where: {
+                        status: {
+                            $eq: status
+                        }
+                    }
+                })
+                    .then(studentList => {
+                        Result(studentList);
+                    })
+                    .catch(err => {
+                        Err(err);
+                    });
+            }
         });
     }
 }

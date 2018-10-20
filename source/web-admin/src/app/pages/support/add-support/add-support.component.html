@@ -1,0 +1,120 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="form-group">
+        <label for="inputFirstName">Họ Tên <span style="color:red">*</span></label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Họ tên" [(ngModel)]="user.name">
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="inputFirstName">Mã giảng viên <span style="color:red">*</span></label>
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" *ngIf="!actionEdit">
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" readonly *ngIf="actionEdit">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="inputFirstName">Email <span style="color:red">*</span></label>
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Email" [(ngModel)]="user.email">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="imgadd">
+        <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple>
+      </div>
+      <span *ngIf="actionEdit">{{user.img}}</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Ngày sinh <span style="color:red">*</span></label>
+        <input type="date" class="form-control" id="inputFirstName" [(ngModel)]="user.dateOfBirth">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Giới tính <span style="color:red">*</span></label>
+        <select class="form-control" [(ngModel)]="user.sex">
+          <option *ngFor="let anApp of sexList" [value]="anApp.id">{{anApp.value}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Số điện thoại <span style="color:red">*</span></label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Số điện thoại" [(ngModel)]="user.phone">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Chức vụ <span style="color:red">*</span></label>
+        <select class="form-control" [(ngModel)]="user.position">
+          <option *ngFor="let anApp of positionList" [value]="anApp.dsc">{{anApp.dsc}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="inputFirstName">Địa chỉ <span style="color:red">*</span></label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Địa chỉ" [(ngModel)]="user.address">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Mật khẩu <span style="color:red">*</span></label>
+        <input type="password" class="form-control" id="inputFirstName" placeholder="Mật khẩu" [(ngModel)]="user.password">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Re-Mật khẩu <span style="color:red">*</span></label>
+        <input type="password" class="form-control" id="inputFirstName" placeholder="Nhập lại mật khẩu" [(ngModel)]="user.rePassword">
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="actionEdit">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="inputFirstName">Trạng thái</label>
+        <select class="form-control" [(ngModel)]="user.status">
+          <option *ngFor="let anApp of statusList" [value]="anApp.id">{{anApp.value}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="inputFirstName">Mô tả <span style="color:red">*</span></label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="Mô tả" [(ngModel)]="user.dsc">
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-dark" (click)="closeModal()">CANCEL</button>
+  <button class="btn btn-warning" (click)="onSubmit()">SUBMIT</button>
+</div>

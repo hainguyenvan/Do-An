@@ -16,6 +16,10 @@ const routes: Routes = [
         component: ECommerceComponent,
       },
       {
+        path: 'support',
+        loadChildren: './support/support.module#SupportModule',
+      },
+      {
         path: 'students',
         loadChildren: './student/student.module#StudentModule',
       },

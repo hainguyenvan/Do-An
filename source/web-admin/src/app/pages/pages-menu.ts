@@ -57,5 +57,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         data: ['Admin', 'Publicer', 'Teacher']
       }
     ]
-  }
+  },
+  {
+    title: 'Hỗ trợ',
+    icon: 'ion-information',
+    link: '/pages/support',
+    data: ['Admin']
+  },
 ];

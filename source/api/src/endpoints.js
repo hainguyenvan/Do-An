@@ -295,7 +295,8 @@ router.route('/addSupport').post(validate({
     img: Joi.string().required(),
     company: Joi.string().required(),
     dsc: Joi.string().required(),
-    positionDsc: Joi.string().required()
+    positionDsc: Joi.string().required(),
+    sex: Joi.number().required()
 }), supportController.insert);
 
 router.route('/updateSupport').post(validate({
@@ -307,11 +308,12 @@ router.route('/updateSupport').post(validate({
     company: Joi.string().required(),
     dsc: Joi.string().required(),
     positionDsc: Joi.string().required(),
-    status: Joi.string().required()
+    status: Joi.string().required(),
+    sex: Joi.number().required()
 }), supportController.update);
 
 router.route('/getSupportByStatus').post(validate({
-    status: Joi.string().required()
+    status: Joi.string()
 }), supportController.getAllByStatus);
 
 router.route('/deleteSupport').post(validate({
