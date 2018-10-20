@@ -138,6 +138,7 @@ export class StudyManagerComponent implements OnInit {
 
   public classroomList: any = [];
   public classroomId: number;
+  private state: string = Config.ACTIVE;
 
   constructor(private service: ClassroomService, private modalService: NgbModal) {
   }
@@ -229,6 +230,7 @@ export class StudyManagerComponent implements OnInit {
     if (this.classroomId == undefined || this.classroomId == null) {
       return;
     }
+    this.state = Config.LOADING;
     this.service.getStudentOfClassroom(this.classroomId).subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
@@ -254,6 +256,7 @@ export class StudyManagerComponent implements OnInit {
         item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
       });
       this.source.load(res.data);
+      this.state = Config.ACTIVE;
     })
   }
 }

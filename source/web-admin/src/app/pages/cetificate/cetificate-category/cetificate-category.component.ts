@@ -102,6 +102,7 @@ export class CetificateCategoryComponent implements OnInit {
   public statusAdmin: boolean;
   public statusStaff: boolean;
   public isDisableBtnAdd: boolean;
+  private state: string = Config.ACTIVE;
 
   constructor(private service: CetificateService, private modalService: NgbModal) {
   }
@@ -185,9 +186,11 @@ export class CetificateCategoryComponent implements OnInit {
   }
 
   onSearch() {
+    this.state = Config.LOADING;
     this.service.getAllCeticateCategory().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
+        this.state = Config.ACTIVE;
         return;
       }
       res.data.forEach(item => {
@@ -201,6 +204,7 @@ export class CetificateCategoryComponent implements OnInit {
 
       });
       this.source.load(res.data);
+      this.state = Config.ACTIVE;
     });
   }
 }

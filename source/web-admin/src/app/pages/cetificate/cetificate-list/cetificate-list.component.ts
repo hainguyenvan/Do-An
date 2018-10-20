@@ -222,6 +222,7 @@ export class CetificateListComponent implements OnInit {
   public statusPublicer: boolean;
   public statusStaff: boolean;
   public isDisableBtnAdd: boolean;
+  private state: string = Config.ACTIVE;
 
   constructor(private service: CetificateService, private modalService: NgbModal) {
   }
@@ -344,10 +345,12 @@ export class CetificateListComponent implements OnInit {
   }
 
   onSearch() {
+    this.state = Config.LOADING;
     this.service.getAllCeticateList().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
-        alert('Đã xảy ra lỗi');
+        this.state = Config.ACTIVE;
+        return;
       }
       res.data.forEach((item, index) => {
         switch (item.status) {
@@ -380,6 +383,7 @@ export class CetificateListComponent implements OnInit {
         item.studentSign = item.student.studentSign;
         if (index == res.data.length - 1) {
           this.source.load(res.data);
+          this.state = Config.ACTIVE;
           return;
         }
       });

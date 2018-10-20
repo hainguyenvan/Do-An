@@ -78,7 +78,7 @@ export class LogComponent implements OnInit {
         title: "Người cập nhật",
         type: 'string'
       },
-      timeUpdateBy:{
+      timeUpdateBy: {
         title: "Thời gian sửa",
         type: 'string'
       }
@@ -86,6 +86,7 @@ export class LogComponent implements OnInit {
   };
 
   source: LocalDataSource = new LocalDataSource();
+  private state: string = Config.ACTIVE;
 
   constructor(private service: CetificateService, private modalService: NgbModal) {
   }
@@ -111,9 +112,11 @@ export class LogComponent implements OnInit {
   }
 
   onSearch() {
+    this.state = Config.LOADING;
     this.service.getLogCeticateSmartContracts().subscribe(res => {
       if (res.status != 200) {
         console.log("Err: ", res.msg);
+        this.state = Config.ACTIVE;
         return;
       }
       res.data.forEach(item => {
@@ -129,6 +132,7 @@ export class LogComponent implements OnInit {
         }
       });
       this.source.load(res.data);
+      this.state = Config.ACTIVE;
     })
   }
 }

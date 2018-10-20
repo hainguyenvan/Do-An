@@ -62,6 +62,7 @@ export class PositionComponent implements OnInit {
   };
 
   source: LocalDataSource = new LocalDataSource();
+  private state: string = Config.ACTIVE;
 
   constructor(private service: PositionService, private modalService: NgbModal) {
   }
@@ -134,6 +135,7 @@ export class PositionComponent implements OnInit {
   }
 
   onSearch() {
+    this.state = Config.LOADING;
     this.service.getAllPosition().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
@@ -150,6 +152,7 @@ export class PositionComponent implements OnInit {
 
       });
       this.source.load(res.data);
+      this.state = Config.ACTIVE;
     });
   }
 }

@@ -90,6 +90,7 @@ export class AccountComponent implements OnInit {
   };
 
   source: LocalDataSource = new LocalDataSource();
+  private state: string = Config.ACTIVE;
 
   constructor(private service: AccountService, private modalService: NgbModal) {
   }
@@ -199,6 +200,7 @@ export class AccountComponent implements OnInit {
   }
 
   onSearch() {
+    this.state = Config.LOADING;
     this.service.getAllAccount().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
@@ -225,6 +227,7 @@ export class AccountComponent implements OnInit {
         item.strPublicPermission = this.getStrOfPulicPermission(item.publicPermission);
       });
       this.source.load(res.data);
+      this.state = Config.ACTIVE;
     })
   }
 }

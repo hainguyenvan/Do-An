@@ -10,6 +10,10 @@ export class Config {
     public static EDIT_ACTION = 'edit';
     public static SMART_CONTRACTS_ACTION = 'smartcontracts';
 
+
+    public static LOADING = 'loading';
+    public static ACTIVE = 'active';
+
     public static ACCOUNT = '0xCf3dD57B2D5764Ca66E0a600d718AD51942af21e';
 
     // Student

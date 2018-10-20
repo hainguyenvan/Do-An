@@ -139,6 +139,7 @@ export class StudentComponent implements OnInit {
   public statusAdmin: boolean;
   public statusStaff: boolean;
   public isDisableBtnAdd: boolean;
+  private state: string = Config.ACTIVE;
 
   constructor(private service: StudentService, private modalService: NgbModal) {
   }
@@ -222,6 +223,7 @@ export class StudentComponent implements OnInit {
   }
 
   onSearch() {
+    this.state = Config.LOADING;
     this.service.getAllStudents().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
@@ -242,6 +244,7 @@ export class StudentComponent implements OnInit {
         item.strStatus = item.status == 0 ? 'Hoạt động' : 'Đã xóa';
       });
       this.source.load(res.data);
+      this.state = Config.ACTIVE;
     })
   }
 }

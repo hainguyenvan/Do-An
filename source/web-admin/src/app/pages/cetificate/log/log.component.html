@@ -1,26 +1,36 @@
-<nb-card>
-  <nb-card-header>
-    <div class="row">
-      <div class="col-sm-5">
-        <h3>Lịch Sử Chỉnh Cập Nhật</h3>
-      </div>
+<div [ngSwitch]='state'>
 
-      <div class="col-sm-7">
-        <div class="input-group">
-          <label for="inputLastName"></label>
-          <input type="text" class="form-control" placeholder="Nội dung tìm kiếm...">
-          <span class="input-group-append">
-            <button class="btn btn-danger input-group-text" (click)="onSearch()">
-              Tìm kiếm
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
-  </nb-card-header>
+  <div *ngSwitchCase="'loading'" style="text-align: center">
+    <img height="64" width="64" src="assets/images/loading.gif" />
+  </div>
 
-  <nb-card-body>
-    <ng2-smart-table class="tableequipment" [settings]="settings" [source]="source" (custom)="onCustom($event)">
-    </ng2-smart-table>
-  </nb-card-body>
-</nb-card>
+  <div *ngSwitchCase="'active'">
+      <nb-card>
+          <nb-card-header>
+            <div class="row">
+              <div class="col-sm-5">
+                <h3>Lịch Sử Chỉnh Cập Nhật</h3>
+              </div>
+        
+              <div class="col-sm-7">
+                <div class="input-group">
+                  <label for="inputLastName"></label>
+                  <input type="text" class="form-control" placeholder="Nội dung tìm kiếm...">
+                  <span class="input-group-append">
+                    <button class="btn btn-danger input-group-text" (click)="onSearch()">
+                      Tìm kiếm
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </nb-card-header>
+        
+          <nb-card-body>
+            <ng2-smart-table class="tableequipment" [settings]="settings" [source]="source" (custom)="onCustom($event)">
+            </ng2-smart-table>
+          </nb-card-body>
+        </nb-card>
+  </div>
+</div>
+

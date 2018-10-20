@@ -1,34 +1,45 @@
-<nb-card>
-  <nb-card-header>
-    <div class="row">
-      <div class="col-sm-5">
-        <h3>Quản Lý Đào Tạo</h3>
-      </div>
+<div [ngSwitch]='state'>
 
-      <div class="col-sm-5">
-        <div class="input-group">
-          <label for="inputFirstName" style="margin-right: 10px">Lớp học
-            <span style="color:red">*</span>
-          </label>
-          <select class="form-control" [(ngModel)]="classroomId" (change)="onSelectClassroom()">
-            <option *ngFor="let anApp of classroomList" [value]="anApp.id">{{anApp.dsc}}</option>
-          </select>
-        </div>
-      </div>
+  <div *ngSwitchCase="'loading'" style="text-align: center">
+    <img height="64" width="64" src="assets/images/loading.gif" />
+  </div>
 
-      <div class="col-sm-2" *ngIf="!isDisableBtnAdd">
-        <div class="input-group d-flex flex-row-reverse">
-          <label for="inputLastName"></label>
-          <button class="btn btn btn-warning" (click)="showModalAddStudy()">Thêm</button>
-        </div>
-      </div>
-    </div>
-  </nb-card-header>
+  <div *ngSwitchCase="'active'">
+      <nb-card>
+          <nb-card-header>
+            <div class="row">
+              <div class="col-sm-5">
+                <h3>Quản Lý Đào Tạo</h3>
+              </div>
+        
+              <div class="col-sm-5">
+                <div class="input-group">
+                  <label for="inputFirstName" style="margin-right: 10px">Lớp học
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control" [(ngModel)]="classroomId" (change)="onSelectClassroom()">
+                    <option *ngFor="let anApp of classroomList" [value]="anApp.id">{{anApp.dsc}}</option>
+                  </select>
+                </div>
+              </div>
+        
+              <div class="col-sm-2" *ngIf="!isDisableBtnAdd">
+                <div class="input-group d-flex flex-row-reverse">
+                  <label for="inputLastName"></label>
+                  <button class="btn btn btn-warning" (click)="showModalAddStudy()">Thêm</button>
+                </div>
+              </div>
+            </div>
+          </nb-card-header>
+        
+          <nb-card-body>
+            <ng2-smart-table class="tableequipment" [settings]="settingsAdmin" [source]="source" (custom)="onCustom($event)" *ngIf="statusAdmin">
+            </ng2-smart-table>
+            <ng2-smart-table class="tableequipment" [settings]="settingsStaff" [source]="source" (custom)="onCustom($event)" *ngIf="statusStaff">
+            </ng2-smart-table>
+          </nb-card-body>
+        </nb-card>
+  </div>
+  
+</div>
 
-  <nb-card-body>
-    <ng2-smart-table class="tableequipment" [settings]="settingsAdmin" [source]="source" (custom)="onCustom($event)" *ngIf="statusAdmin">
-    </ng2-smart-table>
-    <ng2-smart-table class="tableequipment" [settings]="settingsStaff" [source]="source" (custom)="onCustom($event)" *ngIf="statusStaff">
-    </ng2-smart-table>
-  </nb-card-body>
-</nb-card>

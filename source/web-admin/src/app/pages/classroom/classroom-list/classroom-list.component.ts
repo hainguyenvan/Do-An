@@ -101,6 +101,7 @@ export class ClassroomListComponent implements OnInit {
   public statusAdmin: boolean;
   public statusStaff: boolean;
   public isDisableBtnAdd: boolean;
+  private state: string = Config.ACTIVE;
 
   constructor(private service: ClassroomService, private modalService: NgbModal) {
   }
@@ -176,6 +177,7 @@ export class ClassroomListComponent implements OnInit {
   }
 
   onSearch() {
+    this.state = Config.LOADING;
     this.service.getAllClassroom().subscribe(res => {
       if (res.status != 200) {
         console.log('Err : ', res.msg);
@@ -190,6 +192,7 @@ export class ClassroomListComponent implements OnInit {
         item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
       });
       this.source.load(res.data);
+      this.state = Config.ACTIVE;
     })
   }
 }
