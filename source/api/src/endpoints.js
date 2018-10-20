@@ -12,6 +12,7 @@ var smartContractsController = require('./controller/smart-contracts-controller'
 var studentController = require('./controller/student-controller');
 var classroomController = require('./controller/classroom-controller');
 var studentClassroomControlller = require('./controller/student-classroom-controller');
+var supportController = require('./controller/support-controller');
 
 // API
 router.get('/', function (req, res) {
@@ -265,25 +266,57 @@ router.route('/getClassroomActive').post(classroomController.getClassroomActive)
 
 router.route('/getStudentOfClassroom').post(validate({
     classroomId: Joi.number().required()
-}),classroomController.getStudentOfClassroom);
+}), classroomController.getStudentOfClassroom);
 
 
 
 // Study manager
 router.route('/addStudyManager').post(validate({
-     classroomId: Joi.number().required(),
-     students:Joi.array().required()
+    classroomId: Joi.number().required(),
+    students: Joi.array().required()
 }), studentClassroomControlller.insert);
 
 router.route('/updateStudyManager').post(validate({
     classroomId: Joi.number().required(),
-    students:Joi.array().required()
+    students: Joi.array().required()
 }), studentClassroomControlller.update);
 
 router.route('/destroyStudentOfClassroom').post(validate({
     studentId: Joi.number().required(),
     classroomId: Joi.number().required()
 }), studentClassroomControlller.destroy);
+
+
+// Support
+router.route('/addSupport').post(validate({
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    phone: Joi.string().required(),
+    img: Joi.string().required(),
+    company: Joi.string().required(),
+    dsc: Joi.string().required(),
+    positionDsc: Joi.string().required()
+}), supportController.insert);
+
+router.route('/updateSupport').post(validate({
+    id: Joi.number().required(),
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    phone: Joi.string().required(),
+    img: Joi.string().required(),
+    company: Joi.string().required(),
+    dsc: Joi.string().required(),
+    positionDsc: Joi.string().required(),
+    status: Joi.string().required()
+}), supportController.update);
+
+router.route('/getSupportByStatus').post(validate({
+    status: Joi.string().required()
+}), supportController.getAllByStatus);
+
+router.route('/deleteSupport').post(validate({
+    id: Joi.number().required(),
+}), supportController.delete);
 
 
 // Upload images
