@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { Router } from '@angular/router';
+import { Config } from './config';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ngx-app',
@@ -16,7 +18,8 @@ export class AppComponent implements OnInit {
 
   constructor(private analytics: AnalyticsService,
     private menuService: NbMenuService,
-    protected router: Router) {
+    protected router: Router,
+    private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -32,8 +35,10 @@ export class AppComponent implements OnInit {
         console.log('Ho so');
         break;
       case 1:
+        localStorage.setItem(Config.OJBJECT_KEY, '');
+        localStorage.setItem(Config.TOKEN_KEY, '');
         let link = ['/auth'];
-        console.log('Fucking');
+        console.log('Logout');
         this.router.navigate(link);
         break;
     }

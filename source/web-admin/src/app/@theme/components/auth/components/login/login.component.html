@@ -1,79 +1,67 @@
-<nb-auth-block>
-  <h2 class="title">Đăng Nhập</h2>
-  <small class="form-text sub-title">Hệ thống quản lý chứng chỉ</small>
+<div [ngSwitch]='state'>
 
-  <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">
+  <div *ngSwitchCase="'loading'" style="text-align: center">
+    <img height="64" width="64" src="assets/images/loading.gif" />
+  </div>
 
-    <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger">
-      <div><strong>Oh snap!</strong></div>
-      <div *ngFor="let error of errors">{{ error }}</div>
-    </nb-alert>
+  <div *ngSwitchCase="'active'">
+      <nb-auth-block>
+          <h2 class="title">Đăng Nhập</h2>
+          <small class="form-text sub-title">Hệ thống quản lý chứng chỉ</small>
+      
+          <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">
+      
+            <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger">
+              <div>
+                <strong>Oh snap!</strong>
+              </div>
+              <div *ngFor="let error of errors">{{ error }}</div>
+            </nb-alert>
+      
+            <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success">
+              <div>
+                <strong>Hooray!</strong>
+              </div>
+              <div *ngFor="let message of messages">{{ message }}</div>
+            </nb-alert>
+      
+            <div class="form-group">
+              <label for="input-email" class="sr-only">Địa chỉ email</label>
+              <input nbInput [(ngModel)]="user.email" #email="ngModel" name="email" id="input-email" pattern=".+@.+\..+" placeholder="Địa chỉ email"
+                autofocus fullWidth [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''" [required]="getConfigValue('forms.validation.email.required')">
+              <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.required">
+                Email là bắt buộc !
+              </small>
+              <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.pattern">
+                Email should be the real one!
+              </small>
+            </div>
+      
+            <div class="form-group">
+              <label for="input-password" class="sr-only">Mật khẩu</label>
+              <input nbInput [(ngModel)]="user.password" #password="ngModel" name="password" type="password" id="input-password" placeholder="Mật khẩu"
+                fullWidth [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''" [required]="getConfigValue('forms.validation.password.required')"
+                [minlength]="getConfigValue('forms.validation.password.minLength')" [maxlength]="getConfigValue('forms.validation.password.maxLength')">
+              <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">
+                Mật khẩu là bắt buộc !
+              </small>
+              <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">
+                Password should contains from {{ getConfigValue('forms.validation.password.minLength') }} to {{ getConfigValue('forms.validation.password.maxLength')
+                }} characters
+              </small>
+            </div>
+      
+            <!-- <div class="form-group accept-group col-sm-12">
+            <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Nhớ mật khẩu</nb-checkbox>
+            <a class="forgot-password" routerLink="">Quên mật khẩu ?</a>
+          </div> -->
+      
+            <button nbButton status="success" fullWidth [disabled]="!form.valid" [class.btn-pulse]="submitted">
+              Đăng Nhập
+            </button>
+          </form>
+        </nb-auth-block>
+  </div>
 
-    <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success">
-      <div><strong>Hooray!</strong></div>
-      <div *ngFor="let message of messages">{{ message }}</div>
-    </nb-alert>
+  </div>
 
-    <div class="form-group">
-      <label for="input-email" class="sr-only">Địa chỉ email</label>
-      <input nbInput
-             [(ngModel)]="user.email"
-             #email="ngModel"
-             name="email"
-             id="input-email"
-             pattern=".+@.+\..+"
-             placeholder="Địa chỉ email"
-             autofocus
-             fullWidth
-             [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
-             [required]="getConfigValue('forms.validation.email.required')">
-      <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.required">
-        Email là bắt buộc !
-      </small>
-      <small class="form-text error"
-             *ngIf="email.invalid && email.touched && email.errors?.pattern">
-        Email should be the real one!
-      </small>
-    </div>
-
-    <div class="form-group">
-      <label for="input-password" class="sr-only">Mật khẩu</label>
-      <input nbInput
-             [(ngModel)]="user.password"
-             #password="ngModel"
-             name="password"
-             type="password"
-             id="input-password"
-             placeholder="Mật khẩu"
-             fullWidth
-             [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
-             [required]="getConfigValue('forms.validation.password.required')"
-             [minlength]="getConfigValue('forms.validation.password.minLength')"
-             [maxlength]="getConfigValue('forms.validation.password.maxLength')">
-      <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">
-        Mật khẩu là bắt buộc !
-      </small>
-      <small
-        class="form-text error"
-        *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">
-        Password should contains
-        from {{ getConfigValue('forms.validation.password.minLength') }}
-        to {{ getConfigValue('forms.validation.password.maxLength') }}
-        characters
-      </small>
-    </div>
-
-    <div class="form-group accept-group col-sm-12">
-      <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Nhớ mật khẩu</nb-checkbox>
-      <a class="forgot-password" routerLink="">Quên mật khẩu ?</a>
-    </div>
-
-    <button nbButton
-            status="success"
-            fullWidth
-            [disabled]="!form.valid"
-            [class.btn-pulse]="submitted">
-      Đăng Nhập
-    </button>
-  </form>
-</nb-auth-block>

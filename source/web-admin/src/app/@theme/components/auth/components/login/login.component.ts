@@ -30,6 +30,7 @@ export class NbLoginComponent {
   rememberMe = false;
 
   jwtHelper: JwtHelper = new JwtHelper();
+  private state:string = Config.ACTIVE;
 
   constructor(protected service: AuthCustomService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
@@ -61,6 +62,7 @@ export class NbLoginComponent {
   }
 
   login(): void {
+    this.state = Config.LOADING;
     this.errors = this.messages = [];
     this.submitted = true;
 
@@ -69,16 +71,20 @@ export class NbLoginComponent {
 
     this.service.login(email, pass).subscribe(res => {
       if (res.status == 200) {
+        res.data.rememberMe = this.user.rememberMe;
         localStorage.setItem(Config.TOKEN_KEY, res.data.token);
         localStorage.setItem(Config.OJBJECT_KEY, JSON.stringify(res.data));
+        this.state = Config.ACTIVE;
         let link = [this.getLink(res.data.position)];
         this.router.navigate(link);
       } else {
+        this.state = Config.ACTIVE;
         const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
         activeModal.componentInstance.modalHeader = 'Thông báo';
         activeModal.componentInstance.modalMessage = 'Email hoặc mật khẩu không đúng';
       }
     });
+    this.state = Config.ACTIVE;
   }
 
   getConfigValue(key: string): any {
