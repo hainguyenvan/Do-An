@@ -93,7 +93,7 @@ export class SupportComponent implements OnInit {
         if (event.data.status == -1) {
           break;
         }
-        this.deleteSupport(event.data.code);
+        this.deleteSupport(event.data.id);
         break;
       case Config.EDIT_ACTION:
         this.service.acction = Config.EDIT_ACTION;
@@ -104,26 +104,26 @@ export class SupportComponent implements OnInit {
     }
   }
 
-  deleteSupport(accountCode) {
-    // const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
-    // activeModal.componentInstance.modalHeader = 'Thông báo';
-    // activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa giảng viên ' + this.service.accountItem.name + ' ?';
-    // activeModal.componentInstance.statusButtonSubmit = true;
-    // activeModal.result.then((event) => {
-    //   this.service.acction = null;
-    //   switch (event) {
-    //     case Config.EVENT_SUBMIT:
-    //       this.service.deleteAccount(accountCode).subscribe(res => {
-    //         if (res.status != 200) {
-    //           console.log('Err : ', res.msg);
-    //           return;
-    //         }
-    //         this.onSearch();
-    //       });
-    //       break;
-    //     default:
-    //   }
-    // });
+  deleteSupport(id) {
+    const activeModal = this.modalService.open(ModalMessageComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.componentInstance.modalHeader = 'Thông báo';
+    activeModal.componentInstance.modalMessage = 'Bạn có chắc chắn muốn xóa giảng viên ' + this.service.accountItem.name + ' ?';
+    activeModal.componentInstance.statusButtonSubmit = true;
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_SUBMIT:
+          this.service.deleteSupport(id).subscribe(res => {
+            if (res.status != 200) {
+              console.log('Err : ', res.msg);
+              return;
+            }
+            this.onSearch();
+          });
+          break;
+        default:
+      }
+    });
   }
 
   showModalDeatailSupport() {

@@ -16,16 +16,7 @@ export class SupportService {
   }
 
   getAllSupport(): Observable<any> {
-    return this.http.post(Config.API_GET_ALL_SUPPORT, { })
-      .map((res: Response) => {
-        let json = res.json();
-        return json;
-      })
-      .catch((error: any) => Observable.throw(error || 'Server error'));
-  }
-
-  getAllPosition(): Observable<any> {
-    return this.http.post(Config.API_GET_ALL_POSITION, {})
+    return this.http.post(Config.API_GET_ALL_SUPPORT, {})
       .map((res: Response) => {
         let json = res.json();
         return json;
@@ -42,8 +33,8 @@ export class SupportService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  deleteAccount(code): Observable<any> {
-    return this.http.post(Config.API_DELETE_ACCOUNT, { code: code })
+  deleteSupport(id): Observable<any> {
+    return this.http.post(Config.API_DELETE_SUPPORT, { id: id })
       .map((res: Response) => {
         let json = res.json();
         return json;
@@ -53,24 +44,6 @@ export class SupportService {
 
   updateSupport(body): Observable<any> {
     return this.http.post(Config.API_UPDATE_SUPPORT, body)
-      .map((res: Response) => {
-        let json = res.json();
-        return json;
-      })
-      .catch((error: any) => Observable.throw(error || 'Server error'));
-  }
-
-  updateStatusAuthor(body): Observable<any> {
-    return this.http.post(Config.API_UPDATE_STATUS_AUTHOR_SMART_CONTRACTS, body)
-      .map((res: Response) => {
-        let json = res.json();
-        return json;
-      })
-      .catch((error: any) => Observable.throw(error || 'Server error'));
-  }
-
-  addAuthor(body): Observable<any> {
-    return this.http.post(Config.API_INSERT_AUTHOR_SMART_CONTRACTS, body)
       .map((res: Response) => {
         let json = res.json();
         return json;
