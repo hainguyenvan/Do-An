@@ -36,28 +36,16 @@ export class SupportComponent implements OnInit {
         {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
-        },
-        {
-          name: 'smartcontracts',
-          title: '<i class="ion-clipboard icon-public"></i>'
         }
       ]
     },
     columns: {
-      code: {
-        title: 'Mã giảng viên',
-        type: 'string',
-      },
       name: {
         title: 'Họ tên',
         type: 'string',
       },
       email: {
         title: 'Email',
-        type: 'string',
-      },
-      dateOfBirth: {
-        title: 'Ngày sinh',
         type: 'string',
       },
       strSex: {
@@ -68,16 +56,12 @@ export class SupportComponent implements OnInit {
         title: 'Số điện thoại',
         type: 'string',
       },
-      address: {
-        title: 'Địa chỉ',
-        type: 'string',
-      },
-      position: {
+      positionDsc: {
         title: 'Chức vụ',
         type: 'string',
       },
-      strPublicPermission: {
-        title: 'Trạng thái cấp bằng',
+      company: {
+        title: 'Nơi làm việc',
         type: 'string',
       },
       strStatus: {
@@ -143,53 +127,53 @@ export class SupportComponent implements OnInit {
   }
 
   showModalDeatailSupport() {
-    // const activeModal = this.modalService.open(DetailSupportComponent, { size: 'lg', container: 'nb-layout' });
+    const activeModal = this.modalService.open(DetailSupportComponent, { size: 'lg', container: 'nb-layout' });
   }
 
   showModalAddSupport() {
-    // const activeModal = this.modalService.open(AddSupportComponent, { size: 'lg', container: 'nb-layout' });
-    // activeModal.result.then((event) => {
-    //   this.service.acction = null;
-    //   switch (event) {
-    //     case Config.EVENT_CLOSE:
-    //       break;
-    //     case Config.EVENT_SUBMIT:
-    //       this.onSearch();
-    //       break;
-    //     default:
-    //   }
-    // });
+    const activeModal = this.modalService.open(AddSupportComponent, { size: 'lg', container: 'nb-layout' });
+    activeModal.result.then((event) => {
+      this.service.acction = null;
+      switch (event) {
+        case Config.EVENT_CLOSE:
+          break;
+        case Config.EVENT_SUBMIT:
+          this.onSearch();
+          break;
+        default:
+      }
+    });
   }
 
   onSearch() {
-    // this.state = Config.LOADING;
-    // this.service.getAllAccount().subscribe(res => {
-    //   if (res.status != 200) {
-    //     console.log('Err : ', res.msg);
-    //     this.state = Config.ACTIVE;
-    //     alert('Đã xảy ra lỗi');
-    //   }
-    //   res.data.forEach(item => {
-    //     switch (item.sex) {
-    //       case 0:
-    //         item.strSex = 'Nam';
-    //         break;
-    //       case 1:
-    //         item.strSex = 'Nữ';
-    //         break;
-    //       default:
-    //         item.strSex = 'Khác';
-    //     }
-    //     if (item.status == -1) {
-    //       item.strStatus = 'Ngừng hoạt động';
-    //     } else {
-    //       item.strStatus = 'Đang hoạt động';
-    //     }
-    //     item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
-    //     item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
-    //   });
-    //   this.source.load(res.data);
-    //   this.state = Config.ACTIVE;
-    // })
+    this.state = Config.LOADING;
+    this.service.getAllSupport().subscribe(res => {
+      if (res.status != 200) {
+        console.log('Err : ', res.msg);
+        this.state = Config.ACTIVE;
+        return;
+      }
+      res.data.forEach(item => {
+        switch (item.sex) {
+          case 0:
+            item.strSex = 'Nam';
+            break;
+          case 1:
+            item.strSex = 'Nữ';
+            break;
+          default:
+            item.strSex = 'Khác';
+        }
+        if (item.status == -1) {
+          item.strStatus = 'Ngừng hoạt động';
+        } else {
+          item.strStatus = 'Đang hoạt động';
+        }
+        item.timeCreate = ThirdParty.convertTimestampToDate(item.timeCreate);
+        item.timeUpdate = ThirdParty.convertTimestampToDate(item.timeUpdate);
+      });
+      this.source.load(res.data);
+      this.state = Config.ACTIVE;
+    })
   }
 }

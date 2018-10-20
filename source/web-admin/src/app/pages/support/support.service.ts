@@ -15,8 +15,8 @@ export class SupportService {
     this.token = localStorage.getItem(Config.TOKEN_KEY);
   }
 
-  getAllAccount(): Observable<any> {
-    return this.http.post(Config.API_GET_ALL_ACCOUNT, { token: this.token })
+  getAllSupport(): Observable<any> {
+    return this.http.post(Config.API_GET_ALL_SUPPORT, { })
       .map((res: Response) => {
         let json = res.json();
         return json;
@@ -33,8 +33,8 @@ export class SupportService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  addAccount(body): Observable<any> {
-    return this.http.post(Config.API_ADD_ACCOUNT, body)
+  addSupport(body): Observable<any> {
+    return this.http.post(Config.API_ADD_SUPPORT, body)
       .map((res: Response) => {
         let json = res.json();
         return json;
@@ -51,8 +51,8 @@ export class SupportService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
-  updateAccount(body): Observable<any> {
-    return this.http.post(Config.API_UPDATE_ACCOUNT, body)
+  updateSupport(body): Observable<any> {
+    return this.http.post(Config.API_UPDATE_SUPPORT, body)
       .map((res: Response) => {
         let json = res.json();
         return json;

@@ -24,7 +24,6 @@ export class AddSupportComponent implements OnInit {
     { id: 0, value: 'Hoạt động' },
     { id: -1, value: 'Ngừng hoạt động' }
   ];
-  public positionList: any = [];
 
   public uploader: FileUploader = new FileUploader({ url: Config.API_UPLOAD });
   private chosenFile: string;
@@ -39,7 +38,7 @@ export class AddSupportComponent implements OnInit {
     private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.modalHeader = 'Thêm tài khoản';
+    this.modalHeader = 'Thêm support';
 
     // Set access allow origin header
     this.uploader.onBeforeUploadItem = (item) => {
@@ -52,21 +51,10 @@ export class AddSupportComponent implements OnInit {
       this.flagWarringNullImage = false;
     }
 
-    // Get all position
-    this.service.getAllPosition().subscribe(res => {
-      if (res.status != 200) {
-        console.log("Err : ", res.msg);
-        return;
-      }
-      this.positionList = res.data;
-    });
-
     if (this.service.acction == Config.EDIT_ACTION) {
-      this.modalHeader = 'Cập nhật tài khoản';
+      this.modalHeader = 'Cập nhật support';
       this.actionEdit = true;
       this.user = this.service.accountItem;
-      this.user.curentPassword = this.user.password;
-      this.user.password = '';
     }
   }
 
@@ -74,9 +62,9 @@ export class AddSupportComponent implements OnInit {
     this.activeModal.close(Config.EVENT_CLOSE);
   }
 
-  addAccount() {
+  addSupport() {
     this.user.sex = Number(this.user.sex);
-    this.service.addAccount(this.user).subscribe(res => {
+    this.service.addSupport(this.user).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
         console.log("Err : ", res.msg);
@@ -86,10 +74,9 @@ export class AddSupportComponent implements OnInit {
     this.activeModal.close(Config.EVENT_SUBMIT);
   }
 
-  updateAccount() {
+  updateSupport() {
     this.user.status = Number(this.user.status);
-    this.user.password = this.user.password == '' ? this.user.curentPassword : this.user.password;
-    this.service.updateAccount(this.user).subscribe(res => {
+    this.service.updateSupport(this.user).subscribe(res => {
       if (res.status != 200) {
         this.activeModal.close(Config.EVENT_CLOSE);
         console.log("Err : ", res.msg);
@@ -107,14 +94,21 @@ export class AddSupportComponent implements OnInit {
   }
 
   isValidateForm() {
-
-    if (ThirdParty.isNull(this.user.name)) {
-      this.showModalMessage('Tên của tài khoản là bắt buộc');
+    if (this.flagWarringNullImage) {
+      if (this.user.img != null) {
+        return true;
+      }
+      this.showModalMessage('Hình ảnh là bắt buộc');
       return false;
     }
 
-    if (ThirdParty.isNull(this.user.code)) {
-      this.showModalMessage('Mã giảng viên là bắt buộc');
+    if (ThirdParty.isNull(this.user.name)) {
+      this.showModalMessage('Tên của support là bắt buộc');
+      return false;
+    }
+
+    if (ThirdParty.isNull(this.user.phone)) {
+      this.showModalMessage('Số điện thoaị của support là bắt buộc');
       return false;
     }
 
@@ -123,46 +117,24 @@ export class AddSupportComponent implements OnInit {
       return false;
     }
 
-    if (ThirdParty.isNull(this.user.dateOfBirth)) {
-      this.showModalMessage('Ngày sinh là bắt buộc');
-      return false;
-    }
-
     if (ThirdParty.isNull(this.user.sex)) {
       this.showModalMessage('Giới tính là bắt buộc');
       return false;
     }
 
-    if (ThirdParty.isNull(this.user.phone)) {
-      this.showModalMessage('Số điện thoại là bắt buộc');
+    if (ThirdParty.isNull(this.user.company)) {
+      this.showModalMessage('Nơi làm việc là bặt buộc');
       return false;
     }
 
-    if (ThirdParty.isNull(this.user.position)) {
+    if (ThirdParty.isNull(this.user.positionDsc)) {
       this.showModalMessage('Chức vụ là bắt buộc');
-      return false;
-    }
-
-    if (ThirdParty.isNull(this.user.address)) {
-      this.showModalMessage('Địa chỉ là bắt buộc');
       return false;
     }
 
     if (ThirdParty.isNull(this.user.dsc)) {
       this.showModalMessage('Mô tả là bắt buộc');
       return false;
-    }
-
-    if (this.actionEdit) {
-      if (!ThirdParty.isNull(this.user.password) && this.user.password != this.user.rePassword) {
-        this.showModalMessage('Mật khẩu không đúng');
-        return false;
-      }
-    } else {
-      if (ThirdParty.isNull(this.user.password) || this.user.password != this.user.rePassword) {
-        this.showModalMessage('Mật khẩu không đúng');
-        return false;
-      }
     }
 
     return true;
@@ -173,24 +145,24 @@ export class AddSupportComponent implements OnInit {
       this.activeModal.close(Config.EVENT_CLOSE);
       return;
     }
-    if (this.flagWarringNullImage) {
-      if (this.actionEdit) {
-        this.updateAccount();
-        return;
-      }
-      this.addAccount();
-      return;
-    }
 
-    this.uploader.uploadItem(this.uploader.queue[this.uploader.queue.length - 1]);
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      var responsePath = JSON.parse(response);
-      this.user.img = responsePath.data.img;
+    if(this.flagWarringNullImage) {
       if (this.actionEdit) {
-        this.updateAccount();
+        this.updateSupport();
         return;
       }
-      this.addAccount();
+      this.addSupport();
+    } else {
+      this.uploader.uploadItem(this.uploader.queue[this.uploader.queue.length - 1]);
+      this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+        var responsePath = JSON.parse(response);
+        this.user.img = responsePath.data.img;
+        if (this.actionEdit) {
+          this.updateSupport();
+          return;
+        }
+        this.addSupport();
+      }
     }
   }
 }
