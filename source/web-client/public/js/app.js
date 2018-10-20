@@ -22,6 +22,7 @@
 // AngularJS
 var ROOT_API = 'http://localhost:3004';
 var API_GET_CERTIFICATE_BY_CODE = ROOT_API + '/getCertificateByCode';
+var API_GET_SUPPORT = ROOT_API + '/getSupportByStatus';
 
 var app = angular.module('appCertificate', []);
 app.controller('ctrlCertificate', function ($scope, $http) {
@@ -32,6 +33,46 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 		$scope.type = '0';
 		$scope.certificate = {};
 		$scope.histtoryList = [];
+		$scope.supportList = [];
+		$scope.getSupport();
+	}
+
+	$scope.getSupport = function () {
+		var body = {
+			status: 0
+		}
+		// 0: Get detail certificate
+		// 1: Get history edit certificate
+		$http({
+			url: API_GET_SUPPORT,
+			method: "POST",
+			data: body
+		}).then(function (res) {
+			// success
+			if (res.data.status == 200) {
+				let dataList = res.data.data;
+				let dataSource = [];
+				for (let i = 0; i < dataList.length; i++) {
+					if ((i + 1) % 2 == 0) {
+						let itemList = [];
+						itemList.push(dataList[i - 1]);
+						itemList.push(dataList[i]);
+						dataSource.push(itemList);
+					}
+					if (i == dataList.length - 1 && ((dataList.length - 1) % 2 == 0)) {
+						let itemList = [];
+						itemList.push(dataList[i]);
+						dataSource.push(itemList);
+					}
+				}
+				$scope.supportList = dataSource;
+			}
+		}, function (err) {
+			// failed
+			console.log('Failed !', err);
+			$scope.messageWarning = 'Đã xảy ra lỗi trong quá lấy thông tin';
+			$('#myModalWarning').modal();
+		});
 	}
 
 	$scope.getCertificateByCode = function () {

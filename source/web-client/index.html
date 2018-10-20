@@ -49,72 +49,25 @@
 					<smal class="section-subtitle">Danh sách các quản trị viên hỗ trợ hệ thống</smal>
 
 					<div class="row">
-						<div class="col-sm-6">
-							<div class="testimonial">
-								<img src="/images/admin1.jpg" alt="" class="user-avatar">
+						<div class="col-sm-6" ng-repeat="dataList in supportList">
+							<div class="testimonial" ng-repeat="item in dataList">
+								<img src="{{item.img}}" alt="" class="user-avatar">
 								<div class="testimonial-content">
 									<span class="meta">
-										<strong>Nguyen Van Hai</strong>,
-										<em>Quản trị viên hệ thống
-											<a href="#">Đại Học Bách Khoa Hà Nội.</a>
+										<strong>{{item.name}}</strong>,
+										<em>{{item.positionDsc}}
+											<a href="#">{{item.company}}.</a>
 										</em>
 									</span>
-									<p>Email: hai213k57@gmail.com. </br>
-										Phone: 09889989989
+									<p>Email: {{item.email}}. </br>
+										Phone: {{item.phone}}
 									</p>
-									<p>Hỗ trợ các vấn đề kỹ thuật và giải đáp các thắc về hệ thống.</p>
-								</div>
-							</div>
-							<div class="testimonial">
-								<img src="/images/admin2.jpg" alt="" class="user-avatar">
-								<div class="testimonial-content">
-									<span class="meta">
-										<strong>Nguyen Mau Thoai</strong>,
-										<em>Quản trị viên hệ thống
-											<a href="#">Đại Học Bách Khoa Hà Nội.</a>
-										</em>
-									</span>
-									<p>Email: hai213k57@gmail.com. </br>
-										Phone: 09889989989
-									</p>
-									<p>Hỗ trợ các vấn đề kỹ thuật và giải đáp các thắc về hệ thống.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="testimonial">
-								<img src="/images/admin1.jpg" alt="" class="user-avatar">
-								<div class="testimonial-content">
-									<span class="meta">
-										<strong>Ta Van Loi</strong>,
-										<em>Quản trị viên hệ thống
-											<a href="#">Đại Học Bách Khoa Hà Nội.
-											</a>
-										</em>
-									</span>
-									<p>Email: hai213k57@gmail.com. </br>
-										Phone: 09889989989
-									</p>
-									<p>Hỗ trợ các vấn đề kỹ thuật và giải đáp các thắc về hệ thống.</p>
-								</div>
-							</div>
-							<div class="testimonial">
-								<img src="/images/admin4.jpg" alt="" class="user-avatar">
-								<div class="testimonial-content">
-									<span class="meta">
-										<strong>Nguyen Tien Hien</strong>,
-										<em>Quản trị viên hệ thống
-											<a href="#">Đại Học Bách Khoa Hà Nội.</a>
-										</em>
-									</span>
-									<p>Email: hai213k57@gmail.com. </br>
-										Phone: 09889989989
-									</p>
-									<p>Hỗ trợ các vấn đề kỹ thuật và giải đáp các thắc về hệ thống.</p>
+									<p>{{item.dsc}}.</p>
 								</div>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</main>

@@ -62,8 +62,8 @@ class SupportModel {
                 type: Sequelize.INTEGER
             }
         }, {
-                tableName: 'support'
-            });
+            tableName: 'support'
+        });
     }
 
     insert(data) {
@@ -75,7 +75,7 @@ class SupportModel {
                 img: data.img,
                 company: data.company,
                 dsc: data.dsc,
-                sex:data.sex,
+                sex: data.sex,
                 positionDsc: data.positionDsc,
                 timeCreate: new Date().getTime(),
                 timeUpdate: new Date().getTime()
@@ -99,16 +99,16 @@ class SupportModel {
                 img: data.img,
                 company: data.company,
                 dsc: data.dsc,
-                sex:data.sex,
+                sex: data.sex,
                 status: data.status,
                 positionDsc: data.positionDsc,
                 timeUpdate: new Date().getTime()
             }
             this.model.update(dto, {
-                where: {
-                    id: data.id
-                }
-            })
+                    where: {
+                        id: data.id
+                    }
+                })
                 .then(result => {
                     Result(result);
                 })
@@ -121,8 +121,8 @@ class SupportModel {
     deleteById(id) {
         return new Promise((Result, Err) => {
             this.model.update({
-                status: -1
-            }, {
+                    status: -1
+                }, {
                     where: {
                         id: id
                     }
@@ -138,10 +138,10 @@ class SupportModel {
 
     getDataByStatus(status) {
         return new Promise((Result, Err) => {
-            if ( status == undefined || status == null || status == '') {
+            if (status == undefined || status == null) {
                 this.model.findAll({
-                    raw: true
-                })
+                        raw: true
+                    })
                     .then(studentList => {
                         Result(studentList);
                     })
@@ -151,13 +151,13 @@ class SupportModel {
             } else {
                 status = Number(status);
                 this.model.findAll({
-                    raw: true,
-                    where: {
-                        status: {
-                            $eq: status
+                        raw: true,
+                        where: {
+                            status: {
+                                $eq: status
+                            }
                         }
-                    }
-                })
+                    })
                     .then(studentList => {
                         Result(studentList);
                     })
