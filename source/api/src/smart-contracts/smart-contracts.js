@@ -2,9 +2,7 @@ const Web3 = require('web3');
 const Config = require('../config');
 const ABI = require('../abi');
 
-// const NETWORK_ADDRS = "http://localhost:7545";
-const NETWORK_ADDRS = "http://172.104.167.189:7545";
-let provider = new Web3.providers.HttpProvider(NETWORK_ADDRS);
+let provider = new Web3.providers.HttpProvider(Config.NETWORK_ADDRS);
 const web3 = new Web3(provider);
 
 const TruffleContract = require('truffle-contract');
@@ -16,11 +14,11 @@ const cetificationArtifacts = require(pathFileContracts);
 var getCurrentDate = function () {
     var d = new Date;
     var dformat = [d.getMonth() + 1,
-    d.getDate(),
-    d.getFullYear()
+        d.getDate(),
+        d.getFullYear()
     ].join('/') + ' ' + [d.getHours(),
-    d.getMinutes(),
-    d.getSeconds()
+        d.getMinutes(),
+        d.getSeconds()
     ].join(':');
     return dformat;
 }
@@ -273,8 +271,8 @@ class SmartContracts {
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             let studentSign = web3.utils.fromAscii(data.studentSign);
             this.cetification.addCertificate(code, title, studentName, dateOfBirth,
-                yearOfGraduation, degreeClassification, modeOfStudy, date,
-                author, updateBy, timeUpdate, studentSign, config)
+                    yearOfGraduation, degreeClassification, modeOfStudy, date,
+                    author, updateBy, timeUpdate, studentSign, config)
                 .then(status => {
                     Result(status);
                 })
@@ -304,10 +302,10 @@ class SmartContracts {
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             let studentSign = web3.utils.fromAscii(data.studentSign);
             this.cetification.updateCertificate(index, title,
-                studentName, dataOfBirth,
-                yearOfGraduation, degreeClassification,
-                modeOfStudy, date,
-                author, updateBy, status, timeUpdate, studentSign, config)
+                    studentName, dataOfBirth,
+                    yearOfGraduation, degreeClassification,
+                    modeOfStudy, date,
+                    author, updateBy, status, timeUpdate, studentSign, config)
                 .then(status => {
                     Result(status);
                 })
@@ -365,7 +363,7 @@ class SmartContracts {
                                 studentSign: web3.utils.hexToUtf8(item.returnValues[12]),
                                 log: item
                             };
-                            if(Number(log.code) == code) {
+                            if (Number(log.code) == code) {
                                 dataSource.push(log);
                             }
                         });
