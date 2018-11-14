@@ -20,7 +20,8 @@
 
 
 // AngularJS
-var ROOT_API = 'http://localhost:3004';
+// var ROOT_API = 'http://:3004';
+var ROOT_API = 'http://localhost:3002';
 var API_GET_CERTIFICATE_BY_CODE = ROOT_API + '/getCertificateByCode';
 var API_GET_SUPPORT = ROOT_API + '/getSupportByStatus';
 
