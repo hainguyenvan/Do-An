@@ -8,7 +8,15 @@ Client: 3003
 API: 3004
 Web: 3005
 ```
-* Set forever
+* Run
 ```
-$ forever --uid myUID start app.js
+// Client
+$ cd web-client
+$ pm2 start main.js --name demo101-webclient
+// API
+$ cd api
+$ pm2 start src/main.js --name demo101-api
+// Web admin
+$ cd web-admin
+$ pm2 start start.sh --name demo101-webadmin
 ```
