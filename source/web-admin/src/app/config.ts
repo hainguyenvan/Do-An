@@ -1,5 +1,8 @@
 export class Config {
-    public static API_ROOT = 'http://localhost:3004';
+    // Localhost
+    // public static API_ROOT = 'http://localhost:3004';
+    // Server
+    public static API_ROOT = 'http://172.104.167.189:3004';
     public static SERVER_HOST = 'http://172.104.167.189:3004';
     public static TOKEN_KEY = 'CETIFICATIONS_WEB_ADMIN';
     public static OJBJECT_KEY = 'CETIFICATIONS_OBJECT_KEY';
