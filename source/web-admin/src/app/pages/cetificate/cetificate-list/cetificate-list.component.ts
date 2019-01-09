@@ -387,6 +387,7 @@ export class CetificateListComponent implements OnInit {
           return;
         }
       });
-    })
+    });
+    this.state = Config.ACTIVE;
   }
 }

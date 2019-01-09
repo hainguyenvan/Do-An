@@ -3,7 +3,7 @@ const Config = {
     HTTP_ROOT: 'http://localhost:3004',
     HTTP_SERVER: 'http://172.104.167.189:3004',
     ACCOUNT: '0x5e6a3a393487ca392c7314c45e07813b58dbf8a4',
-    NETWORK_ADDRS:'http://172.104.167.189:7545',
+    NETWORK_ADDRS: 'http://172.104.167.189:7545',
     // const NETWORK_ADDRS = "http://localhost:7545";
 
     // DB
@@ -16,7 +16,7 @@ const Config = {
 
 
     // Contract ID
-    CONTRACTS_ID: '0x01ef528d4dc91085081d3d3533ab22d63bbc3142',
+    CONTRACTS_ID: '0x7b678e3e9ab925e60cb999087eac067209390635',
 }
 
 module.exports = Config;
