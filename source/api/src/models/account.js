@@ -1,5 +1,6 @@
 var JWT_SECRET = 'Cexk6azogyew7DoTOYKgAXtTOP+18VLDQ1MzYoEWxr6Gqbhg+CeK33MuBPdhyz1dlW4VOKE/ce4TTkfI0yGLlTc+kC74BA8WNoySWmmNsBTEgt83f+9WKYNUgYoGUvml3rRlzvNG71bFqcfJa7U+AuCECq8JnPTeMQ4MSuFBZb4i/q91ZPoI/8SDmcvfai1ofyaHc4xauqhq2hrED5zuZsFbiRDY9bo4d4hHPXdBQaUCm/vklx/BxaAL3OLvvNGhULYmbV/v9Yj0xSAqhZMd7b0TJcDYZ+FHrTX7ZCG15M/Sj/amI/auUEKRNYfwL67/Y7zZxgUWLPsZQ48zPBxgeA==';
 var JWT = require('jsonwebtoken');
+var md5 = require('md5');
 
 var connect = require('../connect');
 var Sequelize = require('sequelize');
@@ -88,11 +89,12 @@ class AccountModel {
 
     login(email, password) {
         return new Promise((Result, Err) => {
+            let md5Password = md5(password);
             this.model.findOne({
                 raw: true,
                 where: {
                     email: email,
-                    password: password,
+                    password: md5Password,
                     status: {
                         $ne: -1
                     }
@@ -137,6 +139,7 @@ class AccountModel {
 
     insert(data) {
         return new Promise((Result, Err) => {
+            var md5Password = md5(data.password);
             this.model.create({
                 name: data.name,
                 email: data.email,
@@ -147,7 +150,7 @@ class AccountModel {
                 address: data.address,
                 img: data.img,
                 position: data.position,
-                password: data.password,
+                password: md5Password,
                 dsc: data.dsc,
                 sign: data.sign,
                 timeCreate: new Date().getTime(),
@@ -182,6 +185,7 @@ class AccountModel {
 
     update(data) {
         return new Promise((Result, Err) => {
+            let md5Password = md5(data.password);
             this.model.update({
                 name: data.name,
                 email: data.email,
@@ -192,7 +196,7 @@ class AccountModel {
                 img: data.img,
                 status: data.status,
                 position: data.position,
-                password: data.password,
+                password: md5Password,
                 dsc: data.dsc,
                 timeUpdate: new Date().getTime()
             }, {
