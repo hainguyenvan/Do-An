@@ -34,9 +34,9 @@
     </div>
     <div class="col-sm-4">
       <div class="imgadd">
-        <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple>
+        <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple (change)="onImgChange($event)">
+        <img src='{{user.img}}' alt='' />
       </div>
-      <span *ngIf="actionEdit">{{user.img}}</span>
     </div>
   </div>
 

@@ -70,6 +70,15 @@ export class AddAccountComponent implements OnInit {
     }
   }
 
+  onImgChange(event: any) {
+    // Upload image to DB
+    this.uploader.uploadItem(this.uploader.queue[this.uploader.queue.length - 1]);
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      var responsePath = JSON.parse(response);
+      this.user.img = responsePath.data.img;
+    }
+  }
+
   closeModal() {
     this.activeModal.close(Config.EVENT_CLOSE);
   }

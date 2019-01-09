@@ -8,20 +8,27 @@
   <div class="row">
     <div class="col-sm-8">
       <div class="form-group">
-        <label for="inputFirstName">Họ Tên <span style="color:red">*</span></label>
+        <label for="inputFirstName">Họ Tên
+          <span style="color:red">*</span>
+        </label>
         <input type="text" class="form-control" id="inputFirstName" placeholder="Họ tên" [(ngModel)]="user.name">
       </div>
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
-            <label for="inputFirstName">Mã giảng viên <span style="color:red">*</span></label>
+            <label for="inputFirstName">Mã giảng viên
+              <span style="color:red">*</span>
+            </label>
             <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" *ngIf="!actionEdit">
-            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" readonly *ngIf="actionEdit">
+            <input type="text" class="form-control" id="inputFirstName" placeholder="Mã giảng viên" [(ngModel)]="user.code" readonly
+              *ngIf="actionEdit">
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label for="inputFirstName">Email <span style="color:red">*</span></label>
+            <label for="inputFirstName">Email
+              <span style="color:red">*</span>
+            </label>
             <input type="text" class="form-control" id="inputFirstName" placeholder="Email" [(ngModel)]="user.email">
           </div>
         </div>
@@ -29,22 +36,26 @@
     </div>
     <div class="col-sm-4">
       <div class="imgadd">
-        <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple>
+        <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple (change)="onImgChange($event)">
+        <img src='{{user.img}}' alt='' />
       </div>
-      <span *ngIf="actionEdit">{{user.img}}</span>
     </div>
   </div>
 
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Ngày sinh <span style="color:red">*</span></label>
+        <label for="inputFirstName">Ngày sinh
+          <span style="color:red">*</span>
+        </label>
         <input type="date" class="form-control" id="inputFirstName" [(ngModel)]="user.dateOfBirth">
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Giới tính <span style="color:red">*</span></label>
+        <label for="inputFirstName">Giới tính
+          <span style="color:red">*</span>
+        </label>
         <select class="form-control" [(ngModel)]="user.sex">
           <option *ngFor="let anApp of sexList" [value]="anApp.id">{{anApp.value}}</option>
         </select>
@@ -55,13 +66,17 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Số điện thoại <span style="color:red">*</span></label>
+        <label for="inputFirstName">Số điện thoại
+          <span style="color:red">*</span>
+        </label>
         <input type="text" class="form-control" id="inputFirstName" placeholder="Số điện thoại" [(ngModel)]="user.phone">
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Chức vụ <span style="color:red">*</span></label>
+        <label for="inputFirstName">Chức vụ
+          <span style="color:red">*</span>
+        </label>
         <select class="form-control" [(ngModel)]="user.position">
           <option *ngFor="let anApp of positionList" [value]="anApp.dsc">{{anApp.dsc}}</option>
         </select>
@@ -72,7 +87,9 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="form-group">
-        <label for="inputFirstName">Địa chỉ <span style="color:red">*</span></label>
+        <label for="inputFirstName">Địa chỉ
+          <span style="color:red">*</span>
+        </label>
         <input type="text" class="form-control" id="inputFirstName" placeholder="Địa chỉ" [(ngModel)]="user.address">
       </div>
     </div>
@@ -81,13 +98,17 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Mật khẩu <span style="color:red">*</span></label>
+        <label for="inputFirstName">Mật khẩu
+          <span style="color:red">*</span>
+        </label>
         <input type="password" class="form-control" id="inputFirstName" placeholder="Mật khẩu" [(ngModel)]="user.password">
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="inputFirstName">Re-Mật khẩu <span style="color:red">*</span></label>
+        <label for="inputFirstName">Re-Mật khẩu
+          <span style="color:red">*</span>
+        </label>
         <input type="password" class="form-control" id="inputFirstName" placeholder="Nhập lại mật khẩu" [(ngModel)]="user.rePassword">
       </div>
     </div>
@@ -107,7 +128,9 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="form-group">
-        <label for="inputFirstName">Mô tả <span style="color:red">*</span></label>
+        <label for="inputFirstName">Mô tả
+          <span style="color:red">*</span>
+        </label>
         <input type="text" class="form-control" id="inputFirstName" placeholder="Mô tả" [(ngModel)]="user.dsc">
       </div>
     </div>

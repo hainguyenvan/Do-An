@@ -33,7 +33,7 @@ export class AddStudentComponent implements OnInit {
   public user: any = {};
   public actionEdit: boolean;
 
-  constructor(private activeModal: NgbActiveModal, 
+  constructor(private activeModal: NgbActiveModal,
     private service: StudentService,
     private modalService: NgbModal) { }
 
@@ -55,6 +55,15 @@ export class AddStudentComponent implements OnInit {
       this.modalHeader = 'Cập nhật thông tin sinh viên';
       this.actionEdit = true;
       this.user = this.service.dataItem;
+    }
+  }
+
+  onImgChange(event: any) {
+    // Upload image to DB
+    this.uploader.uploadItem(this.uploader.queue[this.uploader.queue.length - 1]);
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      var responsePath = JSON.parse(response);
+      this.user.img = responsePath.data.img;
     }
   }
 
