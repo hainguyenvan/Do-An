@@ -1,0 +1,376 @@
+[
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "authorsCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "authors",
+      "outputs": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "sign",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "certificates",
+      "outputs": [
+        {
+          "name": "code",
+          "type": "bytes32"
+        },
+        {
+          "name": "title",
+          "type": "bytes32"
+        },
+        {
+          "name": "studentName",
+          "type": "bytes32"
+        },
+        {
+          "name": "dataOfBirth",
+          "type": "bytes32"
+        },
+        {
+          "name": "yearOfGraduation",
+          "type": "uint256"
+        },
+        {
+          "name": "degreeClassification",
+          "type": "bytes32"
+        },
+        {
+          "name": "modeOfStudy",
+          "type": "bytes32"
+        },
+        {
+          "name": "date",
+          "type": "bytes32"
+        },
+        {
+          "name": "author",
+          "type": "bytes32"
+        },
+        {
+          "name": "updateBy",
+          "type": "uint256"
+        },
+        {
+          "name": "status",
+          "type": "uint256"
+        },
+        {
+          "name": "timeUpdate",
+          "type": "bytes32"
+        },
+        {
+          "name": "studentSign",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "certificatesCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_code",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_title",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_studentName",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_dataOfBirth",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_yearOfGraduation",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_degreeClassification",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_modeOfStudy",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_date",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_author",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_updateBy",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_status",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_timeUpdate",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "_studentSign",
+          "type": "bytes32"
+        }
+      ],
+      "name": "eventUpdateCertificate",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "string"
+        },
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "_sign",
+          "type": "string"
+        }
+      ],
+      "name": "addAuthor",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ],
+      "name": "updateStatusAuthor",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "code",
+          "type": "bytes32"
+        },
+        {
+          "name": "title",
+          "type": "bytes32"
+        },
+        {
+          "name": "studentName",
+          "type": "bytes32"
+        },
+        {
+          "name": "dataOfBirth",
+          "type": "bytes32"
+        },
+        {
+          "name": "yearOfGraduation",
+          "type": "uint256"
+        },
+        {
+          "name": "degreeClassification",
+          "type": "bytes32"
+        },
+        {
+          "name": "modeOfStudy",
+          "type": "bytes32"
+        },
+        {
+          "name": "date",
+          "type": "bytes32"
+        },
+        {
+          "name": "author",
+          "type": "bytes32"
+        },
+        {
+          "name": "updateBy",
+          "type": "uint256"
+        },
+        {
+          "name": "timeUpdate",
+          "type": "bytes32"
+        },
+        {
+          "name": "studentSign",
+          "type": "bytes32"
+        }
+      ],
+      "name": "addCertificate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "name": "title",
+          "type": "bytes32"
+        },
+        {
+          "name": "studentName",
+          "type": "bytes32"
+        },
+        {
+          "name": "dataOfBirth",
+          "type": "bytes32"
+        },
+        {
+          "name": "yearOfGraduation",
+          "type": "uint256"
+        },
+        {
+          "name": "degreeClassification",
+          "type": "bytes32"
+        },
+        {
+          "name": "modeOfStudy",
+          "type": "bytes32"
+        },
+        {
+          "name": "date",
+          "type": "bytes32"
+        },
+        {
+          "name": "author",
+          "type": "bytes32"
+        },
+        {
+          "name": "updateBy",
+          "type": "uint256"
+        },
+        {
+          "name": "status",
+          "type": "uint256"
+        },
+        {
+          "name": "timeUpdate",
+          "type": "bytes32"
+        },
+        {
+          "name": "studentSign",
+          "type": "bytes32"
+        }
+      ],
+      "name": "updateCertificate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
