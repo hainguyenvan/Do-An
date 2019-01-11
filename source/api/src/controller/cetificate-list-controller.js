@@ -2,6 +2,7 @@ var CetificateList = require('../models/cetificate-list');
 var JWT = require('jsonwebtoken');
 var SmartContracts = require('../smart-contracts/smart-contracts');
 var Student = require('../models/student');
+var CetificateList = require('../models/cetificate-list');
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
@@ -45,10 +46,13 @@ exports.getCertificateByCode = function (req, res) {
                 Student.getStudentBySign(certificate.studentSign)
                     .then(student => {
                         certificate.student = student;
-                        res.send({
-                            status: 200,
-                            data: certificate
-                        });
+                        CetificateList.getDataByCode(certificate.code).then(data => {
+                            certificate.dataOfDB = data;
+                            res.send({
+                                status: 200,
+                                data: certificate
+                            });
+                        }) 
                     })
             })
             .catch(err => {

@@ -91,6 +91,19 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputFirstName">Hạn sử dụng
+          <span style="color:red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="cetificate.txtLimit">
+          <option *ngFor="let anApp of limitList" [value]="anApp.id">{{anApp.value}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
 </div>
 <div class="modal-footer">
   <button class="btn btn-dark" (click)="closeModal()">CANCEL</button>

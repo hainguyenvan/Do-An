@@ -27,6 +27,11 @@ export class AddCetificateComponent implements OnInit {
     { value: 'Trung Binh' }
   ];
 
+  public limitList: any = [
+    { id:'VO_HAN',value: 'Vô hạn' },
+    { id:'CO_HAN',value: 'Có hạn' }
+  ];
+
   public studentList: any = [];
 
   public modalHeader: string;

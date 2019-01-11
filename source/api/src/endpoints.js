@@ -118,6 +118,7 @@ router.route('/insertCetificateList').post(validate({
     modeOfStudy: Joi.string().required(),
     author: Joi.string().required(),
     date: Joi.string().required(),
+    txtLimit: Joi.string().required()
 }), cetificaetListController.insert);
 
 router.route('/updateCetificateList').post(validate({
@@ -132,6 +133,7 @@ router.route('/updateCetificateList').post(validate({
     author: Joi.string().required(),
     date: Joi.string().required(),
     status: Joi.string().required(),
+    txtLimit: Joi.string().required()
 }), cetificaetListController.update);
 
 router.route('/deleteCetificateList').post(validate({
