@@ -21,9 +21,9 @@
 
 // AngularJS
 // Localhost
-var ROOT_API = 'http://localhost:3004';
+// var ROOT_API = 'http://localhost:3004';
 // Server
-// var ROOT_API = 'http://172.104.167.189:3004';
+var ROOT_API = 'http://172.104.167.189:3004';
 var API_GET_CERTIFICATE_BY_CODE = ROOT_API + '/getCertificateByCode';
 var API_GET_SUPPORT = ROOT_API + '/getSupportByStatus';
 
@@ -111,14 +111,23 @@ app.controller('ctrlCertificate', function ($scope, $http) {
 				$scope.certificate.studentImg = $scope.certificate.student.img;
 				$scope.certificate.dateOfBirth = $scope.certificate.dataOfBirth;
 				$scope.certificate.strStatusPublic = $scope.certificate.status == 1 ? 'Đang phát hành ' : 'Ngừng phát hành';
-				$scope.certificate.strLimit = $scope.certificate.dataOfDB.txtLimit == 'VO_HAN' ? 'Vô hạn' : 'Có hạn';
-				console.log('data : ', $scope.certificate);
+				if ($scope.certificate.txtLimit == undefined) {
+					$scope.certificate.strLimit = '';
+				} else {
+					$scope.certificate.strLimit = $scope.certificate.txtLimit == 'VO_HAN' ? 'Vô hạn' : 'Có hạn';
+				}
 				$('#myModalCertificate').modal();
 			} else {
 				$scope.historyList = res.data.data;
 				$scope.historyList.forEach(item => {
+					if (item.txtLimit == undefined) {
+						item.strTxtLimit = ''
+					} else {
+						item.strTxtLimit = item.txtLimit == 'VO_HAN' ? 'Vô hạn' : 'Có hạn';
+					}
 					item.strStatusPublic = item.status == 1 ? 'Đang phát hành ' : 'Ngừng phát hành';
 				});
+				console.log('data : ', $scope.historyList);
 				$('#myModalHistory').modal();
 			}
 

@@ -155,6 +155,8 @@ exports.getDataChanegs = function (req, res) {
             await asyncForEach(dataList, async (item) => {
                 let indexUpdateBy = Number(item.returnValues[9]);
                 await SmartContracts.getAuthorByIndex(indexUpdateBy).then(updateBy => {
+                    let txtData = web3.utils.hexToUtf8(item.returnValues[8]);
+                    let arr = txtData.split(':');
                     let log = {
                         code: web3.utils.hexToUtf8(item.returnValues[0]),
                         title: web3.utils.hexToUtf8(item.returnValues[1]),
@@ -164,7 +166,8 @@ exports.getDataChanegs = function (req, res) {
                         degreeClassification: web3.utils.hexToUtf8(item.returnValues[5]),
                         modeOfStudy: web3.utils.hexToUtf8(item.returnValues[6]),
                         date: web3.utils.hexToUtf8(item.returnValues[7]),
-                        author: web3.utils.hexToUtf8(item.returnValues[8]),
+                        author: arr[0],
+                        txtLimit: arr[1],
                         updateBy: updateBy,
                         status: Number(item.returnValues[10]),
                         timeUpdate: web3.utils.hexToUtf8(item.returnValues[11]),

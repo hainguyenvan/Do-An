@@ -223,6 +223,8 @@ class SmartContracts {
                     this.cetification.certificates(i).then(result => {
                         let codeId = web3.utils.hexToUtf8(result[0]);
                         if (Number(code) == Number(codeId)) {
+                            let dataText = web3.utils.hexToUtf8(result[8]);
+                            let arr = dataText.split(':');
                             certificate = {
                                 index: i,
                                 code: web3.utils.hexToUtf8(result[0]),
@@ -233,7 +235,8 @@ class SmartContracts {
                                 degreeClassification: web3.utils.hexToUtf8(result[5]), // Loại bằng
                                 modeOfStudy: web3.utils.hexToUtf8(result[6]), // Hình thức đào tạo
                                 date: web3.utils.hexToUtf8(result[7]), // Ngày phát hành
-                                author: web3.utils.hexToUtf8(result[8]), // Người cấp bằng
+                                author: arr[0], // Người cấp bằng
+                                txtLimit: arr[1],
                                 updateBy: Number(result[9]), // Id của người sửa dữ liệu
                                 status: Number(result[10]), // Trang thai bang
                                 timeUpdate: web3.utils.hexToUtf8(result[11]),
@@ -266,7 +269,7 @@ class SmartContracts {
             let degreeClassification = web3.utils.fromAscii(data.degreeClassification);
             let modeOfStudy = web3.utils.fromAscii(data.modeOfStudy);
             let date = web3.utils.fromAscii(data.date);
-            let author = web3.utils.fromAscii(data.author);
+            let author = web3.utils.fromAscii(data.author + ':' + data.txtLimit);
             let updateBy = data.updateBy;
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
             let studentSign = web3.utils.fromAscii(data.studentSign);
@@ -288,6 +291,7 @@ class SmartContracts {
                 from: Config.ACCOUNT,
                 gas: 6000000
             };
+            console.log('============= data : ', data);
             let title = web3.utils.fromAscii(data.title);
             let index = data.index;
             let studentName = web3.utils.fromAscii(data.studentName);
@@ -296,7 +300,7 @@ class SmartContracts {
             let degreeClassification = web3.utils.fromAscii(data.degreeClassification);
             let modeOfStudy = web3.utils.fromAscii(data.modeOfStudy);
             let date = web3.utils.fromAscii(data.date);
-            let author = web3.utils.fromAscii(data.author);
+            let author = web3.utils.fromAscii(data.author + ':' + data.txtLimit);
             let updateBy = data.updateBy;
             let status = data.status;
             let timeUpdate = web3.utils.fromAscii(getCurrentDate());
@@ -347,6 +351,8 @@ class SmartContracts {
                     await asyncForEach(dataList, async (item) => {
                         let indexUpdateBy = Number(item.returnValues[9]);
                         await this.getAuthorByIndex(indexUpdateBy).then(updateBy => {
+                            let dataText = web3.utils.hexToUtf8(item.returnValues[8]);
+                            let arr = dataText.split(':');
                             let log = {
                                 code: web3.utils.hexToUtf8(item.returnValues[0]),
                                 title: web3.utils.hexToUtf8(item.returnValues[1]),
@@ -356,7 +362,8 @@ class SmartContracts {
                                 degreeClassification: web3.utils.hexToUtf8(item.returnValues[5]),
                                 modeOfStudy: web3.utils.hexToUtf8(item.returnValues[6]),
                                 date: web3.utils.hexToUtf8(item.returnValues[7]),
-                                author: web3.utils.hexToUtf8(item.returnValues[8]),
+                                author: arr[0],
+                                txtLimit: arr[1],
                                 updateBy: updateBy,
                                 status: Number(item.returnValues[10]),
                                 timeUpdate: web3.utils.hexToUtf8(item.returnValues[11]),

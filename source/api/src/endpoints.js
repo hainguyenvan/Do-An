@@ -178,7 +178,8 @@ router.route('/smartcontracts/addCertificate').post(validate({
     author: Joi.string().required(),
     updateBy: Joi.number().required(),
     token: Joi.string().required(),
-    studentSign: Joi.string().required()
+    studentSign: Joi.string().required(),
+    txtLimit: Joi.string().required()
 }), smartContractsController.addCetificate);
 
 router.route('/smartcontracts/updateCertificate').post(validate({
@@ -194,7 +195,8 @@ router.route('/smartcontracts/updateCertificate').post(validate({
     updateBy: Joi.number().required(),
     status: Joi.number().required(),
     token: Joi.string().required(),
-    studentSign: Joi.string().required()
+    studentSign: Joi.string().required(),
+    txtLimit:Joi.string().required()
 }), smartContractsController.updateCertificate);
 
 router.route('/smartcontracts/getDataChanegs').post(smartContractsController.getDataChanegs);

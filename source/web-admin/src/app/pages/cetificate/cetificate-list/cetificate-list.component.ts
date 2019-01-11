@@ -352,6 +352,7 @@ export class CetificateListComponent implements OnInit {
         this.state = Config.ACTIVE;
         return;
       }
+      console.log('==== data: ', res);
       res.data.forEach((item, index) => {
         switch (item.status) {
           case 0:
